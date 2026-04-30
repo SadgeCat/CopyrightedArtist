@@ -5,10 +5,11 @@ app.secret_key = "secret"
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
-    if 'username' in session:
-        return redirect(url_for("dashboard"))
+    # if 'username' in session:
+    #     return redirect(url_for("dashboard"))
 
-    return redirect(url_for("login"))
+    # return redirect(url_for("login"))
+    return "<h1 style='color:blue'>CPArtist</h1>"
 
 @app.route("/logout")
 def logout():
