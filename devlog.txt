@@ -1,0 +1,5 @@
+yuhangP -- 2026-4-30 21:35
+Wipe box clean (re-image)? NO
+Serve multiple apps concurrently? YES
+Flask|Node? Flask
+Has any team member provisioned SSL certificates to facilitate httpS traffic? NO
