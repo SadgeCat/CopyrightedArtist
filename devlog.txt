@@ -3,3 +3,6 @@ Wipe box clean (re-image)? NO
 Serve multiple apps concurrently? YES
 Flask|Node? Flask
 Has any team member provisioned SSL certificates to facilitate httpS traffic? NO
+
+yuhangP -- 2026-5-1 19:24
+- successfully provisioned SSL cert. to facilitate https traffic, domain now works

@@ -30,4 +30,4 @@ Using the locally hosted link, access the website. To deactivate the virtual env
 
 #### Alternatively:
 Visit our live site at 
-[http://104.236.38.28/](http://104.236.38.28/)
+[https://fakeartist.app](https://fakeartist.app)
