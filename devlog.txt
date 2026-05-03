@@ -6,3 +6,6 @@ Has any team member provisioned SSL certificates to facilitate httpS traffic? NO
 
 yuhangP -- 2026-5-1 19:24
 - successfully provisioned SSL cert. to facilitate https traffic, domain now works
+
+yuhangP -- 2026-5-3 13:38
+- add basic starter code and login/register
