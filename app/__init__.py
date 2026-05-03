@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, session, redirect, url_for, jsonify
-from build_db import *
+import build_db as db
 from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
@@ -28,12 +28,12 @@ def register():
         if not username or not password:
             return render_template("register.html", error="No username or password inputted")
 
-        acc = get_user(username)
+        acc = db.get_user(username)
         if acc:
             return render_template("register.html", error="Username already exists")
 
         hashed_password = generate_password_hash(password)
-        insert_acc(username, hashed_password)
+        db.insert_acc(username, hashed_password)
 
         session['username'] = username
         return redirect(url_for("home"))
@@ -49,9 +49,9 @@ def login():
         if not username or not password:
             return render_template('login.html', error="No username or password inputted")
 
-        acc = get_user(username)
+        acc = db.get_user(username)
 
-        if insert_acc is None:
+        if db.insert_acc is None:
             return render_template("login.html", error="Username or password is incorrect")
         
         if acc and check_password_hash(acc["password"], password):
