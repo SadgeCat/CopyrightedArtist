@@ -25,16 +25,16 @@ def init_db():
 init_db()
 
 # get user for auth
-def check_acc(user_id):
+def check_acc(username):
     conn = get_db_connection()
-    user = conn.execute("SELECT 1 FROM users WHERE id = ?", (user_id,)).fetchone()
+    user = conn.execute("SELECT 1 FROM users WHERE name = ?", (username,)).fetchone()
     conn.close()
     return user
 
 # get passwrod for auth
-def check_password(user_id):
+def check_password(username):
     conn = get_db_connection()
-    user = conn.execute("SELECT password FROM users WHERE id = ?", (user_id,)).fetchone()
+    user = conn.execute("SELECT password FROM users WHERE name = ?", (username,)).fetchone()
     conn.close()
     return user
 
@@ -45,8 +45,8 @@ def insert_acc(username, password):
     conn.commit()
     conn.close()
 
-def get_user_info(user_id):
+def get_user_info(username):
     conn = get_db_connection()
-    user = conn.execute("SELECT name, created_at, elo, games_won, games_played, total_placement FROM users WHERE id = ?", (user_id,)).fetchone()
+    user = conn.execute("SELECT name, created_at, elo, games_won, games_played, total_placement FROM users WHERE name = ?", (username,)).fetchone()
     conn.close()
     return user

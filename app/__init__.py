@@ -1,4 +1,6 @@
 from flask import Flask, render_template, request, session, redirect, url_for, jsonify
+from build_db import *
+from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 app.secret_key = "secret"
@@ -30,10 +32,11 @@ def register():
         if acc:
             return render_template("register.html", error="Username already exists")
 
-        insert_acc(username, password)
+        hashed_password = generate_password_hash(password)
+        insert_acc(username, hashed_password)
 
         session['username'] = username
-        return redirect(url_for("dashboard"))
+        return redirect(url_for("home"))
     return render_template("register.html")
 
 @app.route("/login", methods=['GET', 'POST'])
@@ -43,31 +46,26 @@ def login():
         username = request.form.get('username').strip().lower()
         password = request.form.get('password').strip()
 
-
         if not username or not password:
             return render_template('login.html', error="No username or password inputted")
 
+        acc = check_acc(username)
 
-        account = check_password(username)
-
-
-        if account is None:
+        if insert_acc is None:
             return render_template("login.html", error="Username or password is incorrect")
-
-
-        if account[0] != password:
+        
+        if acc and check_password_hash(acc["password"], password):
+            session["username"] = username
+            return redirect(url_for("home"))
+        else:
             return render_template("login.html", error="Username or password is incorrect")
-
-
-        session["username"] = username
-        return redirect(url_for("dashboard"))
 
     return render_template('login.html')
 
-@app.route("/dashboard", methods=['GET', 'POST'])
-def dashboard():
+@app.route("/home", methods=['GET', 'POST'])
+def home():
 
-    return render_template('dashboard.html',
+    return render_template('home.html',
                            username = session["username"])
 
 @app.route("/error", methods=['GET', 'POST'])
