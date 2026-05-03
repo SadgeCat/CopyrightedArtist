@@ -20,10 +20,9 @@ Dev3: Zixi Q
 5. **Install dependencies**: `pip install -r requirements.txt`
 
 ### Launch Codes:
-In the terminal, cd into the project directory, and run the following commands:
-- `~$ cd/app`
-- `~$ python build_db.py`
-- `~$ python __init__.py`
+In the terminal, run the following commands:
+- `~$ python app/build_db.py`
+- `~$ python -m app.__init__`
 
 ### Launch Website:
 Using the locally hosted link, access the website. To deactivate the virtual environment, type `deactivate`.
