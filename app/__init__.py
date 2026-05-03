@@ -7,11 +7,11 @@ app.secret_key = "secret"
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
-    # if 'username' in session:
-    #     return redirect(url_for("dashboard"))
+    if 'username' in session:
+        return redirect(url_for("home"))
 
-    # return redirect(url_for("login"))
-    return "<h1 style='color:blue'>CPArtist</h1>"
+    return redirect(url_for("login"))
+    #return "<h1 style='color:blue'>CPArtist</h1>"
 
 @app.route("/logout")
 def logout():
@@ -74,4 +74,4 @@ def error():
 
 if __name__ == "__main__":
     app.debug = False
-    app.run(host='0.0.0.0')
+    app.run(host='0.0.0.0', port=5001)
