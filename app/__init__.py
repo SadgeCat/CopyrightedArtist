@@ -28,7 +28,7 @@ def register():
         if not username or not password:
             return render_template("register.html", error="No username or password inputted")
 
-        acc = check_acc(username)
+        acc = get_user(username)
         if acc:
             return render_template("register.html", error="Username already exists")
 
@@ -49,7 +49,7 @@ def login():
         if not username or not password:
             return render_template('login.html', error="No username or password inputted")
 
-        acc = check_acc(username)
+        acc = get_user(username)
 
         if insert_acc is None:
             return render_template("login.html", error="Username or password is incorrect")
