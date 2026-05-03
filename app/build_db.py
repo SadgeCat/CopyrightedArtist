@@ -23,3 +23,30 @@ def init_db():
     conn.close()
 
 init_db()
+
+# get user for auth
+def check_acc(user_id):
+    conn = get_db_connection()
+    user = conn.execute("SELECT 1 FROM users WHERE id = ?", (user_id,)).fetchone()
+    conn.close()
+    return user
+
+# get passwrod for auth
+def check_password(user_id):
+    conn = get_db_connection()
+    user = conn.execute("SELECT password FROM users WHERE id = ?", (user_id,)).fetchone()
+    conn.close()
+    return user
+
+# add signed in acc to db
+def insert_acc(username, password):
+    conn = get_db_connection()
+    conn.execute("INSERT INTO users (name, password, created_at, elo, games_won, games_played, total_placement) VALUES (?, ?, CURRENT_TIMESTAMP, 0, 0, 0, 0)", (username, password))
+    conn.commit()
+    conn.close()
+
+def get_user_info(user_id):
+    conn = get_db_connection()
+    user = conn.execute("SELECT name, created_at, elo, games_won, games_played, total_placement FROM users WHERE id = ?", (user_id,)).fetchone()
+    conn.close()
+    return user
