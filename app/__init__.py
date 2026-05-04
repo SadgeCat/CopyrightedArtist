@@ -68,6 +68,12 @@ def home():
     return render_template('home.html',
                            username = session["username"])
 
+@app.route("/profile", methods=['GET', 'POST'])
+def profile():
+    user = get_user(session["username"])
+    return render_template('profile.html',
+                           user = user)
+
 @app.route("/error", methods=['GET', 'POST'])
 def error():
     return render_template('error.html')
