@@ -24,6 +24,7 @@ nav {
     letter-spacing: 1px;
 }
 .nav-link {
+    padding-right: 2rem;
     color: #fff82a;
 }
 .logout-btn {

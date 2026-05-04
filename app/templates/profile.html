@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+
+{% block head %}
+<style>
+
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="text-container">
+    <h1>{{ user['name'] }}</h1>
+    <p>Member Since: {{ user['created_at'] }}</p>
+    <br><br>
+    <h2>Stats:</h2>
+    <ul>
+        <li>Elo: {{ user['elo'] }}</li>
+        <li>Games Won: {{ user['games_won'] }}</li>
+        <li>Games Played: {{ user['games_played'] }}</li>
+    </ul>
+</div>
+{% endblock %}

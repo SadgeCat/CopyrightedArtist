@@ -17,10 +17,13 @@
 <body>
     <nav>
         <div class="brand">Copyrighted Artist</div>
+        <div>
         {% if session.get('username') %}
+            <a href="{{ url_for('home') }}" class="nav-link">Home</a>
             <a href="{{ url_for('profile') }}" class="nav-link">Profile</a>
             <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
         {% endif %}
+        </div>
     </nav>
 
     <main>
