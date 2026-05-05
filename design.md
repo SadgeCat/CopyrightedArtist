@@ -43,7 +43,7 @@ The initial load page will lead you to register an account. Afterwards, you will
 ### Database Organization
 
 |** USERS **|
-|---|
+|---|---|---|---|
 |INTEGER|id|PK|Auto-increment|
 |TEXT|name||Unique|
 |TEXT|password||For authentication|
