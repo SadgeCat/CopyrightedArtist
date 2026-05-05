@@ -36,7 +36,6 @@ The initial load page will lead you to register an account. Afterwards, you will
   - socket.js handles the sockets for multiplayer
 - RESTful APIs
   - None
-- External CSS (if needed)
 
 ### Component Map:
 
