@@ -112,15 +112,14 @@ error.html (invalid id’s or permission errors).
 
 
 Tasks & Assignments
-TASK BREAKDOWN
 
-Task
-Devo(s)
-JS & DB stuff
-Andrew Tsai
-JS & HTML stuff
-Owen Zeng
-JS & SOCKET stuff
-Zixi Qiao
-Game Logic and stuffs
-Yuhang Pan
+<table>
+<tr>
+  <th colspan="4"><strong>TASK BREAKDOWN</strong></th>
+</tr>
+<tr><td><strong>Task</strong></td><td><strong>Devo</strong></td></tr>
+<tr><td>JS & DB stuff</td><td>Andrew Tsai</td></tr>
+<tr><td>JS & HTML stuff</td><td>Owen Zeng</td></tr>
+<tr><td>JS & SOCKET stuff</td><td>Zixi Qiao</td></tr>
+<tr><td>Game Logic and CSS stuff</td><td>Yuhang Pan</td></tr>
+</table>
