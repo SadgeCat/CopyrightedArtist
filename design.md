@@ -44,7 +44,7 @@ The initial load page will lead you to register an account. Afterwards, you will
 
 <table>
 <tr>
-  <th colspan="4">USERS</th>
+  <th colspan="4">**USERS**</th>
 </tr>
 <tr><td>INTEGER</td><td>id</td><td>PK</td><td>Auto-increment</td></tr>
 <tr><td>TEXT</td><td>name</td><td></td><td>Unique</td></tr>
@@ -55,7 +55,8 @@ The initial load page will lead you to register an account. Afterwards, you will
 <tr><td>INTEGER</td><td>games_played</td><td></td><td></td></tr>
 <tr><td>INTEGER</td><td>total_placement</td><td></td><td></td></tr>
 </table>
-</td><td>GAMES</td><td>
+
+GAMES
 INTEGER
 id
 PK
