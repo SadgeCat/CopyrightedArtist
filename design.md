@@ -42,18 +42,20 @@ The initial load page will lead you to register an account. Afterwards, you will
 
 ### Database Organization
 
-|** USERS **|
-|---|---|---|---|
-|INTEGER|id|PK|Auto-increment|
-|TEXT|name||Unique|
-|TEXT|password||For authentication|
-|REAL|elo|||
-|DATE|created_at|||
-|INTEGER|games_won|||
-|INTEGER|games_played|||
-|INTEGER|total_placement|||
-
-|GAMES|
+<table>
+<tr>
+  <th colspan="4">USERS</th>
+</tr>
+<tr><td>INTEGER</td><td>id</td><td>PK</td><td>Auto-increment</td></tr>
+<tr><td>TEXT</td><td>name</td><td></td><td>Unique<td></tr>
+<tr><td>TEXT</td><td>password</td><td></td><td>For authentication</td></tr>
+<tr><td>REAL</td><td>elo</td><td></td><td></td></tr>
+<tr><td>DATE</td><td>created_at</td><td></td><td></td></tr>
+<tr><td>INTEGER</td><td>games_won</td><td></td><td></td></tr>
+<tr><td>INTEGER</td><td>games_played</td><td></td><td></td></tr>
+<tr><td>INTEGER</td><td>total_placement</td><td></td><td></td></tr>
+</table>
+</td><td>GAMES</td><td>
 INTEGER
 id
 PK
