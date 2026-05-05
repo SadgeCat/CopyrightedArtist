@@ -47,7 +47,7 @@ The initial load page will lead you to register an account. Afterwards, you will
   <th colspan="4">USERS</th>
 </tr>
 <tr><td>INTEGER</td><td>id</td><td>PK</td><td>Auto-increment</td></tr>
-<tr><td>TEXT</td><td>name</td><td></td><td>Unique<td></tr>
+<tr><td>TEXT</td><td>name</td><td></td><td>Unique</td></tr>
 <tr><td>TEXT</td><td>password</td><td></td><td>For authentication</td></tr>
 <tr><td>REAL</td><td>elo</td><td></td><td></td></tr>
 <tr><td>DATE</td><td>created_at</td><td></td><td></td></tr>
