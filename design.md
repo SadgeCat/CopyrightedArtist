@@ -9,7 +9,7 @@ The initial load page will lead you to register an account. Afterwards, you will
 
 ### Program Components:
 - Flask App (Python)
-  - \__init\__.py (main app + routes)
+  - \_\_init\_\_.py (main app + routes)
     - Creates Flask app, config, and session handling
     - Renders templates and connects frontend to backend logic
     - Initialize sockets for multiplayer
