@@ -23,6 +23,8 @@ The initial load page will lead you to register an account. Afterwards, you will
         - /profile uses data.py to load a user's stats
   - build_db.py
     - Connects to SQLite3 database and creates/maintains tables
+  - game_logic.py
+    - Manages the different phases of the game (drawing, voting, etc.)
   - Database (SQLite3) (stored in data.db)
     - users table stores all usernames and password hashes for authentication, and other stats like elo, #wins, #losses, etc.
     - games table stores the winner's id/name to be used for profile page
