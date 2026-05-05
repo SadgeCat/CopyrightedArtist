@@ -11,4 +11,4 @@ yuhangP -- 2026-5-3 13:38
 - add basic starter code and login/register
 
 andrewT -- 2026-5-4 11:13
-- add starter design doc
+- add starter design doc + very cool table

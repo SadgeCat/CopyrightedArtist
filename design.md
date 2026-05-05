@@ -28,7 +28,7 @@ The initial load page will lead you to register an account. Afterwards, you will
     - games table stores the winner's id/name to be used for profile page
     - results table stores the a pair of game&user id to keep track of a user's game history like elo change in the game played
 - Frontend Framework
-  - ?
+  - Tailwind
 - JavaScript
   - lobby.js handles the lobbies
   - game.js handles the game stuff
