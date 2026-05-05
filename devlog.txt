@@ -12,3 +12,6 @@ yuhangP -- 2026-5-3 13:38
 
 andrewT -- 2026-5-4 11:13
 - add starter design doc + very cool table
+
+zixiQ -- 2026-5-5 11:45
+- updated tasks table in design doc
