@@ -40,55 +40,20 @@ The initial load page will lead you to register an account. Afterwards, you will
 
 ### Component Map:
 
-Database Organization
-USERS
-INTEGER
-id
-PK
-Auto-increment
-TEXT
-name
+### Database Organization
 
+|** USERS **|
+|---|
+|INTEGER|id|PK|Auto-increment|
+|TEXT|name||Unique|
+|TEXT|password||For authentication|
+|REAL|elo|||
+|DATE|created_at|||
+|INTEGER|games_won|||
+|INTEGER|games_played|||
+|INTEGER|total_placement|||
 
-Unique
-TEXT
-password
-
-
-For authentication
-REAL
-elo
-
-
-
-
-DATE
-created_at
-
-
-
-
-INTEGER
-games_won
-
-
-
-
-INTEGER
-games_played
-
-
-
-
-INTEGER
-total_placement
-
-
-
-
-
-
-GAMES
+|GAMES|
 INTEGER
 id
 PK
