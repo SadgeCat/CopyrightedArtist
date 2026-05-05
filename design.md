@@ -44,7 +44,7 @@ The initial load page will lead you to register an account. Afterwards, you will
 
 <table>
 <tr>
-  <th colspan="4">**USERS**</th>
+  <th colspan="4"><strong>USERS</strong></th>
 </tr>
 <tr><td>INTEGER</td><td>id</td><td>PK</td><td>Auto-increment</td></tr>
 <tr><td>TEXT</td><td>name</td><td></td><td>Unique</td></tr>
