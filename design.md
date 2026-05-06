@@ -65,7 +65,7 @@ The initial load page will lead you to register an account. Afterwards, you will
 </tr>
 <tr><td>INTEGER</td><td>id</td><td>PK</td><td>Auto-increment</td></tr>
 <tr><td>INTEGER</td><td>winner_id</td><td>FK</td><td>USERS(id)</td></tr>
-<tr><td>DATE</td><td>timestamp</td><td>PK</td><td></td></tr>
+<tr><td>DATE</td><td>timestamp</td><td></td><td></td></tr>
 </table>
 
 <table>
