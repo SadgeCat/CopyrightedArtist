@@ -40,6 +40,73 @@ The initial load page will lead you to register an account. Afterwards, you will
   - None
 
 ### Component Map:
+```mermaid
+---
+config:
+  theme: redux
+  layout: fixed
+---
+flowchart TB
+ subgraph FlaskApp["Flask Application"]
+        Init["__init__.py<br>(app + routes + sockets)"]
+        Routes["Routes"]
+        DataPy["data.py<br>(DB operations)"]
+  end
+ subgraph RoutesDetail["Routes"]
+        Register["/register"]
+        Login["/login"]
+        Logout["/logout"]
+        Home["/home<br>(lobby list)"]
+        Lobby["/lobby/&lt;id&gt;<br>(waiting room)"]
+        Game["/game/&lt;id&gt;<br>(actual game)"]
+        Profile["/profile<br>(user stats)"]
+  end
+ subgraph Database["SQLite3 Database - data.db"]
+        UsersTable["users table<br>(username, password, elo, wins, losses)"]
+        GamesTable["games table<br>(winner id/name)"]
+        ResultsTable["results table<br>(game id, user id, elo change)"]
+  end
+ subgraph Frontend["Frontend"]
+        HTML["HTML Templates"]
+        CSS["External CSS"]
+        JS["JavaScript"]
+  end
+ subgraph JSModules["JavaScript"]
+        LobbyJS["lobby.js<br>(lobbies)"]
+        GameJS["game.js<br>(game logic)"]
+        CanvasJS["canvas.js<br>(drawing)"]
+        SocketJS["socket.js<br>(multiplayer)"]
+  end
+    Init -- defines --> Routes
+    Init -- initializes --> SocketJS
+    Routes --> Register & Login & Logout & Home & Lobby & Game & Profile
+    Register -- checks username --> DataPy
+    Register -- writes user --> UsersTable
+    Login -- verifies --> DataPy
+    Login -- reads from --> UsersTable
+    Profile -- loads stats via --> DataPy
+    Profile -- reads from --> UsersTable & GamesTable & ResultsTable
+    DataPy <-- manages --> Database
+    Game -- stores winner --> GamesTable
+    Game -- stores results --> ResultsTable
+    Routes -- renders --> HTML
+    HTML -- styled by --> CSS
+    HTML -- modified by --> JS
+    JS --> LobbyJS & GameJS & CanvasJS & SocketJS
+    Home <-- communicates via --> LobbyJS
+    Lobby <-- communicates via --> SocketJS
+    Game <-- communicates via --> GameJS & CanvasJS & SocketJS
+
+     UsersTable:::dbNode
+     GamesTable:::dbNode
+     ResultsTable:::dbNode
+     LobbyJS:::jsNode
+     GameJS:::jsNode
+     CanvasJS:::jsNode
+     SocketJS:::jsNode
+    classDef dbNode stroke:#2dd4bf,fill:#f0fdfa,color:#1e1b4b
+    classDef jsNode stroke:#fb923c,fill:#fff7ed,color:#1e1b4b
+```
 
 ### Database Organization
 
@@ -57,59 +124,56 @@ The initial load page will lead you to register an account. Afterwards, you will
 <tr><td>INTEGER</td><td>total_placement</td><td></td><td></td></tr>
 </table>
 
-GAMES
-INTEGER
-id
-PK
-Auto-increment
-INTEGER
-winner_id
-FK
-USERS(id)
-DATE
-timestamp
+<table>
+<tr>
+  <th colspan="4"><strong>GAMES</strong></th>
+</tr>
+<tr><td>INTEGER</td><td>id</td><td>PK</td><td>Auto-increment</td></tr>
+<tr><td>INTEGER</td><td>winner_id</td><td>FK</td><td>USERS(id)</td></tr>
+<tr><td>DATE</td><td>timestamp</td><td>PK</td><td></td></tr>
+</table>
 
+<table>
+<tr>
+  <th colspan="4"><strong>RESULTS</strong></th>
+</tr>
+<tr><td>INTEGER</td><td>id</td><td>PK</td><td>Auto-increment</td></tr>
+<tr><td>INTEGER</td><td>game_id</td><td>FK</td><td>GAMES(id)</td></tr>
+<tr><td>INTEGER</td><td>user_id</td><td>FK</td><td>USERS(id)</td></tr>
+<tr><td>REAL</td><td>elo_change</td><td></td><td></td></tr>
+</table>
 
+### Site Map:
+- Templates (HTML)
+  - (login.html) /login (username + password. Error message if login fails).
+  - (register.html) /register (username + password. Error message if username is taken).
+  - (home.html) /home (List of lobbies + button for users to create their own)
+  - (lobby.html) /lobby/<id> (Waiting room, displays the users in the lobby and button to leave lobby)
+  - (game.html) /game/<id> Needs a lot of things:
+    - Canvas for drawing
+    - Timer for all the phases (drawing, voting)
+    - List of players and their current scores
+    - Button for voting
+  - (profile.html) /profile (shows username, elo, etc.).
+  - error.html (invalid id’s or permission errors).
 
-
-
-
-RESULTS
-INTEGER
-id
-PK
-Auto-increment
-INTEGER
-game_id
-FK
-GAMES(id)
-INTEGER
-user_id
-FK
-USERS(id)
-REAL
-elo_change
-
-
-
-
-
-
-Site Map:
-Templates (HTML)
-(login.html) /login (username + password. Error message if login fails).
-(register.html) /register (username + password. Error message if username is taken).
-(home.html) /home (List of lobbies + button for users to create their own)
-(lobby.html) /lobby/<id> (Waiting room, displays the users in the lobby and button to leave lobby)
-(game.html) /game/<id> Needs a lot of things:
-Canvas for drawing
-Timer for all the phases (drawing, voting)
-List of players and their current scores
-Button for voting
-(profile.html) /profile (shows username, elo, etc.).
-error.html (invalid id’s or permission errors).
-
-
+```mermaid
+---
+config:
+  theme: redux
+  layout: fixed
+---
+flowchart TB
+    A["/(login/register)"] --> B["/home"]
+    B --> C["/lobby"] & E["/profile"]
+    C --> B & D["/game"]
+    D --> B
+    E --> B
+    C <--> F["error.html"]
+    D <--> F
+    E <--> F
+    B -- login/logout --> A
+```
 
 Tasks & Assignments
 
