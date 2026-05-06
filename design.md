@@ -41,16 +41,13 @@ The initial load page will lead you to register an account. Afterwards, you will
 
 ### Component Map:
 ```mermaid
----
-config:
-  theme: forest
----
-flowchart LR
+flowchart TB
  subgraph FlaskApp["Flask Application"]
         Init["__init__.py<br>(app + routes + sockets)"]
         Routes["Routes"]
         DataPy["data.py<br>(DB operations)"]
   end
+
  subgraph RoutesDetail["Routes"]
         Register["/register"]
         Login["/login"]
@@ -60,41 +57,56 @@ flowchart LR
         Game["/game/&lt;id&gt;<br>(actual game)"]
         Profile["/profile<br>(user stats)"]
   end
+
  subgraph Database["SQLite3 Database - data.db"]
         UsersTable["users table<br>(username, password, elo, wins, losses)"]
         GamesTable["games table<br>(winner id/name)"]
         ResultsTable["results table<br>(game id, user id, elo change)"]
   end
+
  subgraph Frontend["Frontend"]
         HTML["HTML Templates"]
         CSS["External CSS"]
         JS["JavaScript"]
   end
+
  subgraph JSModules["JavaScript"]
         LobbyJS["lobby.js<br>(lobbies)"]
         GameJS["game.js<br>(game logic)"]
         CanvasJS["canvas.js<br>(drawing)"]
         SocketJS["socket.js<br>(multiplayer)"]
   end
-    Init -- defines --> Routes
-    Init -- initializes --> SocketJS
-    Routes --> Register & Login & Logout & Home & Lobby & Game & Profile
-    Register -- checks username --> DataPy
-    Register -- writes user --> UsersTable
-    Login -- verifies --> DataPy
-    Login -- reads from --> UsersTable
-    Profile -- loads stats via --> DataPy
-    Profile -- reads from --> UsersTable & GamesTable & ResultsTable
+
+    Init --> Routes
+    Init --> SocketJS
+
+    Routes --> RoutesDetail
+
+    Register --> DataPy
+    Register --> UsersTable
+
+    Login --> DataPy
+    Login --> UsersTable
+
+    Profile --> DataPy
+    Profile --> UsersTable
+    Profile --> GamesTable
+    Profile --> ResultsTable
+
     DataPy <-- manages --> Database
-    Game -- stores winner --> GamesTable
-    Game -- stores results --> ResultsTable
-    Routes -- renders --> HTML
-    HTML -- styled by --> CSS
-    HTML -- modified by --> JS
-    JS --> LobbyJS & GameJS & CanvasJS & SocketJS
+
+    Game --> GamesTable
+    Game --> ResultsTable
+
+    Routes --> HTML
+    HTML --> CSS
+    HTML --> JS
+
+    JS --> JSModules
+
     Home <-- communicates via --> LobbyJS
     Lobby <-- communicates via --> SocketJS
-    Game <-- communicates via --> GameJS & CanvasJS & SocketJS
+    Game <-- communicates via --> JSModules
 
      UsersTable:::dbNode
      GamesTable:::dbNode
@@ -103,6 +115,7 @@ flowchart LR
      GameJS:::jsNode
      CanvasJS:::jsNode
      SocketJS:::jsNode
+
     classDef dbNode stroke:#2dd4bf,fill:#f0fdfa,color:#1e1b4b
     classDef jsNode stroke:#fb923c,fill:#fff7ed,color:#1e1b4b
 ```
