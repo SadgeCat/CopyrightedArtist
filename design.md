@@ -41,10 +41,9 @@ The initial load page will lead you to register an account. Afterwards, you will
 
 ### Component Map:
 ```mermaid
-%%{init: {'theme': 'redux'}}%%
 ---
 config:
-  theme: redux
+  theme: default
   layout: fixed
 ---
 flowchart TB
