@@ -43,10 +43,9 @@ The initial load page will lead you to register an account. Afterwards, you will
 ```mermaid
 ---
 config:
-  look: handDrawn
-  theme: neutral
+  theme: forest
 ---
-flowchart TB
+flowchart LR
  subgraph FlaskApp["Flask Application"]
         Init["__init__.py<br>(app + routes + sockets)"]
         Routes["Routes"]
