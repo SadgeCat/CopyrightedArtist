@@ -43,8 +43,8 @@ The initial load page will lead you to register an account. Afterwards, you will
 ```mermaid
 ---
 config:
-  theme: default
-  layout: fixed
+  look: handDrawn
+  theme: neutral
 ---
 flowchart TB
  subgraph FlaskApp["Flask Application"]
