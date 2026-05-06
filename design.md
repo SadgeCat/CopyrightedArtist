@@ -41,7 +41,7 @@ The initial load page will lead you to register an account. Afterwards, you will
 
 ### Component Map:
 ```mermaid
-flowchart TB
+flowchart LR
  subgraph FlaskApp["Flask Application"]
         Init["__init__.py<br>(app + routes + sockets)"]
         Routes["Routes"]
