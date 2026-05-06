@@ -15,3 +15,6 @@ andrewT -- 2026-5-4 11:13
 
 zixiQ -- 2026-5-5 11:45
 - updated tasks table in design doc
+
+yuhangP -- 2026-5-5 20:50
+- updated the other 2 db tables and site map
