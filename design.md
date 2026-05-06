@@ -41,83 +41,6 @@ The initial load page will lead you to register an account. Afterwards, you will
 
 ### Component Map:
 ```mermaid
-flowchart LR
- subgraph FlaskApp["Flask Application"]
-        Init["__init__.py<br>(app + routes + sockets)"]
-        Routes["Routes"]
-        DataPy["data.py<br>(DB operations)"]
-  end
-
- subgraph RoutesDetail["Routes"]
-        Register["/register"]
-        Login["/login"]
-        Logout["/logout"]
-        Home["/home<br>(lobby list)"]
-        Lobby["/lobby/&lt;id&gt;<br>(waiting room)"]
-        Game["/game/&lt;id&gt;<br>(actual game)"]
-        Profile["/profile<br>(user stats)"]
-  end
-
- subgraph Database["SQLite3 Database - data.db"]
-        UsersTable["users table<br>(username, password, elo, wins, losses)"]
-        GamesTable["games table<br>(winner id/name)"]
-        ResultsTable["results table<br>(game id, user id, elo change)"]
-  end
-
- subgraph Frontend["Frontend"]
-        HTML["HTML Templates"]
-        CSS["External CSS"]
-        JS["JavaScript"]
-  end
-
- subgraph JSModules["JavaScript"]
-        LobbyJS["lobby.js<br>(lobbies)"]
-        GameJS["game.js<br>(game logic)"]
-        CanvasJS["canvas.js<br>(drawing)"]
-        SocketJS["socket.js<br>(multiplayer)"]
-  end
-
-    Init --> Routes
-    Init --> SocketJS
-
-    Routes --> RoutesDetail
-
-    Register --> DataPy
-    Register --> UsersTable
-
-    Login --> DataPy
-    Login --> UsersTable
-
-    Profile --> DataPy
-    Profile --> UsersTable
-    Profile --> GamesTable
-    Profile --> ResultsTable
-
-    DataPy <-- manages --> Database
-
-    Game --> GamesTable
-    Game --> ResultsTable
-
-    Routes --> HTML
-    HTML --> CSS
-    HTML --> JS
-
-    JS --> JSModules
-
-    Home <-- communicates via --> LobbyJS
-    Lobby <-- communicates via --> SocketJS
-    Game <-- communicates via --> JSModules
-
-     UsersTable:::dbNode
-     GamesTable:::dbNode
-     ResultsTable:::dbNode
-     LobbyJS:::jsNode
-     GameJS:::jsNode
-     CanvasJS:::jsNode
-     SocketJS:::jsNode
-
-    classDef dbNode stroke:#2dd4bf,fill:#f0fdfa,color:#1e1b4b
-    classDef jsNode stroke:#fb923c,fill:#fff7ed,color:#1e1b4b
 ```
 
 ### Database Organization
@@ -170,21 +93,6 @@ flowchart LR
   - error.html (invalid id’s or permission errors).
 
 ```mermaid
----
-config:
-  theme: redux
-  layout: fixed
----
-flowchart TB
-    A["/(login/register)"] --> B["/home"]
-    B --> C["/lobby"] & E["/profile"]
-    C --> B & D["/game"]
-    D --> B
-    E --> B
-    C <--> F["error.html"]
-    D <--> F
-    E <--> F
-    B -- login/logout --> A
 ```
 
 Tasks & Assignments
