@@ -11,51 +11,50 @@
 
 | Name | Email | Primary Role | Secondary Role |
 |---|---|---|---|
-|Yuhang Pan|yuhangp@nycstudents.net| | |
-|Andrew Tsai|andrewt194@nycstudents.net| | |
-|Zixi Qiao|zixiq@nycstudents.net| | |
-|Owen Zeng|owenz20@nycstudents.net| | |
+|Yuhang Pan|yuhangp@nycstudents.net|Project Manager|Game logic + CSS|
+|Andrew Tsai|andrewt194@nycstudents.net|DB Manager|JS|
+|Zixi Qiao|zixiq@nycstudents.net|Socket|JS|
+|Owen Zeng|owenz20@nycstudents.net|HTML|JS|
 
 ---
 
 
 # Summary
-{Keep it tight. Concise. 1 sentence. Really need more? 3 max.}
+A website hosting a drawing guessing game commonly known as Copyrighted Artists.
 
 ## Problem Being Solved
-
+Boredom
 
 ## Target Users
 
-Who will use this system?
-
-- ____________________________________
-- ____________________________________
+- Fun-seekers
+- Friend-havers
 
 
 ## Why This Project Matters
+It will help alleviate boredom and train discerning eyes for distinguishing between real and fake drawings
 
-
----
 
 # Minimum Viable Product (MVP) Scope
+Website with socket lobbies and functioning game
 
 ## Core Features (Required for Final Submission)
 Features that **must** be completed:
-1.
-1.
-1.
+1. Socket Lobbies
+2. Working Game
+3. Login DB
+
 
 ## Stretch Features (Only if MVP is Complete)
-1.
-1.
-1.
+1. Elo System
+2. Matchmaking System
+3. Game history
 
 ## Explicit Non-Goals
 
 Features intentionally excluded:
--
--
+- Pay to win
+- Unfiltered prompts
 
 ---
 
@@ -63,15 +62,15 @@ Features intentionally excluded:
 
 | Layer | Selected Tool |
 |---|---|
-| Backend Framework | Flask / Node.js (choose one) |
-| Frontend Framework | none / bootstrap / foundation / tailwind / other? (seek clearance) |
-| Database | SQLite / MongoDB |
-| Authentication | Flask sessions unless you have good reason/need to deviate |
-| ORM / DB Library | optionally SQLAlchemy; initiate clearance protocol if interested |
+| Backend Framework | Flask |
+| Frontend Framework | tailwind |
+| Database | SQLite |
+| Authentication | Flask sessions |
+| ORM / DB Library | none |
 
 ## Why This Stack Was Chosen
 {your summary/recap of team discussions here}
-
+Flask and SQLite for simplicity since all the devos knows very well on how to use it.  
 ---
 
 # Team Ownership Plan
@@ -80,10 +79,10 @@ Each member must own meaningful deliverables.
 
 | Team Member | Primary Ownership | Secondary Ownership | Specific Deliverables |
 |---|---|---|---|
-| | | | |
-| | | | |
-| | | | |
-| | | | |
+|Yuhang Pan|yuhangp@nycstudents.net|Project Manager|Game logic + CSS|
+|Andrew Tsai|andrewt194@nycstudents.net|DB Manager|JS|
+|Zixi Qiao|zixiq@nycstudents.net|Socket|JS|
+|Owen Zeng|owenz20@nycstudents.net|HTML|JS|
 
 ---
 
