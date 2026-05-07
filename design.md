@@ -55,10 +55,10 @@ flowchart LR
         Register["/register"]
         Login["/login"]
         Logout["/logout"]
-        Home["/home<br>(lobby list)"]
-        Lobby["/lobby/&lt;id&gt;<br>(waiting room)"]
-        Game["/game/&lt;id&gt;<br>(actual game)"]
-        Profile["/profile<br>(user stats)"]
+        Home["/home"]
+        Lobby["/lobby/&lt;id&gt;"]
+        Game["/game/&lt;id&gt;"]
+        Profile["/profile"]
   end
  subgraph Database["SQLite3 Database - data.db"]
         UsersTable["users table<br>(username, password, elo, wins, losses)"]
@@ -71,10 +71,10 @@ flowchart LR
         JS["JavaScript"]
   end
  subgraph JSModules["JavaScript"]
-        LobbyJS["lobby.js<br>(lobbies)"]
-        GameJS["game.js<br>(game logic)"]
-        CanvasJS["canvas.js<br>(drawing)"]
-        SocketJS["socket.js<br>(multiplayer)"]
+        LobbyJS["lobby.js"]
+        GameJS["game.js"]
+        CanvasJS["canvas.js"]
+        SocketJS["socket.js"]
   end
     Init -- defines --> Routes
     Init -- initializes --> SocketJS
@@ -103,8 +103,8 @@ flowchart LR
      GameJS:::jsNode
      CanvasJS:::jsNode
      SocketJS:::jsNode
-    classDef dbNode stroke:#2dd4bf,fill:#f0fdfa,color:#1e1b4b
-    classDef jsNode stroke:#fb923c,fill:#fff7ed,color:#1e1b4b
+    classDef dbNode fill:#134e4a,stroke:#2dd4bf,color:#ffffff
+    classDef jsNode fill:#7c2d12,stroke:#fb923c,color:#ffffff
 ```
 
 ### Database Organization
