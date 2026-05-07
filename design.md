@@ -43,7 +43,7 @@ The initial load page will lead you to register an account. Afterwards, you will
 ```mermaid
 ---
 config:
-  theme: redux
+  theme: dark
 ---
 flowchart LR
  subgraph FlaskApp["Flask Application"]
@@ -159,7 +159,7 @@ flowchart LR
 ```mermaid
 ---
 config:
-  theme: redux
+  theme: dark
 ---
 flowchart TB
     A["/(login/register)"] --> B["/home"]
