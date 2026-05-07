@@ -52,6 +52,7 @@ flowchart LR
         DataPy["data.py<br>(DB operations)"]
   end
  subgraph RoutesDetail["Routes"]
+        RouteAnchor[" "]
         Register["/register"]
         Login["/login"]
         Logout["/logout"]
@@ -78,7 +79,7 @@ flowchart LR
   end
     Init -- defines --> Routes
     Init -- initializes --> SocketJS
-    Routes --> Register & Login & Logout & Home & Lobby & Game & Profile
+    Routes --> RouteAnchor
     Register -- checks username --> DataPy
     Register -- writes user --> UsersTable
     Login -- verifies --> DataPy
