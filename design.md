@@ -29,7 +29,6 @@ Boredom
 
 - Fun-seekers
 - Friend-havers
-- Unemployed artists
 
 
 ## Why This Project Matters
@@ -80,9 +79,9 @@ Each member must own meaningful deliverables.
 
 | Team Member | Primary Ownership | Secondary Ownership | Specific Deliverables |
 |---|---|---|---|
-|Yuhang Pan|yuhangp@nycstudents.net|Game logic|CSS|
-|Andrew Tsai|andrewt194@nycstudents.net|JS|DB Manager|
-|Zixi Qiao|zixiq@nycstudents.net|Socket|JS and Game logic|
+|Yuhang Pan|yuhangp@nycstudents.net|Project Manager|Game logic + CSS|
+|Andrew Tsai|andrewt194@nycstudents.net|DB Manager|JS|
+|Zixi Qiao|zixiq@nycstudents.net|Socket|JS|
 |Owen Zeng|owenz20@nycstudents.net|HTML|JS|
 
 ---
@@ -108,19 +107,49 @@ Dashboard
 
 ## Key User Stories
 ### eg0
-As an upcoming artist, I want to train my abilities in emulation so that I can get better at drawing in different styles.
+As a __________, I want to __________ so that...
 
 ### eg1
-As a person with many, many friends, I want to play a party game so that we can have fun.
+As a __________, I want to __________ so that...
 
 ### eg2
-As a person with no friends, I want to play a multiplayer game obsessively so that I can destroy everyone with my fake art.
+As a __________, I want to __________ so that...
 
 
 
 # Database Design
+<table>
+<tr>
+  <th colspan="4"><strong>USERS</strong></th>
+</tr>
+<tr><td>INTEGER</td><td>id</td><td>PK</td><td>Auto-increment</td></tr>
+<tr><td>TEXT</td><td>name</td><td></td><td>Unique</td></tr>
+<tr><td>TEXT</td><td>password</td><td></td><td>For authentication</td></tr>
+<tr><td>REAL</td><td>elo</td><td></td><td></td></tr>
+<tr><td>DATE</td><td>created_at</td><td></td><td></td></tr>
+<tr><td>INTEGER</td><td>games_won</td><td></td><td></td></tr>
+<tr><td>INTEGER</td><td>games_played</td><td></td><td></td></tr>
+<tr><td>INTEGER</td><td>total_placement</td><td></td><td></td></tr>
+</table>
 
-{Insert your table/document organizational structure here}
+<table>
+<tr>
+  <th colspan="4"><strong>GAMES</strong></th>
+</tr>
+<tr><td>INTEGER</td><td>id</td><td>PK</td><td>Auto-increment</td></tr>
+<tr><td>INTEGER</td><td>winner_id</td><td>FK</td><td>USERS(id)</td></tr>
+<tr><td>DATE</td><td>timestamp</td><td></td><td></td></tr>
+</table>
+
+<table>
+<tr>
+  <th colspan="4"><strong>RESULTS</strong></th>
+</tr>
+<tr><td>INTEGER</td><td>id</td><td>PK</td><td>Auto-increment</td></tr>
+<tr><td>INTEGER</td><td>game_id</td><td>FK</td><td>GAMES(id)</td></tr>
+<tr><td>INTEGER</td><td>user_id</td><td>FK</td><td>USERS(id)</td></tr>
+<tr><td>REAL</td><td>elo_change</td><td></td><td></td></tr>
+</table>
 
 
 # Testing Plan
