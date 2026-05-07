@@ -44,9 +44,8 @@ The initial load page will lead you to register an account. Afterwards, you will
 ---
 config:
   theme: redux
-  layout: fixed
 ---
-flowchart TB
+flowchart LR
  subgraph FlaskApp["Flask Application"]
         Init["__init__.py<br>(app + routes + sockets)"]
         Routes["Routes"]
@@ -161,7 +160,6 @@ flowchart TB
 ---
 config:
   theme: redux
-  layout: fixed
 ---
 flowchart TB
     A["/(login/register)"] --> B["/home"]
