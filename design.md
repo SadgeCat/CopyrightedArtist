@@ -79,9 +79,9 @@ Each member must own meaningful deliverables.
 
 | Team Member | Primary Ownership | Secondary Ownership | Specific Deliverables |
 |---|---|---|---|
-|Yuhang Pan|yuhangp@nycstudents.net|Project Manager|Game logic + CSS|
-|Andrew Tsai|andrewt194@nycstudents.net|DB Manager|JS|
-|Zixi Qiao|zixiq@nycstudents.net|Socket|JS|
+|Yuhang Pan|yuhangp@nycstudents.net|Game logic|CSS|
+|Andrew Tsai|andrewt194@nycstudents.net|JS|DB Manager|
+|Zixi Qiao|zixiq@nycstudents.net|Socket|JS and Game logic|
 |Owen Zeng|owenz20@nycstudents.net|HTML|JS|
 
 ---
@@ -107,13 +107,13 @@ Dashboard
 
 ## Key User Stories
 ### eg0
-As a __________, I want to __________ so that...
+As an upcoming artist, I want to train my abilities in emulation so that I can get better at drawing in different styles.
 
 ### eg1
-As a __________, I want to __________ so that...
+As a person with many, many friends, I want to play a party game so that we can have fun.
 
 ### eg2
-As a __________, I want to __________ so that...
+As a person with no friends, I want to play a multiplayer game obsessively so that I can destroy everyone with my fake art.
 
 
 
