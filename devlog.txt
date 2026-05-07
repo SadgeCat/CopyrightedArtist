@@ -24,3 +24,6 @@ zixiQ -- 2026-5-6 11:15
 
 yuhangP -- 2026-5-6 22:03
 - messy graph but it's there, adjust later
+
+zixiQ -- 2026-5-7 11:42
+- updated each person's deliverables + target users in design doc
