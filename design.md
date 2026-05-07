@@ -29,6 +29,7 @@ Boredom
 
 - Fun-seekers
 - Friend-havers
+- Unemployed artists
 
 
 ## Why This Project Matters
