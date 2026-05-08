@@ -29,6 +29,7 @@ Boredom
 
 - Fun-seekers
 - Friend-havers
+- Unem*loyed-artists
 
 
 ## Why This Project Matters
@@ -79,10 +80,10 @@ Each member must own meaningful deliverables.
 
 | Team Member | Primary Ownership | Secondary Ownership | Specific Deliverables |
 |---|---|---|---|
-|Yuhang Pan|yuhangp@nycstudents.net|Project Manager|Game logic + CSS|
-|Andrew Tsai|andrewt194@nycstudents.net|DB Manager|JS|
-|Zixi Qiao|zixiq@nycstudents.net|Socket|JS|
-|Owen Zeng|owenz20@nycstudents.net|HTML|JS|
+|Yuhang Pan|Project Manager|Flask + Game Logic|Implement different phases of the game + ensure that they work|
+|Andrew Tsai|DB Manager|JS Canvas|Designing drawing interface of the game using Canvas and send game data to database|
+|Zixi Qiao|Flask Socket|JS Lead|Creating separate lobbies and facilitate displaying updates to users in lobby during the game|
+|Owen Zeng|HTML + CSS|JS Sub|Creating base HTML templates to render pages|
 
 ---
 
@@ -154,20 +155,25 @@ As a person with no friends, I want to obsessively play a multiplayer game so th
 
 # Testing Plan
 {Delineate here your plan for testing each component}
+- First we will make sure all the routes to the web pages work.
+- Create lobbies to test socket connections and test sending images
+- Test game logic independently by creating a testable lobby connect all the users to it
+- Play through a game and check that user data is updated properly
+- Work on extra functions and features  
 
 # Timeline
-## Week 1 Goals:
-## Week 2 Goals:
-## Week 3 Goals:
+## Week 1 Goals: Working lobbies + basic site infrastructure
+## Week 2 Goals: Game logic completed + database + JS Canvas
+## Week 3 Goals: User stats + matchmaking system + profile complete
 ## Internal Deadlines:
 {List milestones your team has identified, in the order they must be completed. Set a target completion date for each.}
-
+- Flask sockets for lobbies by 5/12
 
 # Completion Criteria (_a.k.a._ "Definition of 'Done'")
 Project is considered complete when all of the following are true:
-1.
-1.
-1.
+1. Socket/lobby system working
+2. Game logic + graphics completed
+3. User profile data and db secured
 
 # Open Questions
 {Delineate anything undecided here}
