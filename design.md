@@ -87,22 +87,90 @@ Each member must own meaningful deliverables.
 ---
 
 # Component map
+```mermaid
+---
+config:
+  theme: dark
+---
+flowchart LR
+ subgraph FlaskApp["Flask Application"]
+        Init["__init__.py<br>(app + routes + sockets)"]
+        Routes["Routes"]
+        DataPy["data.py<br>(DB operations)"]
+  end
+ subgraph RoutesDetail["Routes"]
+        RouteAnchor[" "]
+        Register["/register"]
+        Login["/login"]
+        Logout["/logout"]
+        Home["/home"]
+        Lobby["/lobby/&lt;id&gt;"]
+        Game["/game/&lt;id&gt;"]
+        Profile["/profile"]
+  end
+ subgraph Database["SQLite3 Database - data.db"]
+        UsersTable["users table<br>(username, password, elo, wins, losses)"]
+        GamesTable["games table<br>(winner id/name)"]
+        ResultsTable["results table<br>(game id, user id, elo change)"]
+  end
+ subgraph Frontend["Frontend"]
+        HTML["HTML Templates"]
+        CSS["External CSS"]
+        JS["JavaScript"]
+  end
+ subgraph JSModules["JavaScript"]
+        LobbyJS["lobby.js"]
+        GameJS["game.js"]
+        CanvasJS["canvas.js"]
+        SocketJS["socket.js"]
+  end
+    Init -- defines --> Routes
+    Init -- initializes --> SocketJS
+    Routes --> RouteAnchor
+    Register -- checks username --> DataPy
+    Register -- writes user --> UsersTable
+    Login -- verifies --> DataPy
+    Login -- reads from --> UsersTable
+    Profile -- loads stats via --> DataPy
+    Profile -- reads from --> UsersTable & GamesTable & ResultsTable
+    DataPy <-- manages --> Database
+    Game -- stores winner --> GamesTable
+    Game -- stores results --> ResultsTable
+    Routes -- renders --> HTML
+    HTML -- styled by --> CSS
+    HTML -- modified by --> JS
+    JS --> LobbyJS & GameJS & CanvasJS & SocketJS
+    Home <-- communicates via --> LobbyJS
+    Lobby <-- communicates via --> SocketJS
+    Game <-- communicates via --> GameJS & CanvasJS & SocketJS
 
-{Insert your mermaid(or equivalent)-generated diagram here}
+     UsersTable:::dbNode
+     GamesTable:::dbNode
+     ResultsTable:::dbNode
+     LobbyJS:::jsNode
+     GameJS:::jsNode
+     CanvasJS:::jsNode
+     SocketJS:::jsNode
+    classDef dbNode fill:#134e4a,stroke:#2dd4bf,color:#ffffff
+    classDef jsNode fill:#7c2d12,stroke:#fb923c,color:#ffffff
+```
 
 # Site map
-
-{Insert your mermaid(or equivalent)-generated diagram here}
-eg...
-```
-Landing Page
-   ↓
-Login / Register
-   ↓
-Dashboard
-   ├── Feature A
-   ├── Feature B
-   └── Profile
+```mermaid
+---
+config:
+  theme: dark
+---
+flowchart TB
+    A["/(login/register)"] --> B["/home"]
+    B --> C["/lobby"] & E["/profile"]
+    C --> B & D["/game"]
+    D --> B
+    E --> B
+    C <--> F["error.html"]
+    D <--> F
+    E <--> F
+    B -- login/logout --> A
 ```
 
 ## Key User Stories
