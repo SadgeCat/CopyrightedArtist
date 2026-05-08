@@ -29,4 +29,4 @@ Using the locally hosted link, access the website. To deactivate the virtual env
 
 #### Alternatively:
 Visit our live site at 
-[https://fakeartist.app](https://fakeartist.app)
+[https://fakeartist.app](https://fakeartist.app) or [https://fakeartist.games](https://fakeartist.games)
