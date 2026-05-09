@@ -253,4 +253,4 @@ Project is considered complete when all of the following are true:
 Implement really extra features like being able to save certain drawings?
 
 # Appendix
-Based of off this Roblox game: https://www.roblox.com/games/4353458311/Copyrighted-Artists
+Based off of this Roblox game: https://www.roblox.com/games/4353458311/Copyrighted-Artists
