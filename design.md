@@ -1,12 +1,12 @@
 # System Blueprint
 
 ## TNPG: PortendedGreatness
-## project: Copyrighted Artist
-## Target ship date: {2026-06-xx}
+## Project: Copyrighted Artist
+## Target ship date: {2026-06-01}
 
 ---
 
-#### roster:
+#### Roster:
 
 
 | Name | Email | Primary Role | Secondary Role |
@@ -218,20 +218,30 @@ As a person with no friends, I want to obsessively play a multiplayer game so th
 
 
 # Testing Plan
-{Delineate here your plan for testing each component}
-- First we will make sure all the routes to the web pages work.
-- Create lobbies to test socket connections and test sending images
-- Test game logic independently by creating a testable lobby connect all the users to it
+- First we will check that data storage works properly and authentication is secure by preventing sql injection using `?`
+- Then we will make sure all the routes to the web pages work.
+- Create lobbies to test socket connections and test sending images drawn on JS canvas
+- Test game logic independently by creating a testable lobby connecting all the users to it
 - Play through a game and check that user data is updated properly
-- Work on extra functions and features  
+- Work on extra functions and features
 
 # Timeline
-## Week 1 Goals: Working lobbies + basic site infrastructure
-## Week 2 Goals: Game logic completed + database + JS Canvas
-## Week 3 Goals: User stats + matchmaking system + profile complete
+## Week 1 Goals:
+- Authentication
+- Working lobbies
+- Basic site infrastructure
+## Week 2 Goals:
+- Game logic completed (timer, scoring points)
+- Database complete, saving user stats
+- JS Canvas working
+## Week 3 Goals:
+- Full game completed (all phases: drawing, voting)
+- Using user elo for matchmaking system
+- Profile complete
+- CSS to make pages look nice
 ## Internal Deadlines:
-{List milestones your team has identified, in the order they must be completed. Set a target completion date for each.}
 - Flask sockets for lobbies by 5/12
+- Figure out JS canvas and set it up by 5/14
 
 # Completion Criteria (_a.k.a._ "Definition of 'Done'")
 Project is considered complete when all of the following are true:
@@ -240,10 +250,7 @@ Project is considered complete when all of the following are true:
 3. User profile data and db secured
 
 # Open Questions
-{Delineate anything undecided here}
+Implement really extra features like being able to save certain drawings?
 
 # Appendix
-{Any relevant info that is useful but would have interrupted narrative flow above, or cluttered the information portrayed}
-
-# Other
-{Put here anything that did not sensibly fit under above headings. This section will inform evolution of SoftDev.}
+Based of off this Roblox game: https://www.roblox.com/games/4353458311/Copyrighted-Artists
