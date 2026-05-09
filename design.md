@@ -11,10 +11,10 @@
 
 | Name | Email | Primary Role | Secondary Role |
 |---|---|---|---|
-|Yuhang Pan|yuhangp@nycstudents.net|Project Manager|Game logic + CSS|
-|Andrew Tsai|andrewt194@nycstudents.net|DB Manager|JS|
-|Zixi Qiao|zixiq@nycstudents.net|Socket|JS|
-|Owen Zeng|owenz20@nycstudents.net|HTML|JS|
+|Yuhang Pan|yuhangp@nycstudents.net|Project Manager|Game logic/Flask|
+|Andrew Tsai|andrewt194@nycstudents.net|DB Manager|JS Canvas|
+|Zixi Qiao|zixiq@nycstudents.net|Socket|JS Lead|
+|Owen Zeng|owenz20@nycstudents.net|HTML/CSS|JS Sub|
 
 ---
 
