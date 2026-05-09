@@ -109,6 +109,7 @@ flowchart LR
         Profile["/profile"]
   end
  subgraph Database["SQLite3 Database - data.db"]
+        DBAnchor[" "]
         UsersTable["users table<br>(username, password, elo, wins, losses)"]
         GamesTable["games table<br>(winner id/name)"]
         ResultsTable["results table<br>(game id, user id, elo change)"]
@@ -128,12 +129,9 @@ flowchart LR
     Init -- defines --> Routes
     Init -- initializes --> SocketJS
     Routes --> RouteAnchor
-    Register -- checks username --> DataPy
     Register -- writes user --> UsersTable
-    Login -- verifies --> DataPy
     Login -- reads from --> UsersTable
-    Profile -- loads stats via --> DataPy
-    Profile -- reads from --> UsersTable & GamesTable & ResultsTable
+    Profile -- reads from --> DBAnchor
     DataPy <-- manages --> Database
     Game -- stores winner --> GamesTable
     Game -- stores results --> ResultsTable
