@@ -99,9 +99,8 @@ flowchart LR
         DataPy["data.py<br>(DB operations)"]
   end
  subgraph RoutesDetail["Routes"]
-        RouteAnchor[" "]
         Register["/register"]
-        Login["/login"]
+        Login["/login"]s
         Logout["/logout"]
         Home["/home"]
         Lobby["/lobby/&lt;id&gt;"]
@@ -125,9 +124,8 @@ flowchart LR
         CanvasJS["canvas.js"]
         SocketJS["socket.js"]
   end
-    Init -- defines --> Routes
+    Init -- defines --> RoutesDetail
     Init -- initializes --> SocketJS
-    Routes --> RouteAnchor
     Register -- writes user --> UsersTable
     Login -- reads from --> UsersTable
     Profile -- reads from --> DBAnchor
