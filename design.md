@@ -117,7 +117,6 @@ flowchart LR
  subgraph Frontend["Frontend"]
         HTML["HTML Templates"]
         CSS["External CSS"]
-        JS["JavaScript"]
   end
  subgraph JSModules["JavaScript"]
         JSAnchor[" "]
@@ -137,7 +136,7 @@ flowchart LR
     Game -- stores results --> ResultsTable
     Routes -- renders --> HTML
     HTML -- styled by --> CSS
-    HTML -- modified by --> JS
+    HTML -- modified by --> JSAnchor
     Home <-- communicates via --> LobbyJS
     Lobby <-- communicates via --> SocketJS
     Game <-- communicates via --> JSAnchor
