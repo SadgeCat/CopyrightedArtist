@@ -100,7 +100,7 @@ flowchart LR
   end
  subgraph RoutesDetail["Routes"]
         Register["/register"]
-        Login["/login"]s
+        Login["/login"]
         Logout["/logout"]
         Home["/home"]
         Lobby["/lobby/&lt;id&gt;"]
