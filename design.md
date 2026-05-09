@@ -92,12 +92,14 @@ Each member must own meaningful deliverables.
 config:
   theme: dark
 ---
-flowchart TB
+flowchart LR
  subgraph FlaskApp["Flask Application"]
         Init["__init__.py<br>(app + routes + sockets)"]
+        Routes["Routes"]
         DataPy["data.py<br>(DB operations)"]
   end
  subgraph RoutesDetail["Routes"]
+        RouteAnchor[" "]
         Register["/register"]
         Login["/login"]
         Logout["/logout"]
@@ -123,14 +125,16 @@ flowchart TB
         CanvasJS["canvas.js"]
         SocketJS["socket.js"]
   end
-    Init -- defines --> RoutesDetail
+    Init -- defines --> Routes
     Init -- initializes --> SocketJS
+    Routes --> RouteAnchor
     Register -- writes user --> UsersTable
     Login -- reads from --> UsersTable
     Profile -- reads from --> DBAnchor
     DataPy <-- manages --> Database
     Game -- stores winner --> GamesTable
     Game -- stores results --> ResultsTable
+    Routes -- renders --> HTML
     HTML -- styled by --> CSS
     HTML -- modified by --> JSModules
     Home <-- communicates via --> LobbyJS
