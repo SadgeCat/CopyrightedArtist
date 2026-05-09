@@ -119,6 +119,7 @@ flowchart LR
         JS["JavaScript"]
   end
  subgraph JSModules["JavaScript"]
+        JSAnchor[" "]
         LobbyJS["lobby.js"]
         GameJS["game.js"]
         CanvasJS["canvas.js"]
@@ -139,10 +140,7 @@ flowchart LR
     Routes -- renders --> HTML
     HTML -- styled by --> CSS
     HTML -- modified by --> JS
-    JS --> LobbyJS & GameJS & CanvasJS & SocketJS
-    Home <-- communicates via --> LobbyJS
-    Lobby <-- communicates via --> SocketJS
-    Game <-- communicates via --> GameJS & CanvasJS & SocketJS
+    RouteAnchor -- communicates via --> JSAnchor
 
      UsersTable:::dbNode
      GamesTable:::dbNode
