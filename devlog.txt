@@ -33,3 +33,7 @@ zixiQ -- 2026-5-7 10:30
 
 zixiQ -- 2026-5-8 11:16
 - dirtyfrag remediation commands run
+
+yuhangP -- 2026-5-8 21:50
+- cleaned up mermaid diagrams and added it to the design doc
+- completed the rest of the design doc (more specific deadlines and testing plan)
