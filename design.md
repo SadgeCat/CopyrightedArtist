@@ -171,13 +171,13 @@ flowchart TB
 ```
 
 ## Key User Stories
-### eg0
-As an aspiring artist, I want to train my ability to emulate art styles so that I can become better at drawing.
+### Aspiring Artist
+As an aspiring artist, I want to train my ability to emulate art styles so that I can become better at drawing. At the same time, I can improve my ability to discern fake/copied arts.
 
-### eg1
+### Friend-Havers
 As a person with many friends, I want to play a party game so that we can all have fun.
 
-### eg2
+### Lone Wolf
 As a person with no friends, I want to obsessively play a multiplayer game so that I can beat everyone else and prove my own self-worth.
 
 
