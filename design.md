@@ -136,7 +136,7 @@ flowchart LR
     Game -- stores results --> ResultsTable
     Routes -- renders --> HTML
     HTML -- styled by --> CSS
-    HTML -- modified by --> JSAnchor
+    HTML -- modified by --> JSModules
     Home <-- communicates via --> LobbyJS
     Lobby <-- communicates via --> SocketJS
     Game <-- communicates via --> JSAnchor
