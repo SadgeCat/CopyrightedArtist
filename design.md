@@ -92,7 +92,7 @@ Each member must own meaningful deliverables.
 config:
   theme: dark
 ---
-flowchart LR
+flowchart TB
  subgraph FlaskApp["Flask Application"]
         Init["__init__.py<br>(app + routes + sockets)"]
         DataPy["data.py<br>(DB operations)"]
