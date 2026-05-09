@@ -140,7 +140,9 @@ flowchart LR
     Routes -- renders --> HTML
     HTML -- styled by --> CSS
     HTML -- modified by --> JS
-    RouteAnchor -- communicates via --> JSAnchor
+    Home <-- communicates via --> LobbyJS
+    Lobby <-- communicates via --> SocketJS
+    Game <-- communicates via --> JSAnchor
 
      UsersTable:::dbNode
      GamesTable:::dbNode
