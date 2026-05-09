@@ -95,7 +95,6 @@ config:
 flowchart LR
  subgraph FlaskApp["Flask Application"]
         Init["__init__.py<br>(app + routes + sockets)"]
-        Routes["Routes"]
         DataPy["data.py<br>(DB operations)"]
   end
  subgraph RoutesDetail["Routes"]
@@ -132,7 +131,6 @@ flowchart LR
     DataPy <-- manages --> Database
     Game -- stores winner --> GamesTable
     Game -- stores results --> ResultsTable
-    Routes -- renders --> HTML
     HTML -- styled by --> CSS
     HTML -- modified by --> JSModules
     Home <-- communicates via --> LobbyJS
