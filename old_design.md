@@ -62,6 +62,7 @@ flowchart LR
         Profile["/profile"]
   end
  subgraph Database["SQLite3 Database - data.db"]
+        DBAnchor[" "]
         UsersTable["users table<br>(username, password, elo, wins, losses)"]
         GamesTable["games table<br>(winner id/name)"]
         ResultsTable["results table<br>(game id, user id, elo change)"]
@@ -69,9 +70,9 @@ flowchart LR
  subgraph Frontend["Frontend"]
         HTML["HTML Templates"]
         CSS["External CSS"]
-        JS["JavaScript"]
   end
  subgraph JSModules["JavaScript"]
+        JSAnchor[" "]
         LobbyJS["lobby.js"]
         GameJS["game.js"]
         CanvasJS["canvas.js"]
@@ -80,22 +81,18 @@ flowchart LR
     Init -- defines --> Routes
     Init -- initializes --> SocketJS
     Routes --> RouteAnchor
-    Register -- checks username --> DataPy
     Register -- writes user --> UsersTable
-    Login -- verifies --> DataPy
     Login -- reads from --> UsersTable
-    Profile -- loads stats via --> DataPy
-    Profile -- reads from --> UsersTable & GamesTable & ResultsTable
+    Profile -- reads from --> DBAnchor
     DataPy <-- manages --> Database
     Game -- stores winner --> GamesTable
     Game -- stores results --> ResultsTable
     Routes -- renders --> HTML
     HTML -- styled by --> CSS
-    HTML -- modified by --> JS
-    JS --> LobbyJS & GameJS & CanvasJS & SocketJS
+    HTML -- modified by --> JSModules
     Home <-- communicates via --> LobbyJS
     Lobby <-- communicates via --> SocketJS
-    Game <-- communicates via --> GameJS & CanvasJS & SocketJS
+    Game <-- communicates via --> JSAnchor
 
      UsersTable:::dbNode
      GamesTable:::dbNode
