@@ -37,3 +37,6 @@ zixiQ -- 2026-5-8 11:16
 yuhangP -- 2026-5-8 21:50
 - cleaned up mermaid diagrams and added it to the design doc
 - completed the rest of the design doc (more specific deadlines and testing plan)
+
+yuhangP -- 2026-5-9 21:45
+- generated design.pdf from design.md 
