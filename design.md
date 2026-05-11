@@ -20,7 +20,7 @@
 
 
 # Summary
-A website hosting a drawing guessing game commonly known as Copyrighted Artists.
+A website hosting a drawing guessing game commonly known as Copyrighted Artists. Upon joining a game lobby, you will be led to a game window where you can draw based on a prompt or based off of what other people have drawn. Then, you will go through the voting phase where you have to determine which one is the real drawing. Score is earned by guessing the real drawing or by fooling others into voting your fake drawings. The site will award you elo points based on winning or losing.
 
 ## Problem Being Solved
 Boredom
@@ -41,15 +41,15 @@ Website with socket lobbies and functioning game
 
 ## Core Features (Required for Final Submission)
 Features that **must** be completed:
-1. Socket Lobbies
-2. Working Game
+1. Socket Lobbies: Users can join different rooms and start separate games; they can also create their own rooms
+2. Working Game: Drawing & Voting phases
 3. Login DB
 
 
 ## Stretch Features (Only if MVP is Complete)
-1. Elo System
-2. Matchmaking System
-3. Game history
+1. Elo System: Gain/lose elo from games. Different elos will be separated into different ranks (i.e. iron, bronze, silver, gold, plat, diamond, etc.)
+2. Matchmaking System: Uses the elo system to put you into lobbies of similar player elo.
+3. Game history: Be able to review the results of past games, maybe even look at the drawings from those past games.
 
 ## Explicit Non-Goals
 
@@ -90,7 +90,7 @@ Each member must own meaningful deliverables.
 ![Component Map](https://raw.githubusercontent.com/SadgeCat/graphics_mesh_files/refs/heads/main/images/CPArtist_ComponentMap.png)
 
 # Site map
-![Site Map](https://raw.githubusercontent.com/SadgeCat/graphics_mesh_files/refs/heads/main/images/CPArtist_SiteMap.png)
+![Site Map](https://raw.githubusercontent.com/SadgeCat/graphics_mesh_files/refs/heads/main/images/CPArtist_SiteMap2.png)
 
 ## Key User Stories
 ### Aspiring Artist
@@ -162,8 +162,8 @@ As a person with no friends, I want to obsessively play a multiplayer game so th
 - Profile complete
 - CSS to make pages look nice
 ## Internal Deadlines:
-- Flask sockets for lobbies by 5/12
-- Figure out JS canvas and set it up by 5/14
+- Flask sockets for lobbies by 5/15
+- Figure out JS canvas and set it up by 5/18
 
 # Completion Criteria (_a.k.a._ "Definition of 'Done'")
 Project is considered complete when all of the following are true:
