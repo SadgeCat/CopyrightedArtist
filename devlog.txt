@@ -41,6 +41,7 @@ yuhangP -- 2026-5-8 21:50
 yuhangP -- 2026-5-9 21:45
 - generated design.pdf from design.md
 
+yuhangP -- 2026-5-11 18:05
 INITIAL DD REVIEW:
 - good task breakdowns & distribution of ownership + clear goals
 - very organized tables and detailed & understandable site and component maps
@@ -58,6 +59,7 @@ andrewT -- 2026-5-12 11:45
 zixiQ -- 2026-5-12 11:45
 - initial socketio branch and funcs created
 
+yuhangP -- 2026-5-12 18:20
 Application of Python Style:
   Which aspects of the style guide were most applicable to your codebase?
   - Proper indentations were really applicable to our build_db.py file when we initialize
@@ -67,8 +69,8 @@ Application of Python Style:
   Which aspects of the style guide were most useful/appreciated by your Devos?
   - Indentations are also the most useful because it can make our code more readable.
 
-  Shall include at least one (1) file+line reference.
-  - In build_db.py:
+  Include at least one (1) file+line reference to a usage/application of above in your codebase.
+  - In build_db.py lines 18-27:
       c.execute("""CREATE TABLE IF NOT EXISTS users
             (id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT NOT NULL COLLATE NOCASE,
@@ -82,6 +84,14 @@ Application of Python Style:
 
 Application of JavaScript Style:
   Which aspects of the style guide were most applicable to your codebase?
-  - Commenting out parameters could be very useful
+  - Writing asynchronous code whenever possible to improve performance is very applicable if we need
+  to get random prompts to draw from an API. Since we also have a lot of frontend-backend communication,
+  using async functions to fetch game data when drawing/joining lobbies/getting user stats.
+
   Which aspects of the style guide were most useful/appreciated by your Devos?
-  Shall include at least one (1) file+line reference.
+  - Template literals, the backticks, are really useful for multiline strings and embedding variables
+  in strings. Basically Python f strings.
+
+  Include at least one (1) file+line reference to a usage/application of above in your codebase.
+  - testing_canva.html line 33 to check mouse position:
+      console.log(`Mouse Pos: (${mouseX}, ${mouseY})!`);

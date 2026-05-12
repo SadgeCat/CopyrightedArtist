@@ -30,6 +30,7 @@
         ctx.moveTo(mouseX,mouseY);
         ctx.lineTo(event.clientX - rect.left, event.clientY - rect.top);
         ctx.stroke();
+        console.log(`Mouse Pos: (${mouseX}, ${mouseY})!`);
       }
       mouseX = event.clientX - rect.left;
       mouseY = event.clientY - rect.top;
