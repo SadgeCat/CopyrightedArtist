@@ -1,9 +1,11 @@
 from flask import Flask, render_template, request, session, redirect, url_for, jsonify
+from flask-socketio import SocketIO, join_room, leave_room
 from .build_db import *
 from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 app.secret_key = "secret"
+socketIO = SocketIO(app)
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
@@ -53,7 +55,7 @@ def login():
 
         if insert_acc is None:
             return render_template("login.html", error="Username or password is incorrect")
-        
+
         if acc and check_password_hash(acc["password"], password):
             session["username"] = username
             return redirect(url_for("home"))
@@ -80,4 +82,4 @@ def error():
 
 if __name__ == "__main__":
     app.debug = False
-    app.run(host='0.0.0.0', port=5001)
+    socketIO.run(app, host = "0.0.0.0", port = 5001, debug=True)

@@ -1,3 +1,5 @@
+from flask_socketio import SocketIO
+
 class lobby:
     def __init__(self):
         self.lobbies = {}
