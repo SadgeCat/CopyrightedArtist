@@ -57,3 +57,31 @@ andrewT -- 2026-5-12 11:45
 
 zixiQ -- 2026-5-12 11:45
 - initial socketio branch and funcs created
+
+Application of Python Style:
+  Which aspects of the style guide were most applicable to your codebase?
+  - Proper indentations were really applicable to our build_db.py file when we initialize
+  our tables and perform other methods with the database since there are a lot of arguments
+  which we can separate into new lines.
+
+  Which aspects of the style guide were most useful/appreciated by your Devos?
+  - Indentations are also the most useful because it can make our code more readable.
+
+  Shall include at least one (1) file+line reference.
+  - In build_db.py:
+      c.execute("""CREATE TABLE IF NOT EXISTS users
+            (id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL COLLATE NOCASE,
+            password TEXT NOT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            elo REAL,
+            games_won INTEGER,
+            games_played INTEGER,
+            total_placement INTEGER,
+            UNIQUE(name))""")
+
+Application of JavaScript Style:
+  Which aspects of the style guide were most applicable to your codebase?
+  - Commenting out parameters could be very useful
+  Which aspects of the style guide were most useful/appreciated by your Devos?
+  Shall include at least one (1) file+line reference.
