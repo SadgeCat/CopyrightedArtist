@@ -7,10 +7,14 @@
   </head>
   <body>
     <canvas id = "myCanvas" width = 800 height = 400>Not visible?</canvas>
+    <br>
     <script>
       let canvas = document.getElementById("myCanvas");
       let ctx = canvas.getContext("2d");
       var tracking = false;
+      function myFunction() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      }
       var mouseX;
       var mouseY;
       canvas.addEventListener("mousedown", function(event) {
@@ -30,7 +34,8 @@
       mouseX = event.clientX - rect.left;
       mouseY = event.clientY - rect.top;
       });
-      
+
     </script>
+    <button onclick = "myFunction()">Clear</button>
   </body>
 </html>
