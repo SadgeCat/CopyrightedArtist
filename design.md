@@ -70,8 +70,8 @@ Features intentionally excluded:
 | ORM / DB Library | none |
 
 ## Why This Stack Was Chosen
-
 Flask and SQLite for simplicity since all the devos knows very well on how to use it.  
+
 ---
 
 # Team Ownership Plan
