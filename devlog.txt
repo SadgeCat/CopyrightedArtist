@@ -41,9 +41,6 @@ yuhangP -- 2026-5-8 21:50
 yuhangP -- 2026-5-9 21:45
 - generated design.pdf from design.md
 
-andrewT -- 2026-5-12 11:45
-- basic proof of concept for drawing on canvas done
-
 INITIAL DD REVIEW:
 - good task breakdowns & distribution of ownership + clear goals
 - very organized tables and detailed & understandable site and component maps
@@ -54,3 +51,9 @@ DESIGN DOC REVISIONS:
 - updated the core features and stretch features so that they're more specific
 - slightly adjusted the site map's error.html block so it's more consistent
 - pushed back some internal deadlines because we all have AP's :(
+
+andrewT -- 2026-5-12 11:45
+- basic proof of concept for drawing on canvas done
+
+zixiQ -- 2026-5-12 11:45
+- initial socketio branch and funcs created
