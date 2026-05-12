@@ -1,0 +1,36 @@
+<!doctype HTML>
+<html>
+  <head>
+    <title>
+      canva
+    </title>
+  </head>
+  <body>
+    <canvas id = "myCanvas" width = 800 height = 400>Not visible?</canvas>
+    <script>
+      let canvas = document.getElementById("myCanvas");
+      let ctx = canvas.getContext("2d");
+      var tracking = false;
+      var mouseX;
+      var mouseY;
+      canvas.addEventListener("mousedown", function(event) {
+        tracking = true;
+        });
+      canvas.addEventListener("mouseup", function(event){
+        tracking = false;
+      });
+      canvas.addEventListener("mousemove", function(event) {
+        var rect = canvas.getBoundingClientRect();
+      if(tracking == true){
+        ctx.beginPath();
+        ctx.moveTo(mouseX,mouseY);
+        ctx.lineTo(event.clientX - rect.left, event.clientY - rect.top);
+        ctx.stroke();
+      }
+      mouseX = event.clientX - rect.left;
+      mouseY = event.clientY - rect.top;
+      });
+      
+    </script>
+  </body>
+</html>
