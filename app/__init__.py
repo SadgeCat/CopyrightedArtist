@@ -1,9 +1,13 @@
 from flask import Flask, render_template, request, session, redirect, url_for, jsonify
 from .build_db import *
 from werkzeug.security import generate_password_hash, check_password_hash
+from .lobby import *
+import uuid
 
 app = Flask(__name__)
 app.secret_key = "secret"
+
+lobby = lobby()
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
@@ -53,7 +57,7 @@ def login():
 
         if insert_acc is None:
             return render_template("login.html", error="Username or password is incorrect")
-        
+
         if acc and check_password_hash(acc["password"], password):
             session["username"] = username
             return redirect(url_for("home"))
@@ -64,9 +68,18 @@ def login():
 
 @app.route("/home", methods=['GET', 'POST'])
 def home():
-
+    lobbies = lobby.get_lobbies()
     return render_template('home.html',
-                           username = session["username"])
+                           username = session["username"],
+                           lobbies = lobbies)
+
+@app.route("/create_lobby", methods=['GET', 'POST'])
+def create_lobby():
+    acc = get_user(session["username"])
+    lobby_id = uuid.uuid1()
+    lobby.create(acc["id"], lobby_id)
+    return redirect("/home")
+
 
 @app.route("/profile", methods=['GET', 'POST'])
 def profile():

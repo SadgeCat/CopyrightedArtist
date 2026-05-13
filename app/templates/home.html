@@ -12,6 +12,15 @@
     <h1>Hola {{ username }}!</h1>
 </div>
 <div class="btn-container">
-    
+    <form class="" action="/create_lobby" method="post">
+        <button type="submit" name="create_lobby"></button>
+    </form>
+</div>
+<div class="lobby_container">
+    {% if len(lobbies) != 0 %}
+        {% for lobby in lobbies %}
+            <p>{{ lobbies[lobby]["host"] }}</p>
+        {% endfor %}
+    {% endif %}
 </div>
 {% endblock %}
