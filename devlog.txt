@@ -103,3 +103,6 @@ andrewT -- 2026-05-13 11:30
 zixiQ -- 2026-05-13 11:45
 - Added join and create lobby/game logic with socketio
 - Added getters
+
+yuhangP -- 2026-05-13 11:45
+- Working on path to fetch lobbies and display in home
