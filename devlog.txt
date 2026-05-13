@@ -95,3 +95,7 @@ Application of JavaScript Style:
   Include at least one (1) file+line reference to a usage/application of above in your codebase.
   - testing_canva.html line 33 to check mouse position:
       console.log(`Mouse Pos: (${mouseX}, ${mouseY})!`);
+
+andrewT -- 2026-05-13 11:30
+- Updates to Canvas drawing system
+- Finished proof of concept
