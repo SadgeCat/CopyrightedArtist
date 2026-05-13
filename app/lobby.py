@@ -7,6 +7,12 @@ class lobby:
         self.lobbies = {}
         self.games = {}
 
+    def get_lobby_ids():
+        return list(self.lobbies.keys())
+
+    def get_game_ids():
+        return list(self.games.keys())
+
     def create_lobby(self, host_id, lobby_id):
         self.lobbies[lobby_id] = {
             players = [host_id],
