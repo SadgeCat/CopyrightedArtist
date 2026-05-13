@@ -99,3 +99,7 @@ Application of JavaScript Style:
 andrewT -- 2026-05-13 11:30
 - Updates to Canvas drawing system
 - Finished proof of concept
+
+zixiQ -- 2026-05-13 11:45
+- Added join and create lobby/game logic with socketio
+- Added getters
