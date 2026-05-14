@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, session, redirect, url_for, jsonify
-from build_db import *
+from .build_db import *
 from werkzeug.security import generate_password_hash, check_password_hash
-from lobby import *
+from .lobby import *
 import uuid
 
 app = Flask(__name__)
