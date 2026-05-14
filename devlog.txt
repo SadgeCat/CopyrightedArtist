@@ -109,3 +109,6 @@ yuhangP -- 2026-05-13 11:45
 
 owenZ -- 2026-05-13 21:10
 - add html templates and fixed python code 
+
+owenZ -- 2026-05-14 1:30
+- add js for game to work i think
