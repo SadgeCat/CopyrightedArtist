@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Lobby{% endblock %}
+
+{% block content %}
+<div class="lobby-container" style="text-align: center; margin-top: 50px;">
+    <h2>Lobby Code: <span id="lobby-code"><strong>{{ lobby_code | default('ABCD') }}</strong></span></h2>
+
+    <div
+        style="margin: 30px auto; max-width: 400px; text-align: left; background: #f9f9f9; padding: 20px; border-radius: 8px;">
+        <h3>Players in Lobby:</h3>
+        <ul id="players-list" style="list-style-type: none; padding: 0;">
+            {% if players %}
+            {% for player in players %}
+            <li style="padding: 10px; border-bottom: 1px solid #ddd;">{{ player }}</li>
+            {% endfor %}
+            {% else %}
+            <li style="padding: 10px; border-bottom: 1px solid #ddd;">Player 1 (You)</li>
+            <li style="padding: 10px; border-bottom: 1px solid #ddd;">Player 2</li>
+            {% endif %}
+        </ul>
+    </div>
+
+    <div style="margin-top: 20px;">
+        {% if is_host is defined and not is_host %}
+        <p>Waiting for host to start the game...</p>
+        {% else %}
+        <form action="/game" method="get">
+            <button type="submit" class="btn" style="padding: 10px 20px; font-size: 18px; cursor: pointer;">Start
+                Game</button>
+        </form>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

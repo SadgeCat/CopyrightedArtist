@@ -106,3 +106,6 @@ zixiQ -- 2026-05-13 11:45
 
 yuhangP -- 2026-05-13 11:45
 - Working on path to fetch lobbies and display in home
+
+owenZ -- 2026-05-13 21:10
+- add html templates and fixed python code 

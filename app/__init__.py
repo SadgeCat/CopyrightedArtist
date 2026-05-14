@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, session, redirect, url_for, jsonify
-from .build_db import *
+from build_db import *
 from werkzeug.security import generate_password_hash, check_password_hash
-from .lobby import *
+from lobby import *
 import uuid
 
 app = Flask(__name__)
@@ -77,7 +77,7 @@ def home():
 def create_lobby():
     acc = get_user(session["username"])
     lobby_id = uuid.uuid1()
-    lobby.create(acc["id"], lobby_id)
+    lobby.create_lobby(acc["id"], lobby_id)
     return redirect("/home")
 
 
@@ -86,6 +86,10 @@ def profile():
     user = get_user(session["username"])
     return render_template('profile.html',
                            user = user)
+
+@app.route("/game", methods=['GET', 'POST'])
+def game():
+    return render_template('game.html')
 
 @app.route("/error", methods=['GET', 'POST'])
 def error():
