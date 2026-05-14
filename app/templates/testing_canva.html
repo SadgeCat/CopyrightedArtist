@@ -1,0 +1,63 @@
+<!doctype HTML>
+<html>
+  <head>
+    <title>
+      canva
+    </title>
+  </head>
+  <body>
+    <canvas id = "myCanvas" width = 800 height = 400>Not visible?</canvas>
+    <br>
+    <button onclick = "myFunction()">Clear</button>
+    <input id = "color" type = "color" value = "#000000">
+    <input id = "strokeWeight" type = "range" min = 1 max = 50>
+    <script>
+      let canvas = document.getElementById("myCanvas");
+      let ctx = canvas.getContext("2d");
+      var tracking = false;
+      function myFunction() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      }
+      const colorPicker = document.getElementById('color');
+      ctx.strokeStyle = colorPicker.value;
+      colorPicker.addEventListener('input', function() {
+          ctx.strokeStyle = colorPicker.value;
+      });
+      const strokeWeight = document.getElementById('strokeWeight');
+      ctx.lineWidth = strokeWeight.value;
+      strokeWeight.addEventListener('input', function() {
+          ctx.lineWidth = strokeWeight.value;
+      });
+      var mouseX;
+      var mouseY;
+      canvas.addEventListener("mousedown", function(event) {
+        ctx.beginPath();
+        ctx.arc(mouseX,mouseY, ctx.lineWidth / 2, 0, 2 * Math.PI, false);
+        ctx.fillStyle = ctx.strokeStyle;
+        ctx.fill();
+        tracking = true;
+        });
+      canvas.addEventListener("mouseup", function(event){
+        tracking = false;
+      });
+      canvas.addEventListener("mousemove", function(event) {
+        var rect = canvas.getBoundingClientRect();
+      if(tracking == true){
+        ctx.beginPath();
+        ctx.moveTo(mouseX,mouseY);
+        ctx.lineTo(event.clientX - rect.left, event.clientY - rect.top);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(mouseX,mouseY, ctx.lineWidth / 2, 0, 2 * Math.PI, false);
+        ctx.arc(event.clientX - rect.left, event.clientY - rect.top, ctx.lineWidth / 2, 0, 2 * Math.PI, false);
+        ctx.fillStyle = ctx.strokeStyle;
+        ctx.fill();
+        console.log(`Mouse Pos: (${mouseX}, ${mouseY})!`);
+      }
+      mouseX = event.clientX - rect.left;
+      mouseY = event.clientY - rect.top;
+      });
+
+    </script>
+  </body>
+</html>

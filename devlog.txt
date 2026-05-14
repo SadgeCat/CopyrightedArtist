@@ -41,6 +41,7 @@ yuhangP -- 2026-5-8 21:50
 yuhangP -- 2026-5-9 21:45
 - generated design.pdf from design.md
 
+yuhangP -- 2026-5-11 18:05
 INITIAL DD REVIEW:
 - good task breakdowns & distribution of ownership + clear goals
 - very organized tables and detailed & understandable site and component maps
@@ -51,3 +52,63 @@ DESIGN DOC REVISIONS:
 - updated the core features and stretch features so that they're more specific
 - slightly adjusted the site map's error.html block so it's more consistent
 - pushed back some internal deadlines because we all have AP's :(
+
+andrewT -- 2026-5-12 11:45
+- basic proof of concept for drawing on canvas done
+
+zixiQ -- 2026-5-12 11:45
+- initial socketio branch and funcs created
+
+yuhangP -- 2026-5-12 18:20
+Application of Python Style:
+  Which aspects of the style guide were most applicable to your codebase?
+  - Proper indentations were really applicable to our build_db.py file when we initialize
+  our tables and perform other methods with the database since there are a lot of arguments
+  which we can separate into new lines.
+
+  Which aspects of the style guide were most useful/appreciated by your Devos?
+  - Indentations are also the most useful because it can make our code more readable.
+
+  Include at least one (1) file+line reference to a usage/application of above in your codebase.
+  - In build_db.py lines 18-27:
+      c.execute("""CREATE TABLE IF NOT EXISTS users
+            (id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL COLLATE NOCASE,
+            password TEXT NOT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            elo REAL,
+            games_won INTEGER,
+            games_played INTEGER,
+            total_placement INTEGER,
+            UNIQUE(name))""")
+
+Application of JavaScript Style:
+  Which aspects of the style guide were most applicable to your codebase?
+  - Writing asynchronous code whenever possible to improve performance is very applicable if we need
+  to get random prompts to draw from an API. Since we also have a lot of frontend-backend communication,
+  using async functions to fetch game data when drawing/joining lobbies/getting user stats.
+
+  Which aspects of the style guide were most useful/appreciated by your Devos?
+  - Template literals, the backticks, are really useful for multiline strings and embedding variables
+  in strings. Basically Python f strings.
+
+  Include at least one (1) file+line reference to a usage/application of above in your codebase.
+  - testing_canva.html line 33 to check mouse position:
+      console.log(`Mouse Pos: (${mouseX}, ${mouseY})!`);
+
+andrewT -- 2026-05-13 11:30
+- Updates to Canvas drawing system
+- Finished proof of concept
+
+zixiQ -- 2026-05-13 11:45
+- Added join and create lobby/game logic with socketio
+- Added getters
+
+yuhangP -- 2026-05-13 11:45
+- Working on path to fetch lobbies and display in home
+
+owenZ -- 2026-05-13 21:10
+- add html templates and fixed python code 
+
+owenZ -- 2026-05-14 1:30
+- add js for game to work i think

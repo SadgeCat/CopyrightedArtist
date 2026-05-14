@@ -1,11 +1,15 @@
 from flask import Flask, render_template, request, session, redirect, url_for, jsonify
 from flask-socketio import SocketIO, join_room, leave_room
-from .build_db import *
+from build_db import *
 from werkzeug.security import generate_password_hash, check_password_hash
+from lobby import *
+import uuid
 
 app = Flask(__name__)
 app.secret_key = "secret"
 socketIO = SocketIO(app)
+
+lobby = lobby()
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
@@ -66,15 +70,28 @@ def login():
 
 @app.route("/home", methods=['GET', 'POST'])
 def home():
-
+    lobbies = lobby.get_lobbies()
     return render_template('home.html',
-                           username = session["username"])
+                           username = session["username"],
+                           lobbies = lobbies)
+
+@app.route("/create_lobby", methods=['GET', 'POST'])
+def create_lobby():
+    acc = get_user(session["username"])
+    lobby_id = uuid.uuid1()
+    lobby.create_lobby(acc["id"], lobby_id)
+    return redirect("/home")
+
 
 @app.route("/profile", methods=['GET', 'POST'])
 def profile():
     user = get_user(session["username"])
     return render_template('profile.html',
                            user = user)
+
+@app.route("/game", methods=['GET', 'POST'])
+def game():
+    return render_template('game.html')
 
 @app.route("/error", methods=['GET', 'POST'])
 def error():

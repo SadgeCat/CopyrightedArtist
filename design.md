@@ -2,7 +2,7 @@
 
 ## TNPG: PortendedGreatness
 ## Project: Copyrighted Artist
-## Target ship date: {2026-06-01}
+## Target ship date: 2026-06-01
 
 ---
 

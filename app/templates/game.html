@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+{% block title %}Game{% endblock %}
+
+{% block head %}
+<style>
+    .game-phase {
+        display: none;
+        text-align: center;
+        margin-top: 30px;
+    }
+
+    .active-phase {
+        display: block;
+    }
+
+    .canvas-container {
+        margin: 20px auto;
+        display: inline-block;
+        border: 2px solid #333;
+        background-color: #fff;
+        border-radius: 4px;
+        overflow: hidden;
+    }
+
+    canvas {
+        cursor: crosshair;
+        display: block;
+    }
+
+    .drawing-tools {
+        margin-top: 15px;
+        padding: 10px;
+        background: #f0f0f0;
+        border-radius: 8px;
+        display: inline-flex;
+        gap: 15px;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .voting-gallery {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 30px;
+    }
+
+    .drawing-card {
+        border: 2px solid #ccc;
+        border-radius: 8px;
+        padding: 10px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        background: #fff;
+    }
+
+    .drawing-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .drawing-card img {
+        width: 300px;
+        height: 225px;
+        object-fit: contain;
+        background: #f9f9f9;
+        border: 1px solid #eee;
+    }
+
+    .btn {
+        padding: 8px 16px;
+        background: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .btn:hover {
+        background: #0056b3;
+    }
+
+    .btn:disabled {
+        background: #ccc;
+        cursor: not-allowed;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Phase 1: Drawing -->
+<div id="drawing-phase" class="game-phase active-phase">
+    <h2>Prompt: <span id="prompt" style="color: #007bff;">{{ prompt | default('A Majestic Cat') }}</span></h2>
+    <h3>Time left: <span id="timer">60</span>s</h3>
+
+    <div class="canvas-container">
+        <!-- 800x600 is standard 4:3 aspect ratio -->
+        <canvas id="drawing-canvas" width="800" height="600"></canvas>
+    </div>
+
+    <div class="drawing-tools">
+        <div>
+            <label for="color-picker">Color: </label>
+            <input type="color" id="color-picker" value="#000000">
+        </div>
+
+        <div>
+            <label for="brush-size">Brush Size: </label>
+            <input type="range" id="brush-size" min="1" max="30" value="5">
+        </div>
+
+        <button id="clear-btn" class="btn" style="background-color: #dc3545;">Clear</button>
+        <button id="submit-drawing-btn" class="btn" style="background-color: #28a745;">Submit Drawing</button>
+    </div>
+</div>
+
+
+<div id="voting-phase" class="game-phase">
+    <h2>Which one is the REAL drawing?</h2>
+    <h3>Prompt: <span id="vote-prompt" style="color: #007bff;">{{ prompt | default('A Majestic Cat') }}</span></h3>
+
+    <div class="voting-gallery" id="voting-gallery">
+
+        <div class="drawing-card" onclick="selectVote(1)" id="card-1">
+            <img src="" alt="Drawing 1" id="drawing-img-1">
+            <h4 style="margin: 10px 0 5px 0;">Option A</h4>
+        </div>
+        <div class="drawing-card" onclick="selectVote(2)" id="card-2">
+            <div
+                style="width:300px; height:225px; background:#e0e0e0; display:flex; align-items:center; justify-content:center; border: 1px solid #eee;">
+                <span style="color:#666;">Another player's drawing</span>
+            </div>
+            <h4 style="margin: 10px 0 5px 0;">Option B</h4>
+        </div>
+        <div class="drawing-card" onclick="selectVote(3)" id="card-3">
+            <div
+                style="width:300px; height:225px; background:#e0e0e0; display:flex; align-items:center; justify-content:center; border: 1px solid #eee;">
+                <span style="color:#666;">Another player's drawing</span>
+            </div>
+            <h4 style="margin: 10px 0 5px 0;">Option C</h4>
+        </div>
+    </div>
+
+    <div style="margin-top: 30px;">
+        <button id="submit-vote-btn" class="btn" style="padding: 12px 24px; font-size: 1.1em;" disabled>Submit
+            Vote</button>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script src="{{ url_for('static', filename='js/game.js') }}"></script>
+{% endblock %}

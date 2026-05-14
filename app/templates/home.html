@@ -12,6 +12,16 @@
     <h1>Hola {{ username }}!</h1>
 </div>
 <div class="btn-container">
-    
+    <form class="" action="/create_lobby" method="post" style="display:inline-block; margin-right:10px;">
+        <button type="submit" name="create_lobby">Create Lobby</button>
+    </form>
+    <a href="/game" style="padding: 5px 10px; background-color: #007bff; color: white; text-decoration: none; border-radius: 3px;">Join Game Demo</a>
+</div>
+<div class="lobby_container">
+    {% if lobbies|length != 0 %}
+        {% for lobby in lobbies %}
+            <p>{{ lobbies[lobby]["host"] }}</p>
+        {% endfor %}
+    {% endif %}
 </div>
 {% endblock %}

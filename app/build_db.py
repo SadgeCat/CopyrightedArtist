@@ -39,7 +39,7 @@ def init_db():
         FOREIGN KEY (game_id) REFERENCES games(id) ON DELETE CASCADE)""")
 
     conn.commit()
-    conn.close()name
+    conn.close()
 
 init_db()
 
@@ -55,7 +55,7 @@ def insert_acc(username, password):
     conn = get_db_connection()
     conn.execute("""INSERT INTO users
         (name, password, created_at, elo, games_won, games_played, total_placement)
-        VALUES 
+        VALUES
         (?, ?, CURRENT_TIMESTAMP, 0, 0, 0, 0)""",
         (username, password))
     conn.commit()
