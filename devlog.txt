@@ -114,7 +114,7 @@ owenZ -- 2026-05-14 1:30
 - add js for game to work i think
 
 zixiQ -- 2026-05-14 11:42
-- fixed and updated websockets funcs
+- fixed and updated socketio funcs
 
 yuhangP -- 2026-05-14 11:43
 - add requirements.txt
@@ -124,3 +124,6 @@ Modifications made to Internal Deadlines:
 - swapped the deadline for setting up a working demo flask sockets and canvas since we got canvas to work first
 - added more deadlines for the future to complete different phases of the actual game
 - have barebones of the actual game done by 5/26 for live demo
+
+zixiQ -- 2026-05-14 23:35
+- fixed lobby.py bugs and properly connected socketio functionality to __init__.py
