@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, session, redirect, url_for, jsonify
-from flask-socketio import SocketIO, join_room, leave_room
+from flask_socketio import SocketIO, join_room, leave_room
 from .build_db import *
 from werkzeug.security import generate_password_hash, check_password_hash
 from .lobby import *
@@ -7,7 +7,7 @@ import uuid
 
 app = Flask(__name__)
 app.secret_key = "secret"
-socketIO = SocketIO(app)
+socketio.init_app(app)
 
 lobby = lobby()
 
@@ -83,7 +83,7 @@ def create_lobby():
     return redirect(f"/lobby/{lobby_id}")
 
 @app.route("/lobby/<lobby_id>", methods=['GET', 'POST'])
-def lobby(lobby_id):
+def lobby_page(lobby_id):
     return render_template('lobby.html',
                            lobby_id = lobby_id,
                            players = lobby[lobby_id]['players'])
