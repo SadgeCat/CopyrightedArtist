@@ -130,3 +130,6 @@ zixiQ -- 2026-05-14 23:35
 
 yuhangP -- 2026-05-14 23:48
 - set up flask route to lobby page and sending user data of lobby from db
+
+zixiQ -- 2026-05-15 11:43
+- added socketio script src to templates, added back leave room to lobby.py
