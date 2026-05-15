@@ -76,9 +76,15 @@ def home():
 @app.route("/create_lobby", methods=['GET', 'POST'])
 def create_lobby():
     acc = get_user(session["username"])
-    lobby_id = uuid.uuid1()
+    lobby_id = uuid.uuid4().int
     lobby.create_lobby(acc["id"], lobby_id)
-    return redirect("/home")
+    return redirect(f"/lobby/{lobby_id}")
+
+@app.route("/lobby/<lobby_id>", methods=['GET', 'POST'])
+def lobby(lobby_id):
+    return render_template('lobby.html',
+                           lobby_id = lobby_id,
+                           players = lobby[lobby_id]['players'])
 
 
 @app.route("/profile", methods=['GET', 'POST'])
