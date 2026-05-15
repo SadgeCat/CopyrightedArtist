@@ -11,7 +11,7 @@
         <ul id="players-list" style="list-style-type: none; padding: 0;">
             {% if players %}
             {% for player in players %}
-            <li style="padding: 10px; border-bottom: 1px solid #ddd;">{{ player }}</li>
+            <li style="padding: 10px; border-bottom: 1px solid #ddd;">{{ player['name'] }}</li>
             {% endfor %}
             {% else %}
             <li style="padding: 10px; border-bottom: 1px solid #ddd;">Player 1 (You)</li>

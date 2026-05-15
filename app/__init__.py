@@ -9,7 +9,7 @@ app = Flask(__name__)
 app.secret_key = "secret"
 socketio.init_app(app)
 
-lobby = lobby()
+game_lobbies = lobby()
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
@@ -70,7 +70,7 @@ def login():
 
 @app.route("/home", methods=['GET', 'POST'])
 def home():
-    lobbies = lobby.get_lobbies()
+    lobbies = game_lobbies.get_lobbies()
     return render_template('home.html',
                            username = session["username"],
                            lobbies = lobbies)
@@ -79,14 +79,18 @@ def home():
 def create_lobby():
     acc = get_user(session["username"])
     lobby_id = uuid.uuid4().int
-    lobby.create_lobby(acc["id"], lobby_id)
+    game_lobbies.create_lobby(acc["id"], lobby_id)
     return redirect(f"/lobby/{lobby_id}")
 
-@app.route("/lobby/<lobby_id>", methods=['GET', 'POST'])
-def lobby_page(lobby_id):
+@app.route("/lobby/<int:lobby_id>", methods=['GET', 'POST'])
+def lobby(lobby_id):
+    lobbies = game_lobbies.get_lobbies()
+    players_ids = lobbies[lobby_id]['players']
+    players = get_all_user(players_ids)
     return render_template('lobby.html',
                            lobby_id = lobby_id,
-                           players = lobby[lobby_id]['players'])
+                           players_ids = players_ids,
+                           players = players)
 
 
 @app.route("/profile", methods=['GET', 'POST'])
