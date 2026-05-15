@@ -51,9 +51,13 @@ def get_user(username):
     return user
 
 def get_all_user(ids):
+    if not ids:
+        return []
     conn = get_db_connection()
     c = conn.cursor()
-    users = c.execute("SELECT * FROM users WHERE id IN ?", (ids,)).fetchall()
+    question_marks = ','.join(['?'] * len(ids))
+    query = f"SELECT * FROM users WHERE id IN ({question_marks})"
+    users = c.execute(query, tuple(ids)).fetchall()
     conn.close()
     return users
 
