@@ -50,6 +50,13 @@ def get_user(username):
     conn.close()
     return user
 
+def get_all_user(ids):
+    conn = get_db_connection()
+    c = conn.cursor()
+    users = c.execute("SELECT * FROM users WHERE id IN ?", (ids,)).fetchall()
+    conn.close()
+    return users
+
 # add signed in acc to db
 def insert_acc(username, password):
     conn = get_db_connection()

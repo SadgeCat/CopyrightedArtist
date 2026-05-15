@@ -80,13 +80,15 @@ def create_lobby():
     game_lobbies.create_lobby(acc["id"], lobby_id)
     return redirect(f"/lobby/{lobby_id}")
 
-@app.route("/lobby/<lobby_id>", methods=['GET', 'POST'])
+@app.route("/lobby/<int:lobby_id>", methods=['GET', 'POST'])
 def lobby(lobby_id):
-    lobby_id = int(lobby_id)
     lobbies = game_lobbies.get_lobbies()
+    players_ids = lobbies[lobby_id]['players']
+    players = get_all_user(players_ids)
     return render_template('lobby.html',
                            lobby_id = lobby_id,
-                           players = lobbies[lobby_id]['players'])
+                           players_ids = players_ids,
+                           players = players)
 
 
 @app.route("/profile", methods=['GET', 'POST'])
