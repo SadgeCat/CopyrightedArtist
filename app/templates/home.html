@@ -19,8 +19,8 @@
 </div>
 <div class="lobby_container">
     {% if lobbies|length != 0 %}
-        {% for lobby in lobbies %}
-            <p>{{ lobbies[lobby]["host"] }}</p>
+        {% for lobby_id in lobbies %}
+            <li><a href="/lobby/{{ lobby_id }}">{{ lobby_id }} || host: {{ lobbies[lobby_id]['host'] }}</a></li>
         {% endfor %}
     {% endif %}
 </div>
