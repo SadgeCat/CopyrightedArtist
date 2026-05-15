@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, session, redirect, url_for, jsonify
+from flask_socketio import SocketIO, join_room, leave_room
 from .build_db import *
 from werkzeug.security import generate_password_hash, check_password_hash
 from .lobby import *
@@ -6,6 +7,7 @@ import uuid
 
 app = Flask(__name__)
 app.secret_key = "secret"
+socketio.init_app(app)
 
 game_lobbies = lobby()
 
@@ -107,4 +109,4 @@ def error():
 
 if __name__ == "__main__":
     app.debug = False
-    app.run(host='0.0.0.0', port=5001)
+    socketio.run(app, host = "0.0.0.0", port = 5001, debug=True)
