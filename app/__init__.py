@@ -7,7 +7,7 @@ import uuid
 app = Flask(__name__)
 app.secret_key = "secret"
 
-lobby = lobby()
+game_lobbies = lobby()
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
@@ -68,7 +68,7 @@ def login():
 
 @app.route("/home", methods=['GET', 'POST'])
 def home():
-    lobbies = lobby.get_lobbies()
+    lobbies = game_lobbies.get_lobbies()
     return render_template('home.html',
                            username = session["username"],
                            lobbies = lobbies)
@@ -77,14 +77,16 @@ def home():
 def create_lobby():
     acc = get_user(session["username"])
     lobby_id = uuid.uuid4().int
-    lobby.create_lobby(acc["id"], lobby_id)
+    game_lobbies.create_lobby(acc["id"], lobby_id)
     return redirect(f"/lobby/{lobby_id}")
 
 @app.route("/lobby/<lobby_id>", methods=['GET', 'POST'])
 def lobby(lobby_id):
+    lobby_id = int(lobby_id)
+    lobbies = game_lobbies.get_lobbies()
     return render_template('lobby.html',
                            lobby_id = lobby_id,
-                           players = lobby[lobby_id]['players'])
+                           players = lobbies[lobby_id]['players'])
 
 
 @app.route("/profile", methods=['GET', 'POST'])
