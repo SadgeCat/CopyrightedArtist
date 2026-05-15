@@ -1,4 +1,4 @@
-from flask_socketio import SocketIO, join_room, send
+from flask_socketio import SocketIO, join_room, leave_room, send
 
 socketio = SocketIO()
 
@@ -53,3 +53,10 @@ class lobby:
         room = data['room']
         join_room(room)
         send(userID + ' has entered the lobby.', to=room)
+        
+    @socketio.on('leave')
+    def on_leave(data):
+        userID = data['userID']
+        room = data['room']
+        leave_room(room)
+        send(userID + ' has left the lobby.', to=room)
