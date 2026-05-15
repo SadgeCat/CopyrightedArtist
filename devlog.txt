@@ -127,3 +127,6 @@ Modifications made to Internal Deadlines:
 
 zixiQ -- 2026-05-14 23:35
 - fixed lobby.py bugs and properly connected socketio functionality to __init__.py
+
+yuhangP -- 2026-05-14 23:48
+- set up flask route to lobby page and sending user data of lobby from db
