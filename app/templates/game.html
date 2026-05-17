@@ -116,6 +116,36 @@
     </div>
 </div>
 
+<!-- Phase 2: Copying -->
+<div id="drawing-phase" class="game-phase active-phase">
+    <h2>Copy this drawing!</h2>
+    <h3>Time left: <span id="timer">60</span>s</h3>
+
+    <div class="canvas-container">
+        <!-- img to copy -->
+        <img id="reference-image">
+    </div>
+
+    <div class="canvas-container">
+        <!-- 800x600 is standard 4:3 aspect ratio -->
+        <canvas id="copy-canvas" width="800" height="600"></canvas>
+    </div>
+
+    <div class="drawing-tools">
+        <div>
+            <label for="color-picker">Color: </label>
+            <input type="color" id="color-picker" value="#000000">
+        </div>
+
+        <div>
+            <label for="brush-size">Brush Size: </label>
+            <input type="range" id="brush-size" min="1" max="30" value="5">
+        </div>
+
+        <button id="clear-btn" class="btn" style="background-color: #dc3545;">Clear</button>
+        <button id="submit-copy-btn" class="btn" style="background-color: #28a745;">Submit Drawing</button>
+    </div>
+</div>
 
 <div id="voting-phase" class="game-phase">
     <h2>Which one is the REAL drawing?</h2>

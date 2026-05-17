@@ -2,14 +2,28 @@ document.addEventListener('DOMContentLoaded', () => {
     const drawingPhase = document.getElementById('drawing-phase');
     const votingPhase = document.getElementById('voting-phase');
 
+    const phases = {
+        drawing: document.getElementById("drawing-phase"),
+        copying: document.getElementById("copying-phase"),
+        voting: document.getElementById("voting-phase")
+    };
 
-    const canvas = document.getElementById('drawing-canvas');
-    if (canvas) {
+    let curPhase = "drawing";
+    function switchPhase(newPhase) {
+        phases.forEach(phase => {
+            phase.classList.remove("active-phase");
+        })
+        phases[newPhase].classList.add("active-phase");
+        curPhase = newPhase;
+    }
+
+    function createCanvas(canvasID){
+        const canvas = document.getElementById('drawing-canvas');
+        if (!canvas) return null;
+        
         const ctx = canvas.getContext('2d');
         const colorPicker = document.getElementById('color-picker');
         const brushSize = document.getElementById('brush-size');
-        const clearBtn = document.getElementById('clear-btn');
-        const submitDrawingBtn = document.getElementById('submit-drawing-btn');
 
 
         ctx.fillStyle = '#ffffff';
@@ -71,24 +85,38 @@ document.addEventListener('DOMContentLoaded', () => {
             lastY = pos.y;
         }
 
-        clearBtn.addEventListener('click', () => {
+        return {canvas,ctx};
+    }
+
+    const drawingCanvas = setupCanvas("drawing-canvas");
+    const copyCanvas = setupCanvas("copy-canvas");
+    const clearBtn = document.getElementById('clear-btn');
+    const submitDrawingBtn = document.getElementById('submit-drawing-btn');
+    const submitCopyBtn = document.getElementById('submit-copy-btn');
+    clearBtn.addEventListener('click', () => {
+            const canvas = drawingCanvas.canvas;
+            const ctx = drawingCanvas.ctx;
             ctx.fillStyle = '#ffffff';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
         });
-        submitDrawingBtn.addEventListener('click', () => {
-            const dataUrl = canvas.toDataURL('image/png');
+    submitDrawingBtn.addEventListener('click', () => {
+        const dataUrl = drawingCanvas.canvas.toDataURL('image/png');
 
-            drawingPhase.classList.remove('active-phase');
-            votingPhase.classList.add('active-phase');
+        // drawingPhase.classList.remove('active-phase');
+        // votingPhase.classList.add('active-phase');
 
-            const img1 = document.getElementById('drawing-img-1');
-            if (img1) {
-                img1.src = dataUrl;
-                img1.style.backgroundColor = '#ffffff';
-            }
+        const refImg = document.getElementById("reference-image")
+        refImg.src = dataUrl;
 
-        });
-    }
+        const img1 = document.getElementById('drawing-img-1');
+        if (img1) {
+            img1.src = dataUrl;
+            img1.style.backgroundColor = '#ffffff';
+        }
+
+        switchPhase("copying");
+
+    });
 
     let selectedVoteId = null;
 
