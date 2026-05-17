@@ -133,3 +133,6 @@ yuhangP -- 2026-05-14 23:48
 
 zixiQ -- 2026-05-15 11:43
 - added socketio script src to templates, added back leave room to lobby.py
+
+yuhangP -- 2026-05-17 18:47
+- added working copying phase to the game page, need to fix formatting but nothing breaks
