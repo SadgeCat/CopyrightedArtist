@@ -93,12 +93,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const clearBtn = document.getElementById('clear-btn');
     const submitDrawingBtn = document.getElementById('submit-drawing-btn');
     const submitCopyBtn = document.getElementById('submit-copy-btn');
+
     clearBtn.addEventListener('click', () => {
             const canvas = drawingCanvas.canvas;
             const ctx = drawingCanvas.ctx;
             ctx.fillStyle = '#ffffff';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
         });
+
     submitDrawingBtn.addEventListener('click', () => {
         const dataUrl = drawingCanvas.canvas.toDataURL('image/png');
 
@@ -117,6 +119,21 @@ document.addEventListener('DOMContentLoaded', () => {
         switchPhase("copying");
 
     });
+
+    submitCopyBtn.addEventListener('click', () => {
+        const copyUrl = copyCanvas.canvas.toDataURL('image/png');
+
+        // currently hardcoded to img2 but should change later
+        const img2 = document.getElementById('drawing-img-2');
+        if (img2) {
+            img2.src = copyUrl;
+            img2.style.backgroundColor = '#ffffff';
+        }
+
+        switchPhase("voting");
+    })
+
+    
 
     let selectedVoteId = null;
 
