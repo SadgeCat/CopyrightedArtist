@@ -71,12 +71,9 @@ def login():
 @app.route("/home", methods=['GET', 'POST'])
 def home():
     lobbies = game_lobbies.get_lobbies()
-    players_ids = lobbies[lobby_id]['players']
-    players = get_all_user(players_ids)
     return render_template('home.html',
                            username = session["username"],
-                           lobbies = lobbies,
-                           players = players)
+                           lobbies = lobbies)
 
 @app.route("/create_lobby", methods=['GET', 'POST'])
 def create_lobby():

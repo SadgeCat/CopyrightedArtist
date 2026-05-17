@@ -16,16 +16,18 @@ class lobby:
     def get_games(self):
         return self.games
 
-    def create_lobby(self, host_id, lobby_id):
+    def create_lobby(self, host_id, host_name, lobby_id):
         self.lobbies[lobby_id] = {
             'players': [host_id],
-            'host': [host_id]
+            'host': host_id,
+            'host_name': host_name
         }
 
-    def create_game(self, host_id, game_id):
+    def create_game(self, host_id, host_name, game_id):
         self.games[game_id] = {
             'players' : [host_id],
-            'host' : [host_id]
+            'host' : host_id,
+            'host_name': host_name
         }
 
     def join_lobby(self, user_id, lobby_id):
@@ -34,7 +36,7 @@ class lobby:
             socketio.emit('join', {'data': {'userID': user_id, 'room': lobby_id}})
 
     def start_lobby(self, lobby_id):
-        self.create_game(self.lobbies[lobby_id]['host'], lobby_id)
+        self.create_game(self.lobbies[lobby_id]['host'], self.lobbies[lobby_id]['host_name'], lobby_id)
         self.game_count += 1
         game_id = self.game_count
         socketio.emit('start', {'data': {'userIDs': self.lobbies[lobby_id]['players'], 'room': game_id}})
