@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // drawingPhase.classList.remove('active-phase');
         // votingPhase.classList.add('active-phase');
 
-        const refImg = document.getElementById("reference-image")
+        const refImg = document.getElementById("reference-image");
         refImg.src = dataUrl;
 
         const img1 = document.getElementById('drawing-img-1');
