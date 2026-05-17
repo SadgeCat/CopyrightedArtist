@@ -10,15 +10,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let curPhase = "drawing";
     function switchPhase(newPhase) {
-        phases.forEach(phase => {
+        Object.values(phases).forEach(phase => {
             phase.classList.remove("active-phase");
         })
         phases[newPhase].classList.add("active-phase");
+
+        drawingTool = document.getElementById("drawing-tool");
+        if(newPhase === "drawing" || newPhase === "copying"){
+            drawingTool.style.display = "flex";
+        } else{
+            drawingTool.style.display = "none";
+        }
+
         curPhase = newPhase;
     }
 
     function createCanvas(canvasID){
-        const canvas = document.getElementById('drawing-canvas');
+        const canvas = document.getElementById(canvasID);
         if (!canvas) return null;
         
         const ctx = canvas.getContext('2d');
@@ -88,8 +96,8 @@ document.addEventListener('DOMContentLoaded', () => {
         return {canvas,ctx};
     }
 
-    const drawingCanvas = setupCanvas("drawing-canvas");
-    const copyCanvas = setupCanvas("copy-canvas");
+    const drawingCanvas = createCanvas("drawing-canvas");
+    const copyCanvas = createCanvas("copy-canvas");
     const clearBtn = document.getElementById('clear-btn');
     const submitDrawingBtn = document.getElementById('submit-drawing-btn');
     const submitCopyBtn = document.getElementById('submit-copy-btn');
@@ -133,7 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
         switchPhase("voting");
     })
 
-    
+
 
     let selectedVoteId = null;
 
@@ -172,16 +180,30 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    const timerElement = document.getElementById('timer');
-    if (timerElement) {
+    const drawingTimer = document.getElementById('drawing-timer');
+    if (drawingTimer) {
         let timeLeft = 60;
         const timerInterval = setInterval(() => {
             timeLeft--;
-            timerElement.textContent = timeLeft;
+            drawingTimer.textContent = timeLeft;
             if (timeLeft <= 0) {
                 clearInterval(timerInterval);
-                if (canvas && drawingPhase.classList.contains('active-phase')) {
+                if (drawingCanvas.canvas && phases["drawing"].classList.contains('active-phase')) {
                     document.getElementById('submit-drawing-btn').click();
+                }
+            }
+        }, 1000);
+    }
+    const copyTimer = document.getElementById('copy-timer');
+    if (copyTimer) {
+        let timeLeft = 60;
+        const timerInterval = setInterval(() => {
+            timeLeft--;
+            copyTimer.textContent = timeLeft;
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                if (copyCanvas.canvas && phases["copying"].classList.contains('active-phase')) {
+                    document.getElementById('submit-copy-btn').click();
                 }
             }
         }, 1000);
