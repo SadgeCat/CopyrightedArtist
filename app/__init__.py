@@ -11,6 +11,23 @@ socketio.init_app(app)
 
 game_lobbies = lobby()
 
+@socketio.on('join')
+def on_join(data):
+    lobby_id = int(data['lobby_id'])
+    join_room(str(lobby_id))
+    acc = get_user(session["username"])
+    if acc and lobby_id in game_lobbies.get_lobbies():
+        if acc["id"] not in game_lobbies.get_lobbies()[lobby_id]['players']:
+            game_lobbies.join_lobby(acc["id"], lobby_id)
+            emit('player_joined', {'username': session["username"]}, to=str(lobby_id))
+
+@socketio.on('start')
+def on_start(data):
+    lobby_id = int(data['lobby_id'])
+    join_room(lobby_id)
+    game_lobbies.start_lobby(lobby_id)
+    emit('game_started', {}, to=lobby_id)
+
 @app.route("/", methods=['GET', 'POST'])
 def index():
     if 'username' in session:
@@ -57,7 +74,7 @@ def login():
 
         acc = get_user(username)
 
-        if insert_acc is None:
+        if acc is None:
             return render_template("login.html", error="Username or password is incorrect")
 
         if acc and check_password_hash(acc["password"], password):
@@ -78,20 +95,26 @@ def home():
 @app.route("/create_lobby", methods=['GET', 'POST'])
 def create_lobby():
     username = session["username"]
+    # print(f"Session username: {username}")
     acc = get_user(username)
+    # print(f"DB result: {acc}")
     lobby_id = uuid.uuid4().int
     game_lobbies.create_lobby(acc["id"], username, lobby_id)
     return redirect(f"/lobby/{lobby_id}")
 
 @app.route("/lobby/<int:lobby_id>", methods=['GET', 'POST'])
-def lobby(lobby_id):
+def lobby_route(lobby_id):
     lobbies = game_lobbies.get_lobbies()
-    players_ids = lobbies[lobby_id]['players']
+    lobby_data = lobbies[lobby_id]
+    players_ids = lobby_data['players']
     players = get_all_user(players_ids)
+    acc = get_user(session["username"])
+    is_host = acc["id"] == lobby_data["host"]
     return render_template('lobby.html',
                            lobby_id = lobby_id,
                            players_ids = players_ids,
-                           players = players)
+                           players = players,
+                           is_host = is_host)
 
 
 @app.route("/profile", methods=['GET', 'POST'])

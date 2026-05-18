@@ -21,14 +21,45 @@
     </div>
 
     <div style="margin-top: 20px;">
-        {% if is_host is defined and not is_host %}
-        <p>Waiting for host to start the game...</p>
+        {% if is_host %}
+        <button id="start-btn" class="btn" style="padding: 10px 20px; font-size: 18px; cursor: pointer;">
+            Start Game
+        </button>
         {% else %}
-        <form action="/game" method="get">
-            <button type="submit" class="btn" style="padding: 10px 20px; font-size: 18px; cursor: pointer;">Start
-                Game</button>
-        </form>
+        <p>Waiting for host to start the game...</p>
         {% endif %}
     </div>
 </div>
+
+<!-- SocketIO client -->
+<script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+<script>
+    const socket = io();
+    const lobbyId = "{{ lobby_id }}";
+
+    // Join the lobby room as soon as the page loads
+    socket.emit('join', { lobby_id: lobbyId });
+
+    // When a new player joins add to list
+    socket.on('player_joined', (data) => {
+        const li = document.createElement('li');
+        li.style = 'padding: 10px; border-bottom: 1px solid #ddd;';
+        li.textContent = data.username;
+        document.getElementById('players-list').appendChild(li);
+    });
+
+    // Redirect to game when host starts
+    socket.on('game_started', (data) => {
+        window.location.href = '/game';
+    });
+
+    // Host-only: start button
+    const startBtn = document.getElementById('start-btn');
+    if (startBtn) {
+        startBtn.addEventListener('click', () => {
+            socket.emit('start', { lobby_id: lobbyId });
+        });
+    }
+</script>
+
 {% endblock %}
