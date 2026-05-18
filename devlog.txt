@@ -136,3 +136,6 @@ zixiQ -- 2026-05-15 11:43
 
 yuhangP -- 2026-05-17 18:47
 - added working copying phase to the game page, need to fix formatting but nothing breaks
+
+zixiQ -- 2026-05-17 21:46
+- integrated socketio into lobby.html js, moved event handlers to __init__.py and fixed some logic for the rooms
