@@ -20,8 +20,7 @@ Dev3: Zixi Q
 5. **Install dependencies**: `pip install -r requirements.txt`
 
 ### Launch Codes:
-In the terminal, run the following commands:
-- `~$ python app/build_db.py`
+In the terminal, run the following command from the CopyrightedArtist directory:
 - `~$ python -m app.__init__`
 
 ### Launch Website:
