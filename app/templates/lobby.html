@@ -60,6 +60,10 @@
             socket.emit('start', { lobby_id: lobbyId });
         });
     }
+
+    window.addEventListener('beforeunload', () => {
+    	socket.disconnect();
+    });
 </script>
 
 {% endblock %}
