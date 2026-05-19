@@ -13,20 +13,20 @@ game_lobbies = lobby()
 
 @socketio.on('join')
 def on_join(data):
-    lobby_id = int(data['lobby_id'])
-    join_room(str(lobby_id))
+    lobby_id = data['lobby_id']
+    join_room(lobby_id)
     acc = get_user(session["username"])
     if acc and lobby_id in game_lobbies.get_lobbies():
         if acc["id"] not in game_lobbies.get_lobbies()[lobby_id]['players']:
             game_lobbies.join_lobby(acc["id"], lobby_id)
-            emit('player_joined', {'username': session["username"]}, to=str(lobby_id))
+            emit('player_joined', {'username': session["username"]}, to=lobby_id)
 
 @socketio.on('start')
 def on_start(data):
-    lobby_id = int(data['lobby_id'])
+    lobby_id = data['lobby_id']
     join_room(lobby_id)
     game_lobbies.start_lobby(lobby_id)
-    emit('game_started', {}, to=lobby_id)
+    emit('game_started', {'game_id': lobby_id}, to=lobby_id)
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
@@ -98,11 +98,11 @@ def create_lobby():
     # print(f"Session username: {username}")
     acc = get_user(username)
     # print(f"DB result: {acc}")
-    lobby_id = uuid.uuid4().int
+    lobby_id = str(uuid.uuid4().int)[:6]
     game_lobbies.create_lobby(acc["id"], username, lobby_id)
     return redirect(f"/lobby/{lobby_id}")
 
-@app.route("/lobby/<int:lobby_id>", methods=['GET', 'POST'])
+@app.route("/lobby/<lobby_id>", methods=['GET', 'POST'])
 def lobby_route(lobby_id):
     lobbies = game_lobbies.get_lobbies()
     lobby_data = lobbies[lobby_id]
@@ -123,9 +123,10 @@ def profile():
     return render_template('profile.html',
                            user = user)
 
-@app.route("/game", methods=['GET', 'POST'])
-def game():
-    return render_template('game.html')
+@app.route("/game/<game_id>", methods=['GET', 'POST'])
+def game(game_id):
+    return render_template('game.html',
+                           game_id = game_id)
 
 @app.route("/error", methods=['GET', 'POST'])
 def error():

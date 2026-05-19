@@ -1,6 +1,6 @@
 from flask_socketio import SocketIO, join_room, emit
 
-socketio = SocketIO()
+socketio = SocketIO(async_mode='gevent')
 
 class lobby:
     start = False
