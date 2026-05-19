@@ -146,3 +146,6 @@ zixiQ, yuhangP, andrewT -- 2026-05-18 11:45
 yuhangP -- 2026-05-18 20:31
 - fixed start game only directing host to game page (lobby btn doesn't work on live server tho cuz keyerror)
 - added ids to game page
+
+zixiQ -- 2026-05-18 23:58
+- fixed session invalid issue on fakeartist.games by setting one async worker, need to update requirements.txt with pip install gevent
