@@ -140,5 +140,9 @@ yuhangP -- 2026-05-17 18:47
 zixiQ -- 2026-05-17 21:46
 - integrated socketio into lobby.html js, moved event handlers to __init__.py and fixed some logic for the rooms
 
-zixiQ, yuhangP, andrewT -- 2026-05-18
+zixiQ, yuhangP, andrewT -- 2026-05-18 11:45
 - fixing live site
+
+yuhangP -- 2026-05-18 20:31
+- fixed start game only directing host to game page
+- added ids to game page
