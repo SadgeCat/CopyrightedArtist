@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const drawingPhase = document.getElementById('drawing-phase');
     const votingPhase = document.getElementById('voting-phase');
-
+    const socket = io();
     const phases = {
         drawing: document.getElementById("drawing-phase"),
         copying: document.getElementById("copying-phase"),
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function createCanvas(canvasID){
         const canvas = document.getElementById(canvasID);
         if (!canvas) return null;
-        
+
         const ctx = canvas.getContext('2d');
         const colorPicker = document.getElementById('color-picker');
         const brushSize = document.getElementById('brush-size');
@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const refImg = document.getElementById("reference-image");
         refImg.src = dataUrl;
-
+        socket.emit("image", {'game_id': GAME_ID, 'prompt': PROMPT, 'username': USERNAME , 'image': dataUrl})
         const img1 = document.getElementById('drawing-img-1');
         if (img1) {
             img1.src = dataUrl;
@@ -129,7 +129,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     submitCopyBtn.addEventListener('click', () => {
-        const copyUrl = copyCanvas.canvas.toDataURL('image/png');
 
         // currently hardcoded to img2 but should change later
         const img2 = document.getElementById('drawing-img-2');

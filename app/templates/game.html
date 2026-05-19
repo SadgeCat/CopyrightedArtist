@@ -166,5 +166,13 @@
 {% endblock %}
 
 {% block js %}
+<script>
+const GAME_ID = {{game_id}}
+const PROMPT = {{prompt}}
+const USERNAME = {{username}}
+const copyUrl = {{copyURL}};
+</script>
+
+<script src="/socket.io/socket.io.js"></script>
 <script src="{{ url_for('static', filename='js/game.js') }}"></script>
 {% endblock %}
