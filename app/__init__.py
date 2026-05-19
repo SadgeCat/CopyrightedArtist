@@ -126,6 +126,7 @@ def profile():
 @app.route("/game/<game_id>", methods=['GET', 'POST'])
 def game(game_id):
     return render_template('game.html',
+                           username = session['username'],
                            game_id = game_id)
 
 @app.route("/error", methods=['GET', 'POST'])
