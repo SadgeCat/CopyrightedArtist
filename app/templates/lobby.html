@@ -50,7 +50,7 @@
 
     // Redirect to game when host starts
     socket.on('game_started', (data) => {
-        window.location.href = '/game';
+        window.location.href = `/game/${data.game_id}`;
     });
 
     // Host-only: start button

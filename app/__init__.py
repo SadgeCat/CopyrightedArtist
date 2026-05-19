@@ -26,7 +26,7 @@ def on_start(data):
     lobby_id = data['lobby_id']
     join_room(lobby_id)
     game_lobbies.start_lobby(lobby_id)
-    emit('game_started', {}, to=lobby_id)
+    emit('game_started', {'game_id': lobby_id}, to=lobby_id)
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
@@ -123,9 +123,10 @@ def profile():
     return render_template('profile.html',
                            user = user)
 
-@app.route("/game", methods=['GET', 'POST'])
-def game():
-    return render_template('game.html')
+@app.route("/game/<game_id>", methods=['GET', 'POST'])
+def game(game_id):
+    return render_template('game.html',
+                           game_id = game_id)
 
 @app.route("/error", methods=['GET', 'POST'])
 def error():
