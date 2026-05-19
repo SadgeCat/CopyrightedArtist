@@ -28,6 +28,10 @@ def on_start(data):
     game_lobbies.start_lobby(lobby_id)
     emit('game_started', {'game_id': lobby_id}, to=lobby_id)
 
+@socketio.on('image')
+def get_image(data):
+    game_lobbies.add_image(data['game_id'], data['prompt'], data['username'], data['image'])
+
 @app.route("/", methods=['GET', 'POST'])
 def index():
     if 'username' in session:
