@@ -163,4 +163,7 @@ def error():
 
 if __name__ == "__main__":
     app.debug = False
-    socketio.run(app, host = "0.0.0.0", port = 5001, debug=True)
+    host = "127.0.0.1"
+    port = "5001"
+    print(f"Flask app starting, served at http://{host}:{port}")
+    socketio.run(app, host = "0.0.0.0", port = 5001, debug=True, use_reloader=False)
