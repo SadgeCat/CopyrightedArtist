@@ -98,13 +98,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const drawingCanvas = createCanvas("drawing-canvas");
     const copyCanvas = createCanvas("copy-canvas");
-    const clearBtn = document.getElementById('clear-btn');
+    const clearDrawingBtn = document.getElementById('clear1-btn');
+    const clearCopyBtn = document.getElementById('clear2-btn');
     const submitDrawingBtn = document.getElementById('submit-drawing-btn');
     const submitCopyBtn = document.getElementById('submit-copy-btn');
 
-    clearBtn.addEventListener('click', () => {
+    clearDrawingBtn.addEventListener('click', () => {
             const canvas = drawingCanvas.canvas;
             const ctx = drawingCanvas.ctx;
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        });
+
+    clearCopyBtn.addEventListener('click', () => {
+            const canvas = copyCanvas.canvas;
+            const ctx = copyCanvas.ctx;
             ctx.fillStyle = '#ffffff';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
         });

@@ -100,7 +100,7 @@
         <canvas id="drawing-canvas" width="800" height="600"></canvas>
     </div>
 
-    <button id="clear-btn" class="btn" style="background-color: #dc3545;">Clear</button>
+    <button id="clear1-btn" class="btn" style="background-color: #dc3545;">Clear</button>
     <button id="submit-drawing-btn" class="btn" style="background-color: #28a745;">Submit Drawing</button>
 </div>
 
@@ -119,7 +119,7 @@
         <canvas id="copy-canvas" width="800" height="600"></canvas>
     </div>
 
-    <button id="clear-btn" class="btn" style="background-color: #dc3545;">Clear</button>
+    <button id="clear2-btn" class="btn" style="background-color: #dc3545;">Clear</button>
     <button id="submit-copy-btn" class="btn" style="background-color: #28a745;">Submit Drawing</button>
 </div>
 
@@ -167,10 +167,10 @@
 
 {% block js %}
 <script>
-const GAME_ID = {{game_id}}
-const PROMPT = {{prompt}}
-const USERNAME = {{username}}
-const copyUrl = {{copyURL}};
+const GAME_ID = "{{game_id}}";
+const PROMPT = "{{prompt}}";
+const USERNAME = "{{username}}";
+const copyUrl = "{{copyURL}}";
 </script>
 
 <script src="/socket.io/socket.io.js"></script>
