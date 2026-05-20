@@ -61,6 +61,18 @@
         });
     }
 
+    socket.on('player_left', (data) => {
+        const items = document.querySelectorAll('#players-list li');
+        items.forEach(li => {
+            if (li.textContent === data.username) li.remove();
+        });
+    });
+
+    socket.on('new_host', () => {
+        // reload so new host updates correctly
+        window.location.reload();
+    });
+
     window.addEventListener('beforeunload', () => {
     	socket.disconnect();
     });

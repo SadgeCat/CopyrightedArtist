@@ -22,6 +22,10 @@ class lobby:
             'host': host_id,
             'host_name': host_name
         }
+    
+    def delete_lobby(self, lobby_id):
+        if lobby_id in self.lobbies:
+            del self.lobbies[lobby_id]
 
     def create_game(self, host_id, host_name, game_id):
         self.games[game_id] = {

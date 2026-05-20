@@ -27,6 +27,30 @@ def on_start(data):
     join_room(lobby_id)
     game_lobbies.start_lobby(lobby_id)
     emit('game_started', {'game_id': lobby_id}, to=lobby_id)
+    game_lobbies.delete_lobby(lobby_id)
+
+@socketio.on('disconnect')
+def on_disconnect():
+    username = session.get("username")
+    if not username: # in case disconnect occurs bc user logs out rather than just closing the tab
+        return
+    acc = get_user(username)
+    if not acc:
+        return
+    
+    for lobby_id, lobby_data in list(game_lobbies.get_lobbies().items()):
+        if acc["id"] in lobby_data['players']:
+            lobby_data['players'].remove(acc["id"])
+            emit('player_left', {'username': username}, to=lobby_id)
+            
+            # if lobby is empty, delete it
+            if not lobby_data['players']:
+                game_lobbies.delete_lobby(lobby_id)
+            # if host left, assign new host
+            elif lobby_data['host'] == acc["id"]:
+                lobby_data['host'] = lobby_data['players'][0]
+                emit('new_host', {'host_id': lobby_data['host']}, to=lobby_id)
+            break
 
 @socketio.on('image')
 def get_image(data):
