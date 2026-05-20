@@ -150,5 +150,9 @@ yuhangP -- 2026-05-18 20:31
 zixiQ -- 2026-05-18 23:58
 - fixed session invalid issue on fakeartist.games by setting one async worker, need to update requirements.txt with pip install gevent
 
-zixiQ -- 2026-05-18 11:42
+zixiQ -- 2026-05-19 11:42
 - helped yuhang fix gunicorn issues on fakeartist.app and cleaned up file system by ~800 MB
+
+zixiQ -- 2026-05-19 23:03
+- added deleting a lobby when everyone leaves (or game starts)
+- added disconnecting a player when they leave
