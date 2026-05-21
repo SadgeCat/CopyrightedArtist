@@ -63,14 +63,14 @@ Features intentionally excluded:
 
 | Layer | Selected Tool |
 |---|---|
-| Backend Framework | Flask |
+| Backend Framework | Flask (sockets) |
 | Frontend Framework | tailwind |
 | Database | SQLite |
 | Authentication | Flask sessions |
 | ORM / DB Library | none |
 
 ## Why This Stack Was Chosen
-Flask and SQLite for simplicity since all the devos knows very well on how to use it.  
+Flask and SQLite for simplicity since all the devos are very familiar with it.  
 
 ---
 
