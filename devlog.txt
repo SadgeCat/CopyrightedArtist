@@ -169,3 +169,7 @@ zixiQ -- 2026-05-20 21:08
 - added max players per lobby
 - added join lobby via code
 - added redirects to home and warnings if user joins a full lobby or enters an invalid code
+
+yuhangP, andrewT -- 2026-05-21 11:43
+- added prompts for drawing image phase
+- working on sending original sketches to random users for the players to copy in the next phase
