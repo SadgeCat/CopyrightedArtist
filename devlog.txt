@@ -164,3 +164,8 @@ yuhangP, andrewT -- 2026-05-19 23:40
 yuhangP -- 2026-05-20 20:43
 - update requirements.txt
 - added socket event for when player submit their original sketches and emits data containing sketches of 2 other player for the user to copy
+
+zixiQ -- 2026-05-20 21:08
+- added max players per lobby
+- added join lobby via code
+- added redirects to home and warnings if user joins a full lobby or enters an invalid code
