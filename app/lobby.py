@@ -20,7 +20,8 @@ class lobby:
         self.lobbies[lobby_id] = {
             'players': [host_id],
             'host': host_id,
-            'host_name': host_name
+            'host_name': host_name,
+            'max_players': 2
         }
     
     def delete_lobby(self, lobby_id):
@@ -43,6 +44,7 @@ class lobby:
 
     def get_url(self, game_id, user_id):
         return(self.games[game_id]["images"][2:3])
+    
     def join_lobby(self, user_id, lobby_id):
         if lobby_id in self.lobbies:
             if user_id not in self.lobbies[lobby_id]['players']:

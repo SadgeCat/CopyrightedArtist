@@ -15,6 +15,10 @@
     <form class="" action="/create_lobby" method="post" style="display:inline-block; margin-right:10px;">
         <button type="submit" name="create_lobby">Create Lobby</button>
     </form>
+    <form onsubmit="window.location.href='/lobby/' + document.getElementById('lobby-code').value; return false;">
+        <input id="lobby-code" type="text" placeholder="Enter lobby code" maxlength="6">
+        <button type="submit" class="btn">Join Lobby</button>
+    </form>
     <a href="/game" style="padding: 5px 10px; background-color: #007bff; color: white; text-decoration: none; border-radius: 3px;">Join Game Demo</a>
 </div>
 <div class="lobby_container">
@@ -24,4 +28,29 @@
         {% endfor %}
     {% endif %}
 </div>
+
+<div class="error" id="error"></div>
+
+<script>
+    function joinLobby(e) {
+        e.preventDefault();
+        const code = document.getElementById('lobby-code').value.trim();
+        if (code) window.location.href = '/lobby/' + code;
+    }
+
+    // show error if redirected back
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('error') == 'lobby_full') {
+        showError('Lobby is full!');
+    } else if (params.get('error') == 'invalid_code') {
+        showError('Invalid lobby code!');
+    }
+
+    function showError(message) {
+        const error = document.getElementById('error');
+        error.textContent = message;
+        error.style.display = 'block';
+        setTimeout(() => error.style.display = 'none', 3000);
+    }
+</script>
 {% endblock %}

@@ -48,6 +48,10 @@
         document.getElementById('players-list').appendChild(li);
     });
 
+    socket.on('lobby_full', () => {
+        window.location.href = '/home?error=lobby_full';
+    });
+
     // Redirect to game when host starts
     socket.on('game_started', (data) => {
         window.location.href = `/game/${data.game_id}`;

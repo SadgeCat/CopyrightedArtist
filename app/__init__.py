@@ -17,8 +17,12 @@ def on_join(data):
     lobby_id = data['lobby_id']
     join_room(lobby_id)
     acc = get_user(session["username"])
+    lobby_data = game_lobbies.get_lobbies()[lobby_id]
     if acc and lobby_id in game_lobbies.get_lobbies():
         if acc["id"] not in game_lobbies.get_lobbies()[lobby_id]['players']:
+            if len(lobby_data['players']) >= lobby_data['max_players']:
+                emit('lobby_full', {})
+                return
             game_lobbies.join_lobby(acc["id"], lobby_id)
             emit('player_joined', {'username': session["username"]}, to=lobby_id)
 
@@ -173,6 +177,8 @@ def create_lobby():
 @app.route("/lobby/<lobby_id>", methods=['GET', 'POST'])
 def lobby_route(lobby_id):
     lobbies = game_lobbies.get_lobbies()
+    if lobby_id not in lobbies:
+        return redirect(url_for("home") + "?error=invalid_code")
     lobby_data = lobbies[lobby_id]
     players_ids = lobby_data['players']
     players = get_all_user(players_ids)
@@ -205,5 +211,5 @@ if __name__ == "__main__":
     app.debug = False
     host = "127.0.0.1"
     port = "5001"
-    print(f"Flask app starting, served at http://{host}:{port}")
+    print(f"Flask app starting, served at http://{host}:{port}", flush=True)
     socketio.run(app, host = "0.0.0.0", port = 5001, debug=True, use_reloader=False)
