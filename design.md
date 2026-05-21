@@ -163,14 +163,14 @@ As a person with no friends, I want to obsessively play a multiplayer game so th
 - Profile complete
 - CSS to make pages look nice
 ## Internal Deadlines:
-- Figure out JS canvas and set it up by 5/15
-- Flask sockets for lobbies by 5/18
-- Add start button for lobby host that directs players to the game page by 5/19
+- Figure out JS canvas and set it up by 5/15 (done)
+- Flask sockets for lobbies by 5/18 (done)
+- Add start button for lobby host that directs players to the game page by 5/19 (done)
 - Set up different phases of the game:
   - Phase 1: all players are given a prompt and 60s to draw and save the sketch by 5/21
   - Phase 2: given an original sketch to copy and save the copied sketch by 5/22
-  - Phase 3: go through each drawn prompt, display the 3 sketches and let users vote by 5/23
-  - Finally: sum the scores and display leaderboard by 5/26 for live demo
+  - Phase 3: go through each drawn prompt, display the 3 sketches and let users vote by 5/25
+  - Finally: sum the scores and display leaderboard by 5/28 for live demo
 
 # Completion Criteria (_a.k.a._ "Definition of 'Done'")
 Project is considered complete when all of the following are true:
