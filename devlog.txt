@@ -160,3 +160,6 @@ zixiQ -- 2026-05-19 23:03
 yuhangP, andrewT -- 2026-05-19 23:40
 - began working on sending original sketches to a diff user to copy using sockets
 - renamed duplicate ids in game html and syntax errors on sending js variables
+
+yuhangP -- 2026-05-20 20:43
+- added socket event for when player submit their original sketches and emits data containing sketches of 2 other player for the user to copy
