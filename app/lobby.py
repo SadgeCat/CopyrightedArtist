@@ -1,5 +1,5 @@
 from flask_socketio import SocketIO, join_room, emit
-
+from .game_logic import *
 socketio = SocketIO(async_mode='gevent')
 
 class lobby:
@@ -28,7 +28,7 @@ class lobby:
         if lobby_id in self.lobbies:
             del self.lobbies[lobby_id]
 
-    def create_game(self, host_id, host_name, game_id):
+    def create_game(self, host_id, player_list, host_name, game_id):
         self.games[game_id] = {
             'players' : [host_id],
             'host' : host_id,
@@ -36,8 +36,11 @@ class lobby:
             'original_images': {},
             'copied_images': {},
             'copy_assigments': {},
-            'submissions': {}
+            'submissions': {},
+            'prompts': {}
         }
+        for i in self.games[game_id]['players']:
+            self.games[game_id]['prompts'][i] = random_prompt()
 
     def add_image(self, game_id, prompt, user_id, url):
         self.games[game_id]["images"].append(user_id, url, prompt)
@@ -51,5 +54,8 @@ class lobby:
                 self.lobbies[lobby_id]['players'].append(user_id)
 
     def start_lobby(self, lobby_id):
-        self.create_game(self.lobbies[lobby_id]['host'], self.lobbies[lobby_id]['host_name'], lobby_id)
+        self.create_game(self.lobbies[lobby_id]['host'], self.lobbies[lobby_id]['players'], self.lobbies[lobby_id]['host_name'], lobby_id)
         self.game_count += 1
+
+    def get_prompt(self, game_id, user_id):
+        return self.games[game_id]['prompts'][user_id]

@@ -3,6 +3,7 @@ from flask_socketio import SocketIO, join_room, leave_room
 from .build_db import *
 from werkzeug.security import generate_password_hash, check_password_hash
 from .lobby import *
+from .game_logic import *
 import uuid
 import random
 
@@ -201,7 +202,8 @@ def profile():
 def game(game_id):
     return render_template('game.html',
                            username = session['username'],
-                           game_id = game_id)
+                           game_id = game_id, 
+                           prompt = game_lobbies.get_prompt(game_id, get_user(session["username"])["id"]))
 
 @app.route("/error", methods=['GET', 'POST'])
 def error():
