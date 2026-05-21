@@ -32,7 +32,10 @@ class lobby:
             'players' : [host_id],
             'host' : host_id,
             'host_name': host_name,
-            'images': []
+            'original_images': {},
+            'copied_images': {},
+            'copy_assigments': {},
+            'submissions': {}
         }
 
     def add_image(self, game_id, prompt, user_id, url):
