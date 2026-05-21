@@ -128,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
             "username": USERNAME,
             "prompt": PROMPT,
             "image": dataUrl
-        }}
+        })
         
         const refImg = document.getElementById("reference-image");
         refImg.src = dataUrl;
@@ -139,9 +139,17 @@ document.addEventListener('DOMContentLoaded', () => {
             img1.style.backgroundColor = '#ffffff';
         }
 
-        switchPhase("copying");
+       //  switchPhase("copying");
 
     });
+    
+    let to_copy;
+    let copied_images = {};
+    
+    socket.on("start_copying", (data) => {
+        to_copy = data.to_copy;
+        switchPhase("copying");
+    })
 
     submitCopyBtn.addEventListener('click', () => {
 
@@ -151,6 +159,13 @@ document.addEventListener('DOMContentLoaded', () => {
             img2.src = copyUrl;
             img2.style.backgroundColor = '#ffffff';
         }
+        
+        socket.emit("submit_copy", {
+            "game_id": GAME_ID,
+            "username": USERNAME,
+            "prompt": PROMPT,
+            "copied_images": copied_images
+        })
 
         switchPhase("voting");
     })
