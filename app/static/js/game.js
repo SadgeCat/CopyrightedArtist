@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         phases[newPhase].classList.add("active-phase");
 
-        drawingTool = document.getElementById("drawing-tool");
+        const drawingTool = document.getElementById("drawing-tool");
         if(newPhase === "drawing" || newPhase === "copying"){
             drawingTool.style.display = "flex";
         } else{
