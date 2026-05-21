@@ -122,7 +122,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // drawingPhase.classList.remove('active-phase');
         // votingPhase.classList.add('active-phase');
-
+        
+        socket.emit("submit_original", {
+            "game_id": GAME_ID,
+            "username": USERNAME,
+            "prompt": PROMPT,
+            "image": dataUrl
+        }}
+        
         const refImg = document.getElementById("reference-image");
         refImg.src = dataUrl;
         socket.emit("image", {'game_id': GAME_ID, 'prompt': PROMPT, 'username': USERNAME , 'image': dataUrl})
