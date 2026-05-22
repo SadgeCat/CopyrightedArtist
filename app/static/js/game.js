@@ -129,45 +129,66 @@ document.addEventListener('DOMContentLoaded', () => {
             "prompt": PROMPT,
             "image": dataUrl
         })
+
+        submitDrawingBtn.disabled = true;
+        submitDrawingBtn.textContent = "waiting for other players...";
         
-        const refImg = document.getElementById("reference-image");
-        refImg.src = dataUrl;
-        socket.emit("image", {'game_id': GAME_ID, 'prompt': PROMPT, 'username': USERNAME , 'image': dataUrl})
-        const img1 = document.getElementById('drawing-img-1');
-        if (img1) {
-            img1.src = dataUrl;
-            img1.style.backgroundColor = '#ffffff';
-        }
+        // const refImg = document.getElementById("reference-image");
+        // refImg.src = dataUrl;
+        // socket.emit("image", {'game_id': GAME_ID, 'prompt': PROMPT, 'username': USERNAME , 'image': dataUrl})
+        // const img1 = document.getElementById('drawing-img-1');
+        // if (img1) {
+        //     img1.src = dataUrl;
+        //     img1.style.backgroundColor = '#ffffff';
+        // }
 
        //  switchPhase("copying");
 
     });
     
-    let to_copy;
+    let to_copy = [];
     let copied_images = {};
+    let copy_index = 0;
     
     socket.on("start_copying", (data) => {
         to_copy = data.to_copy;
         switchPhase("copying");
     })
 
+    function getCopyTask(){
+        const task = to_copy[copy_index];
+        const refImg = document.getElementById("reference-image");
+        refImg.src = task.image;
+    }
+
     submitCopyBtn.addEventListener('click', () => {
 
+        const copyUrl = copyCanvas.canvas.toDataURL('image/png');
+        const task = to_copy[copy_index];
+
         // currently hardcoded to img2 but should change later
-        const img2 = document.getElementById('drawing-img-2');
-        if (img2) {
-            img2.src = copyUrl;
-            img2.style.backgroundColor = '#ffffff';
-        }
+        // const img2 = document.getElementById('drawing-img-2');
+        // if (img2) {
+        //     img2.src = copyUrl;
+        //     img2.style.backgroundColor = '#ffffff';
+        // }
         
         socket.emit("submit_copy", {
             "game_id": GAME_ID,
             "username": USERNAME,
-            "prompt": PROMPT,
-            "copied_images": copied_images
+            "task": task,
+            "image": copyUrl
         })
 
-        switchPhase("voting");
+        copy_index++;
+        if(copy_index < to_copy.length){
+            getCopyTask();
+        } else{
+            submitCopyBtn.disabled = true;
+            submitCopyBtn.textContent = "waiting for other players...";
+        }
+
+        // switchPhase("voting");
     })
 
 

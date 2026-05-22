@@ -104,38 +104,43 @@ def submit_original(data):
 def submit_copy(data):
     game_id = data['game_id']
     username = data['username']
-    prompt = data['prompt']
+    task = data['task']
     image = data['image']
 
     game = game_lobbies.get_games()[game_id]
-    game['submissions'][username] = {
-        "prompt": prompt,
-        "original": image,
-        "copies": {}
-    }
+    game['submissions'][task.target]["copies"][username] = image;
 
     players = game['players']
     player_cnt = len(players)
-    # everyone submitted so we move on to copy phase
-    if len(game['submissions'] == player_cnt):
-        assignemnts = {}
-        random.shuffle(players)
-        for i, player in enumerate(players):
-            assignemnts[player] = [players[(i+1) % player_cnt], players[(i+2) % player_cnt]]
-        game['copy_assignments'] = assignemnts
+    drawings_copied = 0
+    for submission in game['submissions'].values():
+        drawings_copied += len(submission["copies"])
+    
+    # if everyone finished copying, move on to voting phase
+    if drawings_copied == player_cnt * 2:
+        print('yes')
 
-        for player in players:
-            targets = assignemnts[player]       # contains randomized 2 player id's drawings to copy
-            to_copy = []
-            for target in targets:
-                submission = game['submissions'][target]
-                to_copy.append({
-                    "target": target,
-                    "prompt": submission['prompt'],
-                    "image": submission['original']
-                })
+
+    # everyone submitted so we move on to copy phase
+    # if len(game['submissions'] == player_cnt):
+    #     assignemnts = {}
+    #     random.shuffle(players)
+    #     for i, player in enumerate(players):
+    #         assignemnts[player] = [players[(i+1) % player_cnt], players[(i+2) % player_cnt]]
+    #     game['copy_assignments'] = assignemnts
+
+    #     for player in players:
+    #         targets = assignemnts[player]       # contains randomized 2 player id's drawings to copy
+    #         to_copy = []
+    #         for target in targets:
+    #             submission = game['submissions'][target]
+    #             to_copy.append({
+    #                 "target": target,
+    #                 "prompt": submission['prompt'],
+    #                 "image": submission['original']
+    #             })
             
-            emit('start_copying', {'to_copy': to_copy}, to=player)
+    #         emit('start_copying', {'to_copy': to_copy}, to=player)
 
         
 
