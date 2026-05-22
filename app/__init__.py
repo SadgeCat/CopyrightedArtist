@@ -18,8 +18,8 @@ def on_join(data):
     lobby_id = data['lobby_id']
     join_room(lobby_id)
     acc = get_user(session["username"])
-    lobby_data = game_lobbies.get_lobbies()[lobby_id]
     if acc and lobby_id in game_lobbies.get_lobbies():
+        lobby_data = game_lobbies.get_lobbies()[lobby_id]
         if acc["id"] not in game_lobbies.get_lobbies()[lobby_id]['players']:
             if len(lobby_data['players']) >= lobby_data['max_players']:
                 emit('lobby_full', {})
@@ -58,6 +58,15 @@ def on_disconnect():
                 emit('new_host', {'host_id': lobby_data['host']}, to=lobby_id)
             break
 
+@socketio.on('join_game')
+def on_join_game(data):
+    game_id = data['game_id']
+    acc = get_user(session["username"])
+    if not acc:
+        return
+    join_room(game_id)
+    join_room(str(acc['id'])) # personal room, i.e. for when it's time to draw
+
 @socketio.on('image')
 def get_image(data):
     game_lobbies.add_image(data['game_id'], data['prompt'], data['username'], data['image'])
@@ -72,12 +81,12 @@ def join_game(data):
 @socketio.on('submit_original')
 def submit_original(data):
     game_id = data['game_id']
-    username = data['username']
     prompt = data['prompt']
     image = data['image']
+    acc = get_user(session["username"])
 
     game = game_lobbies.get_games()[game_id]
-    game['submissions'][username] = {
+    game['submissions'][acc['id']] = {
         "prompt": prompt,
         "original": image,
         "copies": {}
@@ -105,18 +114,18 @@ def submit_original(data):
                     "image": submission['original']
                 })
             
-            emit('start_copying', {'to_copy': to_copy}, to=player)
+            emit('start_copying', {'to_copy': to_copy}, to=str(player))
             
             
 @socketio.on('submit_copy')
 def submit_copy(data):
     game_id = data['game_id']
-    username = data['username']
     task = data['task']
     image = data['image']
+    acc = get_user(session["username"])
 
     game = game_lobbies.get_games()[game_id]
-    game['submissions'][task['target']]["copies"][username] = image;
+    game['submissions'][task['target']]["copies"][acc['id']] = image
 
     players = game['players']
     player_cnt = len(players)
