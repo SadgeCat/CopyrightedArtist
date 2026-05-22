@@ -64,6 +64,7 @@ def on_join_game(data):
     acc = get_user(session["username"])
     if not acc:
         return
+    session["timer"][game_id] = 60
     join_room(game_id)
     join_room(str(acc['id'])) # personal room, i.e. for when it's time to draw
 
@@ -295,9 +296,15 @@ def profile():
 
 @app.route("/game/<game_id>", methods=['GET', 'POST'])
 def game(game_id):
+    if not "timer" in session:
+        session['timer'] = {}
+        session["timer"][game_id]=60
+        
+    timer = session['timer'][game_id]
     return render_template('game.html',
                            username = session['username'],
                            game_id = game_id,
+                           timer = timer,
                            prompt = game_lobbies.get_prompt(game_id, get_user(session["username"])["id"]))
 
 @app.route("/error", methods=['GET', 'POST'])

@@ -251,7 +251,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const drawingTimer = document.getElementById('drawing-timer');
     if (drawingTimer) {
-        let timeLeft = 60;
+        let timeLeft = timer;
         const timerInterval = setInterval(() => {
             timeLeft--;
             drawingTimer.textContent = timeLeft;
