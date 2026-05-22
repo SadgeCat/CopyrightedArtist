@@ -21,7 +21,7 @@ class lobby:
             'players': [host_id],
             'host': host_id,
             'host_name': host_name,
-            'max_players': 2
+            'max_players': 10
         }
     
     def delete_lobby(self, lobby_id):

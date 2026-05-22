@@ -83,6 +83,7 @@ def submit_original(data):
     game_id = data['game_id']
     prompt = data['prompt']
     image = data['image']
+    username = data['username']
     acc = get_user(session["username"])
 
     game = game_lobbies.get_games()[game_id]
