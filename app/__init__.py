@@ -43,12 +43,12 @@ def on_disconnect():
     acc = get_user(username)
     if not acc:
         return
-    
+
     for lobby_id, lobby_data in list(game_lobbies.get_lobbies().items()):
         if acc["id"] in lobby_data['players']:
             lobby_data['players'].remove(acc["id"])
             emit('player_left', {'username': username}, to=lobby_id)
-            
+
             # if lobby is empty, delete it
             if not lobby_data['players']:
                 game_lobbies.delete_lobby(lobby_id)
@@ -119,10 +119,10 @@ def submit_original(data):
                     "prompt": submission['prompt'],
                     "image": submission['original']
                 })
-            
+
             emit('start_copying', {'to_copy': to_copy}, to=str(player))
-            
-            
+
+
 @socketio.on('submit_copy')
 def submit_copy(data):
     game_id = data['game_id']
@@ -139,11 +139,12 @@ def submit_copy(data):
     drawings_copied = 0
     for submission in game['submissions'].values():
         drawings_copied += len(submission["copies"])
+        print(submission["copies"])
 
     print("submitted copy:", username)
     print("copy submission count:", drawings_copied)
     print("player count:", player_cnt)
-    
+
     # if everyone finished copying, move on to voting phase
     if drawings_copied == player_cnt * 2:
         print('everyone copied')
@@ -159,7 +160,7 @@ def submit_copy(data):
                     "type": "copy",
                     "image": copied_image
                 })
-            
+
             # randomizes order
             random.shuffle(drawings)
 
@@ -168,7 +169,7 @@ def submit_copy(data):
                 "original_artist": user,
                 "drawings": drawings
             })
-        
+
         emit('start_voting', {'voting_sets': voting_sets}, to=game_id)
 
 
@@ -190,10 +191,10 @@ def submit_copy(data):
     #                 "prompt": submission['prompt'],
     #                 "image": submission['original']
     #             })
-            
+
     #         emit('start_copying', {'to_copy': to_copy}, to=player)
 
-        
+
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
@@ -296,7 +297,7 @@ def profile():
 def game(game_id):
     return render_template('game.html',
                            username = session['username'],
-                           game_id = game_id, 
+                           game_id = game_id,
                            prompt = game_lobbies.get_prompt(game_id, get_user(session["username"])["id"]))
 
 @app.route("/error", methods=['GET', 'POST'])

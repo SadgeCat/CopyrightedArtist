@@ -182,3 +182,10 @@ yuhangP -- 2026-05-21 22:41
 - emitted data in game.js when a player clicks the submit btn and directs them to voting phase when all player submitted
 - issues: copy submission count is getting doubled counted for some reason
 - adjusted deadlines in design doc and updated our progress
+
+andrewT -- 2026-05-22 11:23
+-List of known bugs/features needed:
+-- PNG not rendering
+-- Altering of game phases; memorization into copying instead of display at the same time
+-- Game timer resetting on page refresh and not on phase change
+-- Minimum of four players needed in order to ensure voters who haven't seen the original image
