@@ -67,9 +67,9 @@ def on_join_game(data):
     join_room(game_id)
     join_room(str(acc['id'])) # personal room, i.e. for when it's time to draw
 
-@socketio.on('image')
-def get_image(data):
-    game_lobbies.add_image(data['game_id'], data['prompt'], data['username'], data['image'])
+# @socketio.on('image')
+# def get_image(data):
+#     game_lobbies.add_image(data['game_id'], data['prompt'], data['username'], data['image'])
 
 @socketio.on('join_game')
 def join_game(data):
