@@ -176,3 +176,8 @@ yuhangP, andrewT -- 2026-05-21 11:43
 
 zixiQ -- 2026-05-21 22:17
 - several bugs found and fixed, personal rooms set up when game starts
+
+yuhangP -- 2026-05-21 22:41
+- added socket even for players when they submit their copied drawings
+- emitted data in game.js when a player clicks the submit btn and directs them to voting phase when all player submitted
+- issues: copy submission count is getting doubled counted for some reason
