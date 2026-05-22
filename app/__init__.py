@@ -128,6 +128,7 @@ def submit_copy(data):
     game_id = data['game_id']
     task = data['task']
     image = data['image']
+    username = data['username']
     acc = get_user(session["username"])
 
     game = game_lobbies.get_games()[game_id]
@@ -138,6 +139,10 @@ def submit_copy(data):
     drawings_copied = 0
     for submission in game['submissions'].values():
         drawings_copied += len(submission["copies"])
+
+    print("submitted copy:", username)
+    print("copy submission count:", drawings_copied)
+    print("player count:", player_cnt)
     
     # if everyone finished copying, move on to voting phase
     if drawings_copied == player_cnt * 2:

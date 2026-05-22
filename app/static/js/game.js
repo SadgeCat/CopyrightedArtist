@@ -158,7 +158,6 @@ document.addEventListener('DOMContentLoaded', () => {
     socket.on("start_copying", (data) => {
         console.log("received start_copying", data);
         to_copy = data.to_copy;
-        getCopyTask();
         switchPhase("copying");
         getCopyTask()
     })
@@ -199,7 +198,15 @@ document.addEventListener('DOMContentLoaded', () => {
         // switchPhase("voting");
     })
 
+    let voting_set = []
 
+    socket.on("start_voting", (data) => {
+        console.log("received start_voting", data);
+        voting_set = data.voting_set;
+        switchPhase("voting");
+    })
+
+    // adjust this later
 
     let selectedVoteId = null;
 
