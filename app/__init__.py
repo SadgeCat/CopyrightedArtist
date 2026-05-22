@@ -67,7 +67,7 @@ def join_game(data):
     game_id = data['game_id']
     user_id = get_user(session['username'])['id']
     join_room(game_id)
-    join_room(user_id)
+    join_room(str(user_id))
 
 @socketio.on('submit_original')
 def submit_original(data):
@@ -85,6 +85,11 @@ def submit_original(data):
 
     players = game['players']
     player_cnt = len(players)
+
+    print("submitted:", username)
+    print("submission count:", len(game['submissions']))
+    print("player count:", player_cnt)
+
     # everyone submitted so we move on to copy phase
     if len(game['submissions']) == player_cnt:
         assignemnts = {}
@@ -105,7 +110,7 @@ def submit_original(data):
                     "image": submission['original']
                 })
             
-            emit('start_copying', {'to_copy': to_copy}, to=player)
+            emit('start_copying', {'to_copy': to_copy}, to=str(player))
             
             
 @socketio.on('submit_copy')
