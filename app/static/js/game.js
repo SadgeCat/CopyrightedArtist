@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const drawingPhase = document.getElementById('drawing-phase');
     const votingPhase = document.getElementById('voting-phase');
     const socket = io();
+    socket.emit('join_game', { game_id: GAME_ID });
     const phases = {
         drawing: document.getElementById("drawing-phase"),
         copying: document.getElementById("copying-phase"),
@@ -157,6 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
     socket.on("start_copying", (data) => {
         console.log("received start_copying", data);
         to_copy = data.to_copy;
+        getCopyTask();
         switchPhase("copying");
         getCopyTask()
     })
