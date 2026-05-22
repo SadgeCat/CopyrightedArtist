@@ -79,7 +79,7 @@ def submit_original(data):
     players = game['players']
     player_cnt = len(players)
     # everyone submitted so we move on to copy phase
-    if len(game['submissions'] == player_cnt):
+    if len(game['submissions']) == player_cnt:
         assignemnts = {}
         random.shuffle(players)
         for i, player in enumerate(players):
@@ -108,7 +108,7 @@ def submit_copy(data):
     image = data['image']
 
     game = game_lobbies.get_games()[game_id]
-    game['submissions'][task.target]["copies"][username] = image;
+    game['submissions'][task['target']]["copies"][username] = image;
 
     players = game['players']
     player_cnt = len(players)
@@ -118,7 +118,30 @@ def submit_copy(data):
     
     # if everyone finished copying, move on to voting phase
     if drawings_copied == player_cnt * 2:
-        print('yes')
+        print('everyone copied')
+        voting_sets = []
+        for user, submission in game['submissions'].items():
+            drawings = []
+            drawings.append({
+                "type": "original",
+                "image": submission['original']
+            })
+            for copied_image in submission['copies'].values():
+                drawings.append({
+                    "type": "copy",
+                    "image": copied_image
+                })
+            
+            # randomizes order
+            random.shuffle(drawings)
+
+            voting_sets.append({
+                "prompt": submission['prompt'],
+                "original_artist": user,
+                "drawings": drawings
+            })
+        
+        emit('start_voting', {'voting_sets': voting_sets}, to=game_id)
 
 
     # everyone submitted so we move on to copy phase
