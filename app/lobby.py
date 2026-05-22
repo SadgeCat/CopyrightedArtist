@@ -30,7 +30,7 @@ class lobby:
 
     def create_game(self, host_id, player_list, host_name, game_id):
         self.games[game_id] = {
-            'players' : [host_id],
+            'players' : player_list,
             'host' : host_id,
             'host_name': host_name,
             'original_images': {},

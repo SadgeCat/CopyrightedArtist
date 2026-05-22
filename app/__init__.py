@@ -66,7 +66,7 @@ def get_image(data):
 def join_game(data):
     game_id = data['game_id']
     join_room(game_id)
-    join_room[session['username']]
+    join_room(session['username'])
 
 @socketio.on('submit_original')
 def submit_original(data):
