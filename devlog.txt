@@ -173,3 +173,6 @@ zixiQ -- 2026-05-20 21:08
 yuhangP, andrewT -- 2026-05-21 11:43
 - added prompts for drawing image phase
 - working on sending original sketches to random users for the players to copy in the next phase
+
+zixiQ -- 2026-05-21 22:17
+- several bugs found and fixed, personal rooms set up when game starts
