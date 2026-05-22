@@ -8,6 +8,10 @@ document.addEventListener('DOMContentLoaded', () => {
         voting: document.getElementById("voting-phase")
     };
 
+    socket.emit("join_game", {
+        "game_id": GAME_ID
+    })
+
     let curPhase = "drawing";
     function switchPhase(newPhase) {
         Object.values(phases).forEach(phase => {

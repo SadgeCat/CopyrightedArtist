@@ -62,6 +62,12 @@ def on_disconnect():
 def get_image(data):
     game_lobbies.add_image(data['game_id'], data['prompt'], data['username'], data['image'])
 
+@socketio.on('join_game')
+def join_game(data):
+    game_id = data['game_id']
+    join_room(game_id)
+    join_room[session['username']]
+
 @socketio.on('submit_original')
 def submit_original(data):
     game_id = data['game_id']
