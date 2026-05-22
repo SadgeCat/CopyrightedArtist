@@ -189,3 +189,6 @@ andrewT -- 2026-05-22 11:23
 -- Altering of game phases; memorization into copying instead of display at the same time
 -- Game timer resetting on page refresh and not on phase change
 -- Minimum of four players needed in order to ensure voters who haven't seen the original image
+
+yuhangP & andrewT & zixiQ -- 2026-05-22 11:45
+- working on timer
