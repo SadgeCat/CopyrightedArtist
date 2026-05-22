@@ -181,3 +181,4 @@ yuhangP -- 2026-05-21 22:41
 - added socket even for players when they submit their copied drawings
 - emitted data in game.js when a player clicks the submit btn and directs them to voting phase when all player submitted
 - issues: copy submission count is getting doubled counted for some reason
+- adjusted deadlines in design doc and updated our progress

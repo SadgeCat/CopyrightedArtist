@@ -167,8 +167,8 @@ As a person with no friends, I want to obsessively play a multiplayer game so th
 - Flask sockets for lobbies by 5/18 (done)
 - Add start button for lobby host that directs players to the game page by 5/19 (done)
 - Set up different phases of the game:
-  - Phase 1: all players are given a prompt and 60s to draw and save the sketch by 5/21
-  - Phase 2: given an original sketch to copy and save the copied sketch by 5/22
+  - Phase 1: all players are given a prompt and 60s to draw and save the sketch by 5/21 (done)
+  - Phase 2: given an original sketch to copy and save the copied sketch by 5/22 (WIP: need to fix bugs)
   - Phase 3: go through each drawn prompt, display the 3 sketches and let users vote by 5/25
   - Finally: sum the scores and display leaderboard by 5/28 for live demo
 
