@@ -157,6 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
     socket.on("start_copying", (data) => {
         to_copy = data.to_copy;
         switchPhase("copying");
+        getCopyTask()
     })
 
     function getCopyTask(){

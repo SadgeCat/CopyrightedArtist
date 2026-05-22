@@ -65,8 +65,9 @@ def get_image(data):
 @socketio.on('join_game')
 def join_game(data):
     game_id = data['game_id']
+    user_id = get_user(session['username'])['id']
     join_room(game_id)
-    join_room(session['username'])
+    join_room(user_id)
 
 @socketio.on('submit_original')
 def submit_original(data):
@@ -87,12 +88,13 @@ def submit_original(data):
     # everyone submitted so we move on to copy phase
     if len(game['submissions']) == player_cnt:
         assignemnts = {}
-        random.shuffle(players)
-        for i, player in enumerate(players):
-            assignemnts[player] = [players[(i+1) % player_cnt], players[(i+2) % player_cnt]]
+        shuffled_players = players[:]
+        random.shuffle(shuffled_players)
+        for i, player in enumerate(shuffled_players):
+            assignemnts[player] = [shuffled_players[(i+1) % player_cnt], shuffled_players[(i+2) % player_cnt]]
         game['copy_assignments'] = assignemnts
 
-        for player in players:
+        for player in shuffled_players:
             targets = assignemnts[player]       # contains randomized 2 player id's drawings to copy
             to_copy = []
             for target in targets:
