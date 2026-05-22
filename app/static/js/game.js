@@ -165,6 +165,10 @@ document.addEventListener('DOMContentLoaded', () => {
     function getCopyTask(){
         const task = to_copy[copy_index];
         const refImg = document.getElementById("reference-image");
+        const canvas = copyCanvas.canvas;
+        const ctx = copyCanvas.ctx;
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
         refImg.src = task.image;
     }
 
