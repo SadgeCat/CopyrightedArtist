@@ -6,6 +6,7 @@ from .lobby import *
 from .game_logic import *
 import uuid
 import random
+import time
 
 app = Flask(__name__)
 app.secret_key = "secret"
@@ -110,6 +111,11 @@ def submit_original(data):
             assignemnts[player] = [shuffled_players[(i+1) % player_cnt], shuffled_players[(i+2) % player_cnt]]
         game['copy_assignments'] = assignemnts
 
+        # update timer
+        game["phase"] = "copying"
+        game["duration"] = 60
+        game["start_time"] = time.time()
+
         for player in shuffled_players:
             targets = assignemnts[player]       # contains randomized 2 player id's drawings to copy
             to_copy = []
@@ -170,6 +176,10 @@ def submit_copy(data):
                 "original_artist": user,
                 "drawings": drawings
             })
+
+        game["phase"] = "voting"
+        game["duration"] = 30
+        game["start_time"] = time.time()
 
         emit('start_voting', {'voting_sets': voting_sets}, to=game_id)
 
@@ -296,15 +306,19 @@ def profile():
 
 @app.route("/game/<game_id>", methods=['GET', 'POST'])
 def game(game_id):
-    if not "timer" in session:
-        session['timer'] = {}
-        session["timer"][game_id]=60
+    # session still per client gng
+    # if not "timer" in session:
+    #     session['timer'] = {}
+    #     session["timer"][game_id]=60
         
-    timer = session['timer'][game_id]
+    # timer = session['timer'][game_id]
+
+    game = game_lobbies.get_games()[game_id]
+    time_left = int(game['duration'] - (time.time() - game['start_time']))
     return render_template('game.html',
                            username = session['username'],
                            game_id = game_id,
-                           timer = timer,
+                           timer = time_left,
                            prompt = game_lobbies.get_prompt(game_id, get_user(session["username"])["id"]))
 
 @app.route("/error", methods=['GET', 'POST'])

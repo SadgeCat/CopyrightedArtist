@@ -1,5 +1,6 @@
 from flask_socketio import SocketIO, join_room, emit
 from .game_logic import *
+import time
 socketio = SocketIO(async_mode='gevent')
 
 class lobby:
@@ -37,7 +38,9 @@ class lobby:
             'copied_images': {},
             'copy_assigments': {},
             'submissions': {},
-            'prompts': {}
+            'prompts': {},
+            'duration': 60,
+            'start_time': time.time()
         }
         for i in self.games[game_id]['players']:
             self.games[game_id]['prompts'][i] = random_prompt()
