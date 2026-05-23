@@ -13,7 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
         "game_id": GAME_ID
     })
 
-    let curPhase = "drawing";
     function switchPhase(newPhase) {
         Object.values(phases).forEach(phase => {
             phase.classList.remove("active-phase");
@@ -29,6 +28,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         curPhase = newPhase;
     }
+    let curPhase = PHASE;
+    switchPhase(curPhase);
 
     function createCanvas(canvasID){
         const canvas = document.getElementById(canvasID);

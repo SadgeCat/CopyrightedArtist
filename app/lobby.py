@@ -40,7 +40,8 @@ class lobby:
             'submissions': {},
             'prompts': {},
             'duration': 60,
-            'start_time': time.time()
+            'start_time': time.time(),
+            'phase': 'drawing'
         }
         for i in self.games[game_id]['players']:
             self.games[game_id]['prompts'][i] = random_prompt()

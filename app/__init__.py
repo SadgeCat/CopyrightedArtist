@@ -315,10 +315,12 @@ def game(game_id):
 
     game = game_lobbies.get_games()[game_id]
     time_left = int(game['duration'] - (time.time() - game['start_time']))
+    phase = game['phase']
     return render_template('game.html',
                            username = session['username'],
                            game_id = game_id,
                            timer = time_left,
+                           phase = phase,
                            prompt = game_lobbies.get_prompt(game_id, get_user(session["username"])["id"]))
 
 @app.route("/error", methods=['GET', 'POST'])

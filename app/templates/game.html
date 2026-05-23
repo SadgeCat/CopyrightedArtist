@@ -91,7 +91,7 @@
 
 {% block content %}
 <!-- Phase 1: Drawing -->
-<div id="drawing-phase" class="game-phase active-phase">
+<div id="drawing-phase" class="game-phase">
     <h2>Prompt: <span id="prompt" style="color: #007bff;">{{ prompt | default('A Majestic Cat') }}</span></h2>
     <h3>Time left: <span id="drawing-timer">60</span>s</h3>
 
@@ -173,6 +173,7 @@ const PROMPT = "{{prompt}}";
 const USERNAME = "{{username}}";
 const copyUrl = "{{copyURL}}";
 let timer = {{timer}};
+const PHASE = "{{phase}}";
 </script>
 
 <script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
