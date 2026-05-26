@@ -94,7 +94,7 @@ def sync_game(data):
     }
 
     if phase == "copying":
-        assigments = game['copy_assigments'][acc['id']]
+        assigments = game['copy_assignments'][acc['id']]
         to_copy = []
         for target in assigments:
             submission = game['submissions'][target]

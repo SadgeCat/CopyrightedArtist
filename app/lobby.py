@@ -36,7 +36,7 @@ class lobby:
             'host_name': host_name,
             'original_images': {},
             'copied_images': {},
-            'copy_assigments': {},
+            'copy_assignments': {},
             'submissions': {},
             'prompts': {},
             'duration': 60,
