@@ -31,6 +31,8 @@ def on_join(data):
 @socketio.on('start')
 def on_start(data):
     lobby_id = data['lobby_id']
+    if len(game_lobbies.get_lobbies()[lobby_id]['players']) < 3:
+        return
     join_room(lobby_id)
     game_lobbies.start_lobby(lobby_id)
     emit('game_started', {'game_id': lobby_id}, to=lobby_id)
