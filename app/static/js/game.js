@@ -223,6 +223,10 @@ document.addEventListener('DOMContentLoaded', () => {
         // 10 sec timer for memorizing then copying
         canvas.style.pointerEvents = "none";
         startTimer(timeLeft, "copying", false);
+        
+        if(copy_index > 0){
+            copyingPhase(60);
+        }
     }
 
     function copyingPhase(timeLeft){
