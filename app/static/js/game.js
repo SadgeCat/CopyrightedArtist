@@ -227,8 +227,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if(copy_index > 0){
             setTimeout(() => {
                 console.log("memorizing 2nd image done");
+                copyingPhase(60);
             }, 10000)
-            copyingPhase(60);
         }
     }
 
