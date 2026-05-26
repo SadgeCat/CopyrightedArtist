@@ -59,15 +59,15 @@ def on_disconnect():
                 emit('new_host', {'host_id': lobby_data['host']}, to=lobby_id)
             break
 
-@socketio.on('join_game')
-def on_join_game(data):
-    game_id = data['game_id']
-    acc = get_user(session["username"])
-    if not acc:
-        return
-    session["timer"][game_id] = 60
-    join_room(game_id)
-    join_room(str(acc['id'])) # personal room, i.e. for when it's time to draw
+# @socketio.on('join_game')
+# def on_join_game(data):
+#     game_id = data['game_id']
+#     acc = get_user(session["username"])
+#     if not acc:
+#         return
+#     session["timer"][game_id] = 60
+#     join_room(game_id)
+#     join_room(str(acc['id'])) # personal room, i.e. for when it's time to draw
 
 # @socketio.on('image')
 # def get_image(data):
@@ -79,6 +79,34 @@ def join_game(data):
     user_id = get_user(session['username'])['id']
     join_room(game_id)
     join_room(str(user_id))
+
+@socketio.on('sync_game')
+def sync_game(data):
+    game_id = data['game_id']
+    game = game_lobbies.get_games()[game_id]
+    acc = get_user(session["username"])
+    time_left = int(game['duration'] - (time.time() - game['start_time']))
+    phase = game['phase']
+
+    response = {
+        "phase" : phase,
+        "time_left": time_left
+    }
+
+    if phase == "copying":
+        assigments = game['copy_assigments'][acc['id']]
+        to_copy = []
+        for target in assigments:
+            submission = game['submissions'][target]
+            to_copy.append({
+                "target": target,
+                "prompt": submission['prompt'],
+                "image": submission['original']
+            })
+        response['to_copy'] = to_copy
+    
+    emit("restore_game", response)
+    
 
 @socketio.on('submit_original')
 def submit_original(data):
