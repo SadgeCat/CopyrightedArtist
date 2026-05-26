@@ -85,6 +85,8 @@ def sync_game(data):
     game_id = data['game_id']
     game = game_lobbies.get_games()[game_id]
     acc = get_user(session["username"])
+    if not acc:
+        return
     time_left = int(game['duration'] - (time.time() - game['start_time']))
     phase = game['phase']
 
@@ -94,6 +96,7 @@ def sync_game(data):
     }
 
     if phase == "copying":
+        response['copy_state'] = game['copy_state']
         assigments = game['copy_assignments'][acc['id']]
         to_copy = []
         for target in assigments:
@@ -106,7 +109,6 @@ def sync_game(data):
         response['to_copy'] = to_copy
     
     emit("restore_game", response)
-    
 
 @socketio.on('submit_original')
 def submit_original(data):
@@ -141,7 +143,8 @@ def submit_original(data):
 
         # update timer
         game["phase"] = "copying"
-        game["duration"] = 60
+        game["copy_state"] = "memorizing"
+        game["duration"] = 10
         game["start_time"] = time.time()
 
         for player in shuffled_players:
@@ -156,6 +159,18 @@ def submit_original(data):
                 })
 
             emit('start_copying', {'to_copy': to_copy}, to=str(player))
+        
+        socketio.start_background_task(start_copying_phase, game_id)
+
+def start_copying_phase(game_id):
+    socketio.sleep(10)
+
+    game = game_lobbies.get_games()[game_id]
+    game["copy_state"] = "drawing"
+    game["duration"] = 60
+    game["start_time"] = time.time()
+
+    socketio.emit("start_copy_real", {}, to=game_id)
 
 
 @socketio.on('submit_copy')
@@ -174,7 +189,7 @@ def submit_copy(data):
     drawings_copied = 0
     for submission in game['submissions'].values():
         drawings_copied += len(submission["copies"])
-        print(submission["copies"])
+        # print(submission["copies"])
 
     print("submitted copy:", username)
     print("copy submission count:", drawings_copied)

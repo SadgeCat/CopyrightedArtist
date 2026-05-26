@@ -17,10 +17,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     socket.on("restore_game", (data) => {
         switchPhase(data.phase);
-        startTimer(data.time_left, data.phase);
         if(data.phase === "copying"){
             to_copy = data.to_copy;
-            getCopyTask();
+            if(data.copy_state === "memorizing"){
+                memorizingPhase(data.time_left);
+            } else if(data.copy_state === "drawing"){
+                copyingPhase(data.time_left);
+            }
+        } else{
+            startTimer(data.time_left, data.phase, true);
         }
     })
 
@@ -121,7 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const submitCopyBtn = document.getElementById('submit-copy-btn');
 
     let timerInterval = 0
-    function startTimer(time, currentPhase){
+    function startTimer(time, currentPhase, autoSubmit){
         clearInterval(timerInterval);
         let timeLeft = time;
 
@@ -136,13 +141,15 @@ document.addEventListener('DOMContentLoaded', () => {
             timerElement.textContent = timeLeft;
             if (timeLeft <= 0) {
                 clearInterval(timerInterval);
-                if(currentPhase === "drawing") submitDrawingBtn.click();
-                else if(currentPhase === "copying") submitCopyBtn.click();
-                else if(currentPhase === "voting") submitVoteBtn.click();
+                if(autoSubmit){
+                    if(currentPhase === "drawing") submitDrawingBtn.click();
+                    else if(currentPhase === "copying") submitCopyBtn.click();
+                    else if(currentPhase === "voting") submitVoteBtn.click();
+                }
             }
         }, 1000);
     }
-    startTimer(timer, curPhase);
+    startTimer(timer, curPhase, true);
 
     clearDrawingBtn.addEventListener('click', () => {
             const canvas = drawingCanvas.canvas;
@@ -192,14 +199,18 @@ document.addEventListener('DOMContentLoaded', () => {
     let copy_index = 0;
     
     socket.on("start_copying", (data) => {
-        console.log("received start_copying", data);
+        console.log("received start_copying");
         to_copy = data.to_copy;
         switchPhase("copying");
-        getCopyTask();
-        startTimer(60, curPhase);
+        getCopyTask(10);
+        // startTimer(60, curPhase);
     })
 
-    function getCopyTask(){
+    socket.on("start_copy_real", () => {
+        copyingPhase(60);
+    })
+
+    function memorizingPhase(timeLeft){
         const task = to_copy[copy_index];
         const refImg = document.getElementById("reference-image");
         const canvas = copyCanvas.canvas;
@@ -207,6 +218,23 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.fillStyle = '#ffffff';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         refImg.src = task.image;
+        refImg.style.display = "block";
+
+        // 10 sec timer for memorizing then copying
+        canvas.style.pointerEvents = "none";
+        startTimer(timeLeft, "copying", false);
+    }
+
+    function copyingPhase(timeLeft){
+        const refImg = document.getElementById("reference-image");
+        const canvas = copyCanvas.canvas;
+        refImg.style.display = "none";
+        canvas.style.pointerEvents = "auto";
+        startTimer(timeLeft, "copying", true);
+    }
+
+    function getCopyTask(timeLeft){
+        memorizingPhase(timeLeft);
     }
 
     submitCopyBtn.addEventListener('click', () => {
@@ -230,7 +258,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         copy_index++;
         if(copy_index < to_copy.length){
-            getCopyTask();
+            getCopyTask(10);
         } else{
             submitCopyBtn.disabled = true;
             submitCopyBtn.textContent = "waiting for other players...";
@@ -242,10 +270,10 @@ document.addEventListener('DOMContentLoaded', () => {
     let voting_set = []
 
     socket.on("start_voting", (data) => {
-        console.log("received start_voting", data);
+        console.log("received start_voting");
         voting_set = data.voting_set;
         switchPhase("voting");
-        startTimer(30, curPhase);
+        startTimer(30, curPhase, true);
     })
 
     // adjust this later
