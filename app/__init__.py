@@ -207,10 +207,11 @@ def submit_copy(data):
                 "type": "original",
                 "image": submission['original']
             })
-            for copied_image in submission['copies'].values():
+            for user, copied_image in submission['copies'].items():
                 drawings.append({
                     "type": "copy",
-                    "image": copied_image
+                    "image": copied_image,
+                    "user": user
                 })
 
             # randomizes order
