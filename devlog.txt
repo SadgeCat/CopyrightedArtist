@@ -203,3 +203,6 @@ yuhangP -- 2026-05-26 00:36
 - added memorizing phase before you start copying
 - game save doesn't really work for memorizing phase
 - issues: second copy round skips to copy after refresh and if you don't refresh, memorizing timer is stuck at 0
+
+zixiQ -- 2026-05-26 10:44
+- prevent lobbies from starting with less than 3 players
