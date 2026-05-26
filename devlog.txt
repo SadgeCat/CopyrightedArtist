@@ -206,3 +206,6 @@ yuhangP -- 2026-05-26 00:36
 
 zixiQ -- 2026-05-26 10:44
 - prevent lobbies from starting with less than 3 players
+
+yuhangP -- 2026-5-26 11:39
+- debugged the second memorizing phase now working, it works now yay
