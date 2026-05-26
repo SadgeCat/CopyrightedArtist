@@ -197,3 +197,9 @@ yuhangP -- 2026-05-22 22:17
 - stored timer in game lobby table to update across all users of that game instead of the session
 - fixed refresh directing users to the drawing phase even when they are in copy phase
 - however, currently, refreshing in the copy phase doesn't save the tasks that players how to copy
+
+yuhangP -- 2026-05-26 00:36
+- added game save if refresh browser
+- added memorizing phase before you start copying
+- game save doesn't really work for memorizing phase
+- issues: second copy round skips to copy after refresh and if you don't refresh, memorizing timer is stuck at 0
