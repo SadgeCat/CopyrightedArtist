@@ -220,3 +220,8 @@ yuhangP -- 2026-05-27 2:07
 
 zixiQ -- 2026-05-27 13:57
 - added vote_results handler (commented out currently)
+
+yuhangP -- 2026-05-27 15:37
+- voting phase and results should be working
+- added a score dictionary in create game object, sent score in socket event
+- need to add a gameover-phase in game.html to display results
