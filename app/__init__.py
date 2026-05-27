@@ -276,6 +276,7 @@ def submit_copy(data):
 @socketio.on('submit_vote')
 def submit_vote(data):
     game_id = data['game_id']
+    username = data['username']
     selected_idx = data['selected_idx']
 
     acc = get_user(session["username"])
@@ -310,9 +311,16 @@ def submit_vote(data):
 
     voting_set['votes'][acc['id']] = selected_idx
 
-    expected_votes = len(game['players']) - len(voting_set['cant_vote'])
+
+    num_votes = len(voting_set['votes'])
+    player_cnt = len(game['players'])
+    print("submitted copy:", username)
+    print("vote count:", num_votes)
+    print("player count:", player_cnt)
+
+    expected_votes = player_cnt - len(voting_set['cant_vote'])
     # when everyone voted, we show results
-    if len(voting_set['votes']) >= expected_votes:
+    if num_votes >= expected_votes:
         vote_cnt = [0,0,0]
         for vote in voting_set['votes'].values():
             vote_cnt[vote-1] += 1

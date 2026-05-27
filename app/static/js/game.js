@@ -313,7 +313,7 @@ document.addEventListener('DOMContentLoaded', () => {
         submitVoteBtn.disabled = true;
 
         // disable voting btn if user is original/copy
-        if(voting_set['cant_vote'].includes(USER_ID)){
+        if(voting_set['cant_vote'].includes(Number(USER_ID))){
             submitVoteBtn.textContent = "you can't vote this round";
             cards.forEach(card => {
                 card.style.pointerEvents = "none";
@@ -353,6 +353,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if(selectedVoteId === null) return;
         socket.emit("submit_vote", {
             "game_id": GAME_ID,
+            "username": USERNAME,
             "selected_idx": selectedVoteId
         })
 
@@ -369,7 +370,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const oldVoteText = document.querySelector("vote-count");
             if(oldVoteText) oldVoteText.remove();
-            
+
             const voteCntText = document.createElement("div");
             voteCntText.className = "vote-count";
             voteCntText.textContent = `${data.vote_cnt[idx]} votes`;
