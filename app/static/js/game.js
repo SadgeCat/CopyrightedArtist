@@ -288,6 +288,7 @@ document.addEventListener('DOMContentLoaded', () => {
         startTimer(30, curPhase, true);
     });
 
+    let canVoteThisRound = true;
     function showVotingSet(){
         const promptEle = document.getElementById('vote-prompt');
         const img1 = document.getElementById('drawing-img-1');
@@ -313,7 +314,8 @@ document.addEventListener('DOMContentLoaded', () => {
         submitVoteBtn.disabled = true;
 
         // disable voting btn if user is original/copy
-        if(voting_set['cant_vote'].includes(Number(USER_ID))){
+        canVoteThisRound = !voting_set['cant_vote'].includes(Number(USER_ID))
+        if(!canVoteThisRound){
             submitVoteBtn.textContent = "you can't vote this round";
             cards.forEach(card => {
                 card.style.pointerEvents = "none";
@@ -327,6 +329,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // adjust this later
 
     window.selectVote = function (id) {
+        if(!canVoteThisRound) return;
         selectedVoteId = id;
         const cards = document.querySelectorAll('.drawing-card');
         cards.forEach(card => {
@@ -362,14 +365,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     socket.on("show_vote_results", (data) => {
+        clearInterval(timerInterval);
+
         const cards = document.querySelectorAll('.drawing-card');
         cards.forEach((card, idx) => {
             if(idx === data.original_idx){
                 card.style.borderColor = "green";
             }
 
-            const oldVoteText = document.querySelector(".vote-count");
-            if(oldVoteText) oldVoteText.remove();
+            card.querySelectorAll(".vote-count").forEach(v => v.remove());
 
             const voteCntText = document.createElement("div");
             voteCntText.className = "vote-count";
