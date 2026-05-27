@@ -124,6 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const clearCopyBtn = document.getElementById('clear2-btn');
     const submitDrawingBtn = document.getElementById('submit-drawing-btn');
     const submitCopyBtn = document.getElementById('submit-copy-btn');
+    const submitVoteBtn = document.getElementById('submit-vote-btn');
 
     let timerInterval = 0
     function startTimer(time, currentPhase, autoSubmit){
@@ -274,14 +275,41 @@ document.addEventListener('DOMContentLoaded', () => {
         // switchPhase("voting");
     })
 
-    let voting_set = []
+    let voting_set = [];
+    let voting_idx = 0;
 
     socket.on("start_voting", (data) => {
         console.log("received start_voting");
         voting_set = data.voting_set;
         switchPhase("voting");
         startTimer(30, curPhase, true);
-    })
+    });
+
+    function showVotingSet(){
+        const set = voting_set[voting_idx];
+        const promptEle = document.getElementById('vote-prompt');
+        const img1 = document.getElementById('drawing-img-1');
+        const img2 = document.getElementById('drawing-img-2');
+        const img3 = document.getElementById('drawing-img-3');
+        promptEle.textContent = set['prompt'];
+        drawings = set['drawings'];
+        img1.src = drawings[0]['image'];
+        img2.src = drawings[1]['image'];
+        img3.src = drawings[2]['image'];
+    }
+
+    function selectVote(idx){
+        selectVoteId = idx;
+    }
+
+    submitVoteBtn.addEventListener('click', () => {
+        socket.emit("submit_vote", {
+            "game_id": GAME_ID,
+            "username": USERNAME,
+            "voting_idx": voting_idx
+        })
+    });
+
 
     // adjust this later
 

@@ -42,7 +42,8 @@ class lobby:
             'duration': 60,
             'start_time': time.time(),
             'phase': 'drawing',
-            'copy_state': 'memorizing'
+            'copy_state': 'memorizing',
+            'voting_sets': []
         }
         for i in self.games[game_id]['players']:
             self.games[game_id]['prompts'][i] = random_prompt()

@@ -205,7 +205,8 @@ def submit_copy(data):
             drawings = []
             drawings.append({
                 "type": "original",
-                "image": submission['original']
+                "image": submission['original'],
+                "user": username
             })
             for user, copied_image in submission['copies'].items():
                 drawings.append({
@@ -217,10 +218,24 @@ def submit_copy(data):
             # randomizes order
             random.shuffle(drawings)
 
+            original_idx = None
+            cant_vote = set()
+            for i, drawing in enumerate(drawings):
+                if drawing['type'] == "original": original_idx = i
+                cant_vote.add(drawing['user'])
+
+            drawingsList = []
+            for drawing in drawings:
+                drawingsList.append({
+                    "image": drawings['image']
+                })
+
             voting_sets.append({
                 "prompt": submission['prompt'],
                 "original_artist": user,
-                "drawings": drawings
+                "drawings": drawings,
+                "original_idx": original_idx,
+                "cant_vote": list(cant_vote)
             })
 
         game["phase"] = "voting"
@@ -228,7 +243,6 @@ def submit_copy(data):
         game["start_time"] = time.time()
 
         emit('start_voting', {'voting_sets': voting_sets}, to=game_id)
-
 
     # everyone submitted so we move on to copy phase
     # if len(game['submissions'] == player_cnt):
@@ -250,6 +264,17 @@ def submit_copy(data):
     #             })
 
     #         emit('start_copying', {'to_copy': to_copy}, to=player)
+
+@socketio.on('submit_vote'):
+def submit_vote(data):
+    game_id = data['game_id']
+    username = data['username']
+    voting_idx = data['voting_idx']
+
+    acc = get_user(session["username"])
+    game = game_lobbies.get_games()[game_id]
+    voting_set = game['voting_sets'][voting_idx]
+
 
 
 
