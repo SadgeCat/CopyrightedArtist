@@ -213,3 +213,4 @@ yuhangP -- 2026-5-26 11:39
 owenZ -- 2026-5-27 12:01
 - change html for styling and removed unecessary parts in home
 - style.css; changed a bunch of colors and styling
+- also fixed small login/register error handling
