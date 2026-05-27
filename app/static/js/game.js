@@ -358,6 +358,19 @@ document.addEventListener('DOMContentLoaded', () => {
         submitVoteBtn.textContent = "waiting for other players to vote...";
     });
 
+    socket.on("show_vote_results", (data) => {
+        const cards = document.querySelectorAll('.drawing-card');
+        cards.forEach((card, idx) => {
+            if(idx === data.original_idx){
+                card.style.borderColor = "green";
+            }
+
+            const voteCntText = document.createElement("div");
+            voteCntText.textContent = `${data.vote_cnt[idx]} votes`;
+            card.appendChild(voteCntText);
+        })
+    })
+
     // socket.on("vote_results", (data) => {
     //     const correctIdx = data.correct_idx;
     //     const results = data.results;
