@@ -43,7 +43,8 @@ class lobby:
             'start_time': time.time(),
             'phase': 'drawing',
             'copy_state': 'memorizing',
-            'voting_sets': []
+            'voting_sets': [],
+            'current_vote_round': 0
         }
         for i in self.games[game_id]['players']:
             self.games[game_id]['prompts'][i] = random_prompt()

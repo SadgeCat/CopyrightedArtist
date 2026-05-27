@@ -206,7 +206,7 @@ def submit_copy(data):
             drawings.append({
                 "type": "original",
                 "image": submission['original'],
-                "user": username
+                "user": user
             })
             for user, copied_image in submission['copies'].items():
                 drawings.append({
@@ -220,29 +220,31 @@ def submit_copy(data):
 
             original_idx = None
             cant_vote = set()
+            drawingsList = []
             for i, drawing in enumerate(drawings):
                 if drawing['type'] == "original": original_idx = i
                 cant_vote.add(drawing['user'])
-
-            drawingsList = []
-            for drawing in drawings:
                 drawingsList.append({
-                    "image": drawings['image']
-                })
+                    "image": drawing['image']
+                })                
 
             voting_sets.append({
                 "prompt": submission['prompt'],
                 "original_artist": user,
-                "drawings": drawings,
+                "drawings": drawingsList,
                 "original_idx": original_idx,
-                "cant_vote": list(cant_vote)
+                "cant_vote": list(cant_vote),
+                "votes": {}
             })
+
+        game["voting_sets"] = voting_sets
+        game["current_vote_round"] = 0
 
         game["phase"] = "voting"
         game["duration"] = 30
         game["start_time"] = time.time()
 
-        emit('start_voting', {'voting_sets': voting_sets}, to=game_id)
+        emit('start_voting', {'voting_set': voting_sets[0], 'round_idx': 0}, to=game_id)
 
     # everyone submitted so we move on to copy phase
     # if len(game['submissions'] == player_cnt):
@@ -268,14 +270,40 @@ def submit_copy(data):
 @socketio.on('submit_vote')
 def submit_vote(data):
     game_id = data['game_id']
-    username = data['username']
-    voting_idx = data['voting_idx']
+    selected_idx = data['selected_idx']
 
     acc = get_user(session["username"])
     game = game_lobbies.get_games()[game_id]
-    voting_set = game['voting_sets'][voting_idx]
+    round_idx = game['current_vote_round']
+    voting_set = game['voting_sets'][round_idx]
 
+    if acc['id'] in voting_set['votes']: return
 
+    voting_set['votes'][acc['id']] = selected_idx
+
+    expected_votes = len(game['players']) - len(voting_set['cant_vote'])
+    # when everyone voted, we show results
+    if len(voting_set['votes']) >= expected_votes:
+        vote_cnt = [0,0,0]
+        for vote in voting_set['votes'].values():
+            vote_cnt[vote-1] += 1
+
+        socketio.emit('show_vote_results', 
+                        {'vote_cnt': vote_cnt, 
+                        'original_idx': voting_set['original_idx']}, 
+                        to=game_id)
+    
+        socketio.sleep(6)
+        game['current_vote_round'] += 1
+        next_round = game['current_vote_round']
+        if next_round < len(game['voting_sets']):
+            next_set = game['voting_sets'][next_round]
+            game["duration"] = 30
+            game["start_time"] = time.time()
+
+            emit('start_voting', {'voting_set': next_set, 'round_idx': next_round}, to=game_id)
+        else:
+            emit('game_over', {}, to=game_id)
 
 
 @app.route("/", methods=['GET', 'POST'])
@@ -388,11 +416,16 @@ def game(game_id):
         
     # timer = session['timer'][game_id]
 
+    username = session['username']
+    acc = get_user(username)
+    user_id = acc['id']
+
     game = game_lobbies.get_games()[game_id]
     time_left = int(game['duration'] - (time.time() - game['start_time']))
     phase = game['phase']
     return render_template('game.html',
-                           username = session['username'],
+                           username = username,
+                           user_id = user_id,
                            game_id = game_id,
                            timer = time_left,
                            phase = phase,
