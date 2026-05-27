@@ -1,22 +1,25 @@
 {% extends "base.html" %}
-{% block title %}Home{% endblock %}
-
-{% block head %}
-<style>
-
-</style>
-{% endblock %}
+{% block title %}Profile - {{ user['name'] }}{% endblock %}
 
 {% block content %}
-<div class="text-container">
-    <h1>{{ user['name'] }}</h1>
-    <p>Member Since: {{ user['created_at'] }}</p>
-    <br><br>
-    <h2>Stats:</h2>
-    <ul>
-        <li>Elo: {{ user['elo'] }}</li>
-        <li>Games Won: {{ user['games_won'] }}</li>
-        <li>Games Played: {{ user['games_played'] }}</li>
-    </ul>
+<div class="lobby-card" style="margin-top: 50px;">
+    <h1 style="font-size: 3rem; color: var(--accent-gold); margin-bottom: 0.5rem;">{{ user['name'] }}</h1>
+    <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 2rem;">Member Since: {{ user['created_at'] }}</p>
+    
+    <h2 style="font-size: 2rem; color: #fff; margin-bottom: 1rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 0.5rem;">Stats</h2>
+    <div style="display: flex; flex-direction: column; gap: 1rem;">
+        <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
+            <span style="color: var(--text-secondary); font-weight: 500;">Elo Rating</span>
+            <span style="color: var(--accent-cyan); font-weight: 600; font-size: 1.15rem;">{{ user['elo'] }}</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
+            <span style="color: var(--text-secondary); font-weight: 500;">Games Won</span>
+            <span style="color: #fff; font-weight: 600;">{{ user['games_won'] }}</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
+            <span style="color: var(--text-secondary); font-weight: 500;">Games Played</span>
+            <span style="color: #fff; font-weight: 600;">{{ user['games_played'] }}</span>
+        </div>
+    </div>
 </div>
 {% endblock %}

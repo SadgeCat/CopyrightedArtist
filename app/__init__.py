@@ -272,7 +272,6 @@ def register():
         username = request.form.get('username').strip().lower()
         password = request.form.get('password').strip()
 
-
         if not username or not password:
             return render_template("register.html", error="No username or password inputted")
 
@@ -282,6 +281,11 @@ def register():
 
         hashed_password = generate_password_hash(password)
         insert_acc(username, hashed_password)
+
+        # Check if user is successfully created in database
+        acc = get_user(username)
+        if not acc:
+            return render_template("register.html", error="User could not be created in the database")
 
         session['username'] = username
         return redirect(url_for("home"))
@@ -302,7 +306,7 @@ def login():
         if acc is None:
             return render_template("login.html", error="Username or password is incorrect")
 
-        if acc and check_password_hash(acc["password"], password):
+        if check_password_hash(acc["password"], password):
             session["username"] = username
             return redirect(url_for("home"))
         else:

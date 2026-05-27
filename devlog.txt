@@ -209,3 +209,7 @@ zixiQ -- 2026-05-26 10:44
 
 yuhangP -- 2026-5-26 11:39
 - debugged the second memorizing phase now working, it works now yay
+
+owenZ -- 2026-5-27 12:01
+- change html for styling and removed unecessary parts in home
+- style.css; changed a bunch of colors and styling

@@ -1,41 +1,46 @@
 {% extends "base.html" %}
 {% block title %}Home{% endblock %}
 
-{% block head %}
-<style>
-
-</style>
-{% endblock %}
-
 {% block content %}
-<div class="text-container">
-    <h1>Hola {{ username }}!</h1>
-</div>
-<div class="btn-container">
-    <form class="" action="/create_lobby" method="post" style="display:inline-block; margin-right:10px;">
-        <button type="submit" name="create_lobby">Create Lobby</button>
-    </form>
-    <form onsubmit="window.location.href='/lobby/' + document.getElementById('lobby-code').value; return false;">
-        <input id="lobby-code" type="text" placeholder="Enter lobby code" maxlength="6">
-        <button type="submit" class="btn">Join Lobby</button>
-    </form>
-    <a href="/game" style="padding: 5px 10px; background-color: #007bff; color: white; text-decoration: none; border-radius: 3px;">Join Game Demo</a>
-</div>
-<div class="lobby_container">
-    {% if lobbies|length != 0 %}
-        {% for lobby_id in lobbies %}
-            <li><a href="/lobby/{{ lobby_id }}">{{ lobby_id }} || host: {{ lobbies[lobby_id]['host_name'] }}</a></li>
-        {% endfor %}
-    {% endif %}
-</div>
+<div class="home-container">
+    <h1 class="welcome-title">Hola, {{ username }}!</h1>
 
-<div class="error" id="error"></div>
+    <div class="error" id="error" style="display: none;"></div>
+
+    <div class="lobby-options">
+        <div class="option-card">
+            <div class="option-header">
+                <h2 class="option-title">Host Game</h2>
+                <p class="option-desc">Create a private game lobby and invite your friends to join using a unique code.
+                </p>
+            </div>
+            <form action="/create_lobby" method="post">
+                <button type="submit" name="create_lobby" class="btn btn-host">Create Lobby</button>
+            </form>
+        </div>
+
+        <div class="option-card">
+            <div class="option-header">
+                <h2 class="option-title">Join Game</h2>
+                <p class="option-desc">Enter an active lobby code provided by your host to join the drawing room.</p>
+            </div>
+            <form onsubmit="joinLobby(event)">
+                <div class="lobby-input-group">
+                    <input id="lobby-code" type="text" placeholder="CODE" maxlength="6" required autocomplete="off">
+                    <button type="submit" class="btn btn-join">Join</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 <script>
     function joinLobby(e) {
         e.preventDefault();
         const code = document.getElementById('lobby-code').value.trim();
-        if (code) window.location.href = '/lobby/' + code;
+        if (code) {
+            window.location.href = '/lobby/' + code;
+        }
     }
 
     // show error if redirected back
@@ -50,7 +55,9 @@
         const error = document.getElementById('error');
         error.textContent = message;
         error.style.display = 'block';
-        setTimeout(() => error.style.display = 'none', 3000);
+        setTimeout(() => {
+            error.style.display = 'none';
+        }, 5000);
     }
 </script>
 {% endblock %}

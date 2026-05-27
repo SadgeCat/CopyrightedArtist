@@ -16,10 +16,11 @@
     .canvas-container {
         margin: 20px auto;
         display: inline-block;
-        border: 2px solid #333;
+        border: 3px solid rgba(255, 255, 255, 0.1);
         background-color: #fff;
-        border-radius: 4px;
+        border-radius: 12px;
         overflow: hidden;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
     }
 
     canvas {
@@ -29,62 +30,93 @@
 
     .drawing-tools {
         margin-top: 15px;
-        padding: 10px;
-        background: #f0f0f0;
-        border-radius: 8px;
+        padding: 12px 24px;
+        background: rgba(26, 22, 40, 0.85);
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 12px;
         display: inline-flex;
-        gap: 15px;
+        gap: 20px;
         align-items: center;
         justify-content: center;
+        color: var(--text-primary);
+    }
+
+    .drawing-tools label {
+        font-weight: 500;
+        font-size: 0.9rem;
+    }
+
+    .drawing-tools input[type="color"] {
+        border: none;
+        background: none;
+        cursor: pointer;
+        width: 32px;
+        height: 32px;
+        padding: 0;
+    }
+
+    .drawing-tools input[type="range"] {
+        cursor: pointer;
+        accent-color: var(--accent-cyan);
     }
 
     .voting-gallery {
         display: flex;
-        gap: 20px;
+        gap: 24px;
         flex-wrap: wrap;
         justify-content: center;
         margin-top: 30px;
     }
 
     .drawing-card {
-        border: 2px solid #ccc;
-        border-radius: 8px;
-        padding: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 16px;
+        padding: 16px;
         text-align: center;
         cursor: pointer;
-        transition: all 0.2s ease;
-        background: #fff;
+        transition: all 0.3s ease;
+        background: rgba(26, 22, 40, 0.7);
+        color: #fff;
     }
 
     .drawing-card:hover {
         transform: translateY(-5px);
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        border-color: var(--accent-cyan);
+        box-shadow: 0 8px 24px rgba(0, 240, 255, 0.2);
     }
 
     .drawing-card img {
         width: 300px;
         height: 225px;
         object-fit: contain;
-        background: #f9f9f9;
-        border: 1px solid #eee;
+        background: #fff;
+        border-radius: 8px;
+        border: 1px solid rgba(0, 0, 0, 0.1);
     }
 
     .btn {
-        padding: 8px 16px;
-        background: #007bff;
+        padding: 10px 20px;
+        background: var(--grad-join);
         color: white;
         border: none;
-        border-radius: 4px;
+        border-radius: 8px;
         cursor: pointer;
+        font-weight: 600;
+        transition: all 0.3s ease;
     }
 
     .btn:hover {
-        background: #0056b3;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 240, 255, 0.3);
     }
 
     .btn:disabled {
-        background: #ccc;
+        background: #3a3842;
+        color: #726f7d;
         cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
     }
 </style>
 {% endblock %}

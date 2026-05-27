@@ -2,31 +2,30 @@
 {% block title %}Lobby{% endblock %}
 
 {% block content %}
-<div class="lobby-container" style="text-align: center; margin-top: 50px;">
-    <h2>Lobby Code: <span id="lobby-code"><strong>{{ lobby_code | default('ABCD') }}</strong></span></h2>
+<div class="lobby-container" style="text-align: center; margin-top: 30px;">
+    <h2>Lobby Code: <span id="lobby-code" style="color: var(--accent-gold); font-size: 2.5rem; letter-spacing: 2px;"><strong>{{ lobby_code | default('ABCD') }}</strong></span></h2>
 
-    <div
-        style="margin: 30px auto; max-width: 400px; text-align: left; background: #f9f9f9; padding: 20px; border-radius: 8px;">
-        <h3>Players in Lobby:</h3>
+    <div class="lobby-card" style="text-align: left;">
+        <h3 style="margin-bottom: 1.5rem; font-size: 1.8rem; color: #fff;">Players in Lobby:</h3>
         <ul id="players-list" style="list-style-type: none; padding: 0;">
             {% if players %}
             {% for player in players %}
-            <li style="padding: 10px; border-bottom: 1px solid #ddd;">{{ player['name'] }}</li>
+            <li class="lobby-player-item">{{ player['name'] }}</li>
             {% endfor %}
             {% else %}
-            <li style="padding: 10px; border-bottom: 1px solid #ddd;">Player 1 (You)</li>
-            <li style="padding: 10px; border-bottom: 1px solid #ddd;">Player 2</li>
+            <li class="lobby-player-item">Player 1 (You)</li>
+            <li class="lobby-player-item">Player 2</li>
             {% endif %}
         </ul>
     </div>
 
-    <div style="margin-top: 20px;">
+    <div style="margin-top: 2rem;">
         {% if is_host %}
-        <button id="start-btn" class="btn" style="padding: 10px 20px; font-size: 18px; cursor: pointer;">
+        <button id="start-btn" class="btn btn-host" style="width: auto; padding: 0.75rem 2.5rem; font-size: 1.25rem;">
             Start Game
         </button>
         {% else %}
-        <p>Waiting for host to start the game...</p>
+        <p style="color: var(--text-secondary); font-size: 1.1rem; animation: pulse 2s infinite;">Waiting for host to start the game...</p>
         {% endif %}
     </div>
 </div>
@@ -43,7 +42,7 @@
     // When a new player joins add to list
     socket.on('player_joined', (data) => {
         const li = document.createElement('li');
-        li.style = 'padding: 10px; border-bottom: 1px solid #ddd;';
+        li.className = 'lobby-player-item';
         li.textContent = data.username;
         document.getElementById('players-list').appendChild(li);
     });
@@ -82,4 +81,10 @@
     });
 </script>
 
+<style>
+    @keyframes pulse {
+        0%, 100% { opacity: 0.6; }
+        50% { opacity: 1; }
+    }
+</style>
 {% endblock %}
