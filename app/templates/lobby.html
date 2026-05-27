@@ -3,7 +3,7 @@
 
 {% block content %}
 <div class="lobby-container" style="text-align: center; margin-top: 30px;">
-    <h2>Lobby Code: <span id="lobby-code" style="color: var(--accent-gold); font-size: 2.5rem; letter-spacing: 2px;"><strong>{{ lobby_code | default('ABCD') }}</strong></span></h2>
+    <h2>Lobby Code: <span id="lobby-code" style="color: var(--accent-gold); font-size: 2.5rem; letter-spacing: 2px;"><strong>{{ lobby_id | default('ABCD') }}</strong></span></h2>
 
     <div class="lobby-card" style="text-align: left;">
         <h3 style="margin-bottom: 1.5rem; font-size: 1.8rem; color: #fff;">Players in Lobby:</h3>
