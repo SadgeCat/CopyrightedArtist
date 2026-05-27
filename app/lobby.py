@@ -44,10 +44,12 @@ class lobby:
             'phase': 'drawing',
             'copy_state': 'memorizing',
             'voting_sets': [],
-            'current_vote_round': 0
+            'current_vote_round': 0,
+            'scores': {}
         }
         for i in self.games[game_id]['players']:
             self.games[game_id]['prompts'][i] = random_prompt()
+            self.games[game_id]['scores'][i] = 0
 
     # def add_image(self, game_id, prompt, user_id, url):
     #     self.games[game_id]["images"].append(user_id, url, prompt)

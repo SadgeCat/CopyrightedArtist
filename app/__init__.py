@@ -220,13 +220,9 @@ def submit_copy(data):
 
             original_idx = None
             cant_vote = set()
-            drawingsList = []
             for i, drawing in enumerate(drawings):
                 if drawing['type'] == "original": original_idx = i
-                cant_vote.add(drawing['user'])
-                drawingsList.append({
-                    "image": drawing['image']
-                })                
+                cant_vote.add(drawing['user'])           
 
             # drawingsList = []
             # for drawing in drawings:
@@ -237,7 +233,7 @@ def submit_copy(data):
             voting_sets.append({
                 "prompt": submission['prompt'],
                 "original_artist": user,
-                "drawings": drawingsList,
+                "drawings": drawings,
                 "original_idx": original_idx,
                 "cant_vote": list(cant_vote),
                 "votes": {}
@@ -325,9 +321,19 @@ def submit_vote(data):
         for vote in voting_set['votes'].values():
             vote_cnt[vote-1] += 1
 
+        # calculate scores earned by each player
+        original_idx = voting_set['original_idx']
+        drawings = voting_set['drawings']
+        for voter_id, vote in voting_set['votes'].items():
+            if vote-1 == original_idx:
+                game['scores'][voter_id] += 1000
+            chosen_drawing = drawings[vote-1]
+            if chosen_drawing['type'] == "copy":
+                game['scores'][chosen_drawing['user']] += 500
+
         socketio.emit('show_vote_results', 
                         {'vote_cnt': vote_cnt, 
-                        'original_idx': voting_set['original_idx']}, 
+                        'original_idx': original_idx}, 
                         to=game_id)
     
         socketio.sleep(6)
@@ -340,7 +346,16 @@ def submit_vote(data):
 
             socketio.emit('start_voting', {'voting_set': next_set, 'round_idx': next_round}, to=game_id)
         else:
-            socketio.emit('game_over', {}, to=game_id)
+            #game over
+            leaderboard = []
+            for player_id, score in game['scores'].items():
+                player_name = get_user_by_id(player_id)['name']
+                leaderboard.append({
+                    "name": player_name,
+                    "score": score
+                })
+                leaderboard.sort(key=lambda x: x['score'], reverse=True)
+            socketio.emit('game_over', {'leaderboard': leaderboard}, to=game_id)
 
 
 @app.route("/", methods=['GET', 'POST'])

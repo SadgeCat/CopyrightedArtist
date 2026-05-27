@@ -50,6 +50,13 @@ def get_user(username):
     conn.close()
     return user
 
+def get_user_by_id(id):
+    conn = get_db_connection()
+    c = conn.cursor()
+    user = c.execute("SELECT * FROM users WHERE id = ?", (id,)).fetchone()
+    conn.close()
+    return user
+
 def get_all_user(ids):
     if not ids:
         return []

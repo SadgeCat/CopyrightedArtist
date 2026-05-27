@@ -310,6 +310,7 @@ document.addEventListener('DOMContentLoaded', () => {
             card.style.boxShadow = 'none';
             card.style.pointerEvents = "auto";
             card.style.opacity = "1";
+            card.querySelectorAll(".vote-count").forEach(v => v.remove());
         });
         submitVoteBtn.disabled = true;
 
@@ -337,6 +338,7 @@ document.addEventListener('DOMContentLoaded', () => {
             card.style.backgroundColor = '#fff';
             card.style.transform = 'none';
             card.style.boxShadow = 'none';
+            card.querySelectorAll(".vote-count").forEach(v => v.remove());
         });
 
         const selectedCard = document.getElementById(`card-${id}`);
