@@ -368,14 +368,29 @@ document.addEventListener('DOMContentLoaded', () => {
                 card.style.borderColor = "green";
             }
 
-            const oldVoteText = document.querySelector("vote-count");
+            const oldVoteText = document.querySelector(".vote-count");
             if(oldVoteText) oldVoteText.remove();
 
             const voteCntText = document.createElement("div");
             voteCntText.className = "vote-count";
             voteCntText.textContent = `${data.vote_cnt[idx]} votes`;
+            voteCntText.style.color = "black";
+            voteCntText.style.fontWeight = "bold";
+            voteCntText.style.marginTop = "8px";
             card.appendChild(voteCntText);
         })
+
+        let resultsTime = 6;
+        const votingTimer = document.getElementById("voting-timer");
+        votingTimer.textContent = `Next round in ${resultsTime}`;
+
+        const x = setInterval(() => {
+            resultsTime--;
+            votingTimer.textContent = `Next round in ${resultsTime}`;
+            if(resultsTime <= 0){
+                clearInterval(x);
+            }
+        }, 1000);
     })
 
     // socket.on("vote_results", (data) => {

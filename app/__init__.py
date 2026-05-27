@@ -314,7 +314,7 @@ def submit_vote(data):
 
     num_votes = len(voting_set['votes'])
     player_cnt = len(game['players'])
-    print("submitted copy:", username)
+    print("submitted vote:", username)
     print("vote count:", num_votes)
     print("player count:", player_cnt)
 
