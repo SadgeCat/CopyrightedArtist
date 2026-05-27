@@ -250,7 +250,7 @@ def submit_copy(data):
         game["duration"] = 30
         game["start_time"] = time.time()
 
-        emit('start_voting', {'voting_set': voting_sets[0], 'round_idx': 0}, to=game_id)
+        socketio.emit('start_voting', {'voting_set': voting_sets[0], 'round_idx': 0}, to=game_id)
 
     # everyone submitted so we move on to copy phase
     # if len(game['submissions'] == player_cnt):
@@ -330,9 +330,9 @@ def submit_vote(data):
             game["duration"] = 30
             game["start_time"] = time.time()
 
-            emit('start_voting', {'voting_set': next_set, 'round_idx': next_round}, to=game_id)
+            socketio.emit('start_voting', {'voting_set': next_set, 'round_idx': next_round}, to=game_id)
         else:
-            emit('game_over', {}, to=game_id)
+            socketio.emit('game_over', {}, to=game_id)
 
 
 @app.route("/", methods=['GET', 'POST'])

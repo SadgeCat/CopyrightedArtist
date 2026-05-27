@@ -307,6 +307,8 @@ document.addEventListener('DOMContentLoaded', () => {
             card.style.backgroundColor = '#fff';
             card.style.transform = 'none';
             card.style.boxShadow = 'none';
+            card.style.pointerEvents = "auto";
+            card.style.opacity = "1";
         });
         submitVoteBtn.disabled = true;
 
@@ -365,7 +367,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 card.style.borderColor = "green";
             }
 
+            const oldVoteText = document.querySelector("vote-count");
+            if(oldVoteText) oldVoteText.remove();
+            
             const voteCntText = document.createElement("div");
+            voteCntText.className = "vote-count";
             voteCntText.textContent = `${data.vote_cnt[idx]} votes`;
             card.appendChild(voteCntText);
         })
