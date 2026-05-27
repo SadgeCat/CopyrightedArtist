@@ -265,7 +265,7 @@ def submit_copy(data):
 
     #         emit('start_copying', {'to_copy': to_copy}, to=player)
 
-@socketio.on('submit_vote'):
+@socketio.on('submit_vote')
 def submit_vote(data):
     game_id = data['game_id']
     username = data['username']

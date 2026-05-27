@@ -277,11 +277,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let voting_set = [];
     let voting_idx = 0;
+    let selectedVoteId = null;
 
     socket.on("start_voting", (data) => {
         console.log("received start_voting");
         voting_set = data.voting_set;
         switchPhase("voting");
+        showVotingSet();
         startTimer(30, curPhase, true);
     });
 
@@ -296,24 +298,20 @@ document.addEventListener('DOMContentLoaded', () => {
         img1.src = drawings[0]['image'];
         img2.src = drawings[1]['image'];
         img3.src = drawings[2]['image'];
+
+        // reset selections
+        let selectedVoteId = null;
+        const cards = document.querySelectorAll('.drawing-card');
+        cards.forEach(card => {
+            card.style.borderColor = '#ccc';
+            card.style.backgroundColor = '#fff';
+            card.style.transform = 'none';
+            card.style.boxShadow = 'none';
+        });
+        submitVoteBtn.disabled = true;
     }
-
-    function selectVote(idx){
-        selectVoteId = idx;
-    }
-
-    submitVoteBtn.addEventListener('click', () => {
-        socket.emit("submit_vote", {
-            "game_id": GAME_ID,
-            "username": USERNAME,
-            "voting_idx": voting_idx
-        })
-    });
-
 
     // adjust this later
-
-    let selectedVoteId = null;
 
     window.selectVote = function (id) {
         selectedVoteId = id;
@@ -333,13 +331,29 @@ document.addEventListener('DOMContentLoaded', () => {
             selectedCard.style.boxShadow = '0 5px 15px rgba(0,123,255,0.3)';
         }
 
-        const submitVoteBtn = document.getElementById('submit-vote-btn');
         if (submitVoteBtn) {
             submitVoteBtn.disabled = false;
         }
     };
 
-    const submitVoteBtn = document.getElementById('submit-vote-btn');
+    submitVoteBtn.addEventListener('click', () => {
+        if(selectedVoteId === null) return;
+        socket.emit("submit_vote", {
+            "game_id": GAME_ID,
+            "username": USERNAME,
+            "voting_idx": voting_idx,
+            "selected_idx": selectedVoteId
+        })
+
+        voting_idx++;
+        if(voting_idx < voting_set.length){
+            showVotingSet();
+        } else{
+            submitVoteBtn.disabled = true;
+            submitVoteBtn.textContent = "waiting for other players...";
+        }
+    });
+
     if (submitVoteBtn) {
         submitVoteBtn.addEventListener('click', () => {
             if (selectedVoteId) {
