@@ -294,13 +294,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const img2 = document.getElementById('drawing-img-2');
         const img3 = document.getElementById('drawing-img-3');
         promptEle.textContent = voting_set['prompt'];
-        drawings = voting_set['drawings'];
+        const drawings = voting_set['drawings'];
         img1.src = drawings[0]['image'];
         img2.src = drawings[1]['image'];
         img3.src = drawings[2]['image'];
 
         // reset selections
-        let selectedVoteId = null;
+        selectedVoteId = null;
         const cards = document.querySelectorAll('.drawing-card');
         cards.forEach(card => {
             card.style.borderColor = '#ccc';
@@ -355,18 +355,73 @@ document.addEventListener('DOMContentLoaded', () => {
         })
 
         submitVoteBtn.disabled = true;
-        submitVoteBtn.textContent = "waiting for other players...";
+        submitVoteBtn.textContent = "waiting for other players to vote...";
     });
 
-    if (submitVoteBtn) {
-        submitVoteBtn.addEventListener('click', () => {
-            if (selectedVoteId) {
-                alert(`Vote submitted for Option ${selectedVoteId}! Waiting for other players...`);
-                submitVoteBtn.disabled = true;
-                submitVoteBtn.textContent = "Vote Recorded";
-            }
-        });
-    }
+    // socket.on("vote_results", (data) => {
+    //     const correctIdx = data.correct_idx;
+    //     const results = data.results;
+
+    //     const cards = document.querySelectorAll('.drawing-card');
+
+    //     // reset all cards first
+    //     cards.forEach(card => {
+    //         card.style.borderColor = '#ccc';
+    //         card.style.backgroundColor = '#fff';
+    //     });
+
+    //     // highlight correct drawing
+    //     const correctCard = document.getElementById(`card-${correctIdx + 1}`);
+    //     if (correctCard) {
+    //         correctCard.style.borderColor = '#28a745';
+    //         correctCard.style.backgroundColor = '#e9fbe9';
+    //     }
+
+    //     // highlight player's own choice
+    //     if (selectedVoteId !== null) {
+    //         const chosenCard = document.getElementById(`card-${selectedVoteId}`);
+
+    //         // if wrong, make it red
+    //         if ((selectedVoteId - 1) !== correctIdx) {
+    //             chosenCard.style.borderColor = '#dc3545';
+    //             chosenCard.style.backgroundColor = '#ffeaea';
+    //         }
+    //     }
+
+    //     const resultsText = document.getElementById("vote-results-text");
+    //     if (resultsText) {
+    //         const correctPlayers = Object.entries(results).filter(([_, correct]) => correct).length;
+
+    //         resultsText.textContent = `${correctPlayers}/${Object.keys(results).length} guessed correctly`;
+    //     }
+
+    //     setTimeout(() => {
+    //         voting_idx++;
+
+    //         if (voting_idx < voting_set.length) {
+    //             selectedVoteId = null;
+
+    //             submitVoteBtn.disabled = true;
+    //             submitVoteBtn.textContent = "Submit Vote";
+
+    //             showVotingSet();
+    //             startTimer(30, "voting", true);
+    //         } else {
+    //             submitVoteBtn.disabled = true;
+    //             submitVoteBtn.textContent = "Voting complete!";
+    //         }
+    //     }, 4000);
+    // });
+
+    // if (submitVoteBtn) {
+    //     submitVoteBtn.addEventListener('click', () => {
+    //         if (selectedVoteId) {
+    //             alert(`Vote submitted for Option ${selectedVoteId}! Waiting for other players...`);
+    //             submitVoteBtn.disabled = true;
+    //             submitVoteBtn.textContent = "Vote Recorded";
+    //         }
+    //     });
+    // }
 
     // const drawingTimer = document.getElementById('drawing-timer');
     // if (drawingTimer) {

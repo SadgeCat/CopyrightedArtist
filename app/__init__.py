@@ -208,12 +208,12 @@ def submit_copy(data):
                 "image": submission['original'],
                 "user": user
             })
-            for user, copied_image in submission['copies'].items():
+            for copier_id, copied_image in submission['copies'].items():
                 drawings.append({
-                    "type": "copy",
-                    "image": copied_image,
-                    "user": user
-                })
+                "type": "copy",
+                "image": copied_image,
+                "user": copier_id
+            })
 
             # randomizes order
             random.shuffle(drawings)
@@ -227,6 +227,12 @@ def submit_copy(data):
                 drawingsList.append({
                     "image": drawing['image']
                 })                
+
+            # drawingsList = []
+            # for drawing in drawings:
+            #     drawingsList.append({
+            #         "image": drawings['image']
+            #     })
 
             voting_sets.append({
                 "prompt": submission['prompt'],
@@ -278,6 +284,29 @@ def submit_vote(data):
     voting_set = game['voting_sets'][round_idx]
 
     if acc['id'] in voting_set['votes']: return
+    # if 'votes' not in game:
+    #     game['votes'] = {}
+    # if voting_idx not in game['votes']:
+    #     game['votes'][voting_idx] = {}
+
+    # game['votes'][voting_idx][acc['id']] = chosen_idx
+
+    # # check if all eligible voters have voted
+    # cant_vote = set(voting_set['cant_vote'])
+    # eligible = [p for p in game['players'] if p not in cant_vote]
+    
+    # if all(p in game['votes'][voting_idx] for p in eligible):
+    #     correct = voting_set['original_idx']
+    #     results = {}
+    #     for voter, choice in game['votes'][voting_idx].items():
+    #         results[voter] = choice == correct
+    #     emit('vote_results', {
+    #         'voting_idx': voting_idx,
+    #         'results': results,
+    #         'correct_idx': correct,
+    #         'original_artist': voting_set['original_artist']
+    #     }, to=game_id)
+
 
     voting_set['votes'][acc['id']] = selected_idx
 
