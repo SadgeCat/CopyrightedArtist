@@ -225,3 +225,40 @@ yuhangP -- 2026-05-27 15:37
 - voting phase and results should be working
 - added a score dictionary in create game object, sent score in socket event
 - need to add a gameover-phase in game.html to display results
+
+yuhangP -- 2026-05-31 22:20
+DEVELOPER PREVIEWS: The Aftermath
+
+Major Findings (need to fix a lot of bugs)
+- Game phase issues
+-- several groups reported failed image loading
+-- frozen screens after timer ended
+-- negative timers
+-- phases desynchronizing between players
+- Canvas Issues
+-- canvas dragging instead of drawing due to color selection screen open?
+-- brush not working
+-- can still edit drawings after submission; I dont think it alters the submitted image tho
+Most of these issues stemmed from edge cases involving Socket.IO reconnects, trying to display a dataurl png before it's processed
+and players refreshing or leaving during active rounds.
+
+Improvements/fixes needed
+- FILTER/SANITIZE DRAWINGS !!!
+-- maybe a report button or votekick players, determining if a drawing is inappropriate is kinda hard
+- Canvas
+-- disable drawing on canvas once player submits
+- Lobby Stability (deal with players leaving/disconnecting/refreshing)
+-- improve the fetch prev memory state socket event when players refresh
+-- determine a way to deal with players leaving (ie. like ending game if < 3 players end game)
+- Voting
+-- i think the game already moves on to the next round if players don't vote
+-- maintain timers on refresh
+
+QOL features (implement when fix all the bugs and finish the game ig)
+- Eraser tool
+- Paint bucket/fill tool
+- Easier access to color selection
+- More visible brush size controls
+
+Conclusion: we're happy that reviewers consistently like the core concept and found the game fun. 
+Our biggest priority is patching all the known issues so far.
