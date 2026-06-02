@@ -421,6 +421,8 @@ def login():
 
 @app.route("/home", methods=['GET', 'POST'])
 def home():
+    if not "username" in session:
+        return redirect(url_for("/login"))
     lobbies = game_lobbies.get_lobbies()
     return render_template('home.html',
                            username = session["username"],
@@ -428,6 +430,8 @@ def home():
 
 @app.route("/create_lobby", methods=['GET', 'POST'])
 def create_lobby():
+    if not "username" in session:
+        return redirect(url_for("/login"))
     username = session["username"]
     # print(f"Session username: {username}")
     acc = get_user(username)
@@ -438,6 +442,8 @@ def create_lobby():
 
 @app.route("/lobby/<lobby_id>", methods=['GET', 'POST'])
 def lobby_route(lobby_id):
+    if not "username" in session:
+        return redirect(url_for("/login"))
     lobbies = game_lobbies.get_lobbies()
     if lobby_id not in lobbies:
         return redirect(url_for("home") + "?error=invalid_code")
@@ -469,7 +475,7 @@ def game(game_id):
     # timer = session['timer'][game_id]
     
     if not "username" in session:
-        return redirect(url_for("/home"))
+        return redirect(url_for("/login"))
     username = session['username']
     acc = get_user(username)
     user_id = acc['id']
