@@ -467,7 +467,9 @@ def game(game_id):
     #     session["timer"][game_id]=60
         
     # timer = session['timer'][game_id]
-
+    
+    if not "username" in session:
+        return redirect(url_for("/home"))
     username = session['username']
     acc = get_user(username)
     user_id = acc['id']
