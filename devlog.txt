@@ -262,3 +262,6 @@ QOL features (implement when fix all the bugs and finish the game ig)
 
 Conclusion: we're happy that reviewers consistently like the core concept and found the game fun. 
 Our biggest priority is patching all the known issues so far.
+
+yuhangP -- 2026-06-01 21:35
+- update design doc with new deadlines after live demos
