@@ -268,3 +268,5 @@ yuhangP -- 2026-06-01 21:35
 
 zixiQ -- 2026-06-02 11:45
 - working on ending game when less than 3 players
+
+owenZ -- finding issue with bugged images because of extracting canvas perms in browser
