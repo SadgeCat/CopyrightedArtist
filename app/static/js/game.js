@@ -386,6 +386,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
+    socket.on('game_ended', (data) => {
+        alert(data.reason + '. The game has ended.');
+        window.location.href = '/home';
+    });
+
     socket.on('player_removed', (data) => {
         if (data.username === USERNAME) {
             alert("You have been removed from the game because your drawing was reported.");

@@ -62,8 +62,10 @@ def on_disconnect():
             break
     for game_id, game_data in list(game_lobbies.get_games().items()):
         if acc["id"] in game_data['players']:
-
-
+            game_data['players'].remove(acc["id"])
+            if len(game_data['players']) < 3:
+                socketio.emit('game_ended', {'reason': 'A player disconnected'}, to=game_id)
+                game_lobbies.end_game(game_id)
             break
 
 # @socketio.on('join_game')
