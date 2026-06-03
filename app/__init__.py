@@ -62,16 +62,8 @@ def on_disconnect():
             break
     for game_id, game_data in list(game_lobbies.get_games().items()):
         if acc["id"] in game_data['players']:
-            game_data['players'].remove(acc["id"])
-            emit('game_player_left', {'username': username}, to=game_id)
 
-            # if too few players, delete for now
-            if len(game_data['players']) < 3:
-                game_lobbies.end_game(game_id)
-            # if host left, assign new host
-            elif game_data['host'] == acc["id"]:
-                game_data['host'] = game_data['players'][0]
-                emit('new_host', {'host_id': game_data['host']}, to=game_id)
+
             break
 
 # @socketio.on('join_game')
@@ -190,7 +182,7 @@ def start_copying_phase(game_id, player_id):
     progress['start_time'] = time.time()
     progress['duration'] = 60
 
-    socketio.emit("start_copy_real", {}, to=player_id)
+    socketio.emit("start_copy_real", {}, to=str(player_id))
 
 
 @socketio.on('submit_copy')
@@ -376,6 +368,68 @@ def submit_vote(data):
             socketio.emit('game_over', {'leaderboard': leaderboard}, to=game_id)
 
 
+@socketio.on('report_drawing')
+def report_drawing(data):
+    game_id = data['game_id']
+    round_idx = data['round_idx']
+    drawing_idx = data['drawing_idx']
+
+    game = game_lobbies.get_games().get(game_id)
+    if not game:
+        return
+
+    voting_sets = game.get('voting_sets', [])
+    if round_idx >= len(voting_sets):
+        return
+
+    voting_set = voting_sets[round_idx]
+    drawings = voting_set.get('drawings', [])
+    if drawing_idx >= len(drawings):
+        return
+
+    drawing = drawings[drawing_idx]
+    reported_user_id = drawing['user']
+
+    # Only remove if the player is still in the game
+    if reported_user_id not in game['players']:
+        return
+
+    game['players'].remove(reported_user_id)
+    game['scores'].pop(reported_user_id, None)
+
+    reported_name = get_user_by_id(reported_user_id)
+    reported_name = reported_name['name'] if reported_name else str(reported_user_id)
+
+    socketio.emit('player_removed', {'username': reported_name}, to=game_id)
+
+    if len(game['players']) < 3:
+        game_lobbies.end_game(game_id)
+
+
+@socketio.on('report_drawing_copy_phase')
+def report_drawing_copy_phase(data):
+    game_id = data['game_id']
+    target_id = data['target_id']
+
+    game = game_lobbies.get_games().get(game_id)
+    if not game:
+        return
+
+    if target_id not in game['players']:
+        return
+
+    game['players'].remove(target_id)
+    game['scores'].pop(target_id, None)
+
+    reported_name = get_user_by_id(target_id)
+    reported_name = reported_name['name'] if reported_name else str(target_id)
+
+    socketio.emit('player_removed', {'username': reported_name}, to=game_id)
+
+    if len(game['players']) < 3:
+        game_lobbies.end_game(game_id)
+
+
 @app.route("/", methods=['GET', 'POST'])
 def index():
     if 'username' in session:
@@ -498,7 +552,10 @@ def game(game_id):
     acc = get_user(username)
     user_id = acc['id']
 
-    game = game_lobbies.get_games()[game_id]
+    game = game_lobbies.get_games().get(game_id)
+    if not game:
+        return redirect(url_for("home"))
+        
     time_left = int(game['duration'] - (time.time() - game['start_time']))
     phase = game['phase']
     return render_template('game.html',

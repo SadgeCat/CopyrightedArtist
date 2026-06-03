@@ -269,8 +269,13 @@ yuhangP -- 2026-06-01 21:35
 zixiQ -- 2026-06-02 11:45
 - working on ending game when less than 3 players
 
-owenZ -- finding issue with bugged images because of extracting canvas perms in browser
+owenZ -- 2026-06-02 11:45
+finding issue with bugged images because of extracting canvas perms in browser
 
 yuhangP -- 2026-06-02 23:25
 - added new value to game object to keep track of player's copy progress indivdually
 - will update sync game to store those indivudally to fix timers
+
+owenZ -- 2026-06-03 00:02
+- added report button that removes a player from the lobby
+- probably fixed starting game and sometimes reloading while making a lobby would cause an invalid lobby error

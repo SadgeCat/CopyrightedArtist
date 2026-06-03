@@ -354,6 +354,60 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    window.reportDrawing = function(cardNum) {
+        // cardNum is 1-indexed; drawing index is 0-indexed
+        const drawingIdx = cardNum - 1;
+        const drawings = voting_set['drawings'];
+        if (!drawings || drawingIdx >= drawings.length) return;
+
+        // Disable all report buttons for this round to prevent spam
+        [1, 2, 3].forEach(n => {
+            const btn = document.getElementById(`report-btn-${n}`);
+            if (btn) { btn.disabled = true; btn.textContent = '⚑ Reported'; }
+        });
+
+        socket.emit('report_drawing', {
+            game_id: GAME_ID,
+            round_idx: round_idx,
+            drawing_idx: drawingIdx
+        });
+    };
+
+    window.reportCopyTask = function() {
+        if (!to_copy || copy_index >= to_copy.length) return;
+        const task = to_copy[copy_index];
+        
+        const btn = document.getElementById('report-copy-btn');
+        if (btn) { btn.disabled = true; btn.textContent = '⚑ Reported'; }
+
+        socket.emit('report_drawing_copy_phase', {
+            game_id: GAME_ID,
+            target_id: task.target
+        });
+    };
+
+    socket.on('player_removed', (data) => {
+        if (data.username === USERNAME) {
+            alert("You have been removed from the game because your drawing was reported.");
+            window.location.href = "/home";
+            return;
+        }
+
+        // Show a non-blocking toast
+        const toast = document.createElement('div');
+        toast.textContent = `⚑ A player was removed for an inappropriate drawing.`;
+        toast.style.cssText = [
+            'position:fixed', 'bottom:28px', 'left:50%', 'transform:translateX(-50%)',
+            'background:rgba(220,53,69,0.92)', 'color:#fff', 'padding:12px 24px',
+            'border-radius:10px', 'font-weight:600', 'z-index:9999',
+            'box-shadow:0 4px 18px rgba(0,0,0,0.4)', 'font-size:0.95rem',
+            'pointer-events:none', 'transition:opacity 0.4s'
+        ].join(';');
+        document.body.appendChild(toast);
+        setTimeout(() => { toast.style.opacity = '0'; }, 3000);
+        setTimeout(() => toast.remove(), 3500);
+    });
+
     submitVoteBtn.addEventListener('click', () => {
         if(selectedVoteId === null) return;
         socket.emit("submit_vote", {
