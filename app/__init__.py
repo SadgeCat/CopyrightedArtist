@@ -60,13 +60,13 @@ def on_disconnect():
                 lobby_data['host'] = lobby_data['players'][0]
                 emit('new_host', {'host_id': lobby_data['host']}, to=lobby_id)
             break
-    for game_id, game_data in list(game_lobbies.get_games().items()):
-        if acc["id"] in game_data['players']:
-            game_data['players'].remove(acc["id"])
-            if len(game_data['players']) < 3:
-                socketio.emit('game_ended', {'reason': 'A player disconnected'}, to=game_id)
-                game_lobbies.end_game(game_id)
-            break
+#     for game_id, game_data in list(game_lobbies.get_games().items()):
+#         if acc["id"] in game_data['players']:
+#             game_data['players'].remove(acc["id"])
+#             if len(game_data['players']) < 3:
+#                 socketio.emit('game_ended', {'reason': 'A player disconnected'}, to=game_id)
+#                 game_lobbies.end_game(game_id)
+#             break
 
 # @socketio.on('join_game')
 # def on_join_game(data):
