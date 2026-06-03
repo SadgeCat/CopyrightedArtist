@@ -175,17 +175,22 @@ def submit_original(data):
 
             emit('start_copying', {'to_copy': to_copy}, to=str(player))
         
-        socketio.start_background_task(start_copying_phase, game_id)
+            socketio.start_background_task(start_copying_phase, game_id, player)
 
-def start_copying_phase(game_id):
+def start_copying_phase(game_id, player_id):
     socketio.sleep(10)
 
     game = game_lobbies.get_games()[game_id]
-    game["copy_state"] = "drawing"
-    game["duration"] = 60
-    game["start_time"] = time.time()
+    # game["copy_state"] = "drawing"
+    # game["duration"] = 60
+    # game["start_time"] = time.time()
 
-    socketio.emit("start_copy_real", {}, to=game_id)
+    progress = game['copy_progress'][player_id]
+    progress['state'] = "drawing"
+    progress['start_time'] = time.time()
+    progress['duration'] = 60
+
+    socketio.emit("start_copy_real", {}, to=player_id)
 
 
 @socketio.on('submit_copy')

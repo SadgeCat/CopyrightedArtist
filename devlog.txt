@@ -270,3 +270,7 @@ zixiQ -- 2026-06-02 11:45
 - working on ending game when less than 3 players
 
 owenZ -- finding issue with bugged images because of extracting canvas perms in browser
+
+yuhangP -- 2026-06-02 23:25
+- added new value to game object to keep track of player's copy progress indivdually
+- will update sync game to store those indivudally to fix timers

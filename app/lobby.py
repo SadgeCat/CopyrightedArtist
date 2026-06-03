@@ -47,6 +47,7 @@ class lobby:
             'start_time': time.time(),
             'phase': 'drawing',
             'copy_state': 'memorizing',
+            'copy_progress': {},
             'voting_sets': [],
             'current_vote_round': 0,
             'scores': {}
@@ -54,6 +55,12 @@ class lobby:
         for i in self.games[game_id]['players']:
             self.games[game_id]['prompts'][i] = random_prompt()
             self.games[game_id]['scores'][i] = 0
+            self.games[game_id]['copy_progress'][i] = {
+                'copy_index': 0,
+                'state': "memorizing",
+                'start_time': time.time(),
+                'duration': 10
+            }
 
     # def add_image(self, game_id, prompt, user_id, url):
     #     self.games[game_id]["images"].append(user_id, url, prompt)
