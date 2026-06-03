@@ -279,3 +279,6 @@ yuhangP -- 2026-06-02 23:25
 owenZ -- 2026-06-03 00:02
 - added report button that removes a player from the lobby
 - probably fixed starting game and sometimes reloading while making a lobby would cause an invalid lobby error
+
+zixiQ -- 2026-06-03 00:49
+- finished ending game when less than 3 players
