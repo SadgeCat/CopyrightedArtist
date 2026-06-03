@@ -197,6 +197,9 @@ def submit_copy(data):
 
     game = game_lobbies.get_games()[game_id]
     game['submissions'][task['target']]["copies"][acc['id']] = image
+    
+    progress = game['copy_progress'][acc['id']]
+    progress['copy_index'] += 1
 
     players = game['players']
     player_cnt = len(players)
