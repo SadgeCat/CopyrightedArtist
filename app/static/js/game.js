@@ -154,7 +154,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }, 1000);
     }
-    // startTimer(timer, curPhase, true);
+    startTimer(timer, curPhase, true);
 
     clearDrawingBtn.addEventListener('click', () => {
             const canvas = drawingCanvas.canvas;
