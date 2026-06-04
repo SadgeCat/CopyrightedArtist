@@ -96,7 +96,7 @@ def sync_game(data):
     acc = get_user(session["username"])
     if not acc:
         return
-    time_left = int(game['duration'] - (time.time() - game['start_time']))
+    time_left = max(0, int(game['duration'] - (time.time() - game['start_time'])))
     phase = game['phase']
 
     response = {
@@ -106,7 +106,7 @@ def sync_game(data):
 
     if phase == "copying":
         progress = game['copy_progress'][acc['id']]
-        time_left = int(progress['duration'] - (time.time() - progress['start_time']))
+        time_left = max(0, int(progress['duration'] - (time.time() - progress['start_time'])))
         response['copy_state'] = progress['state']
         response['copy_index'] = progress['copy_index']
         assigments = game['copy_assignments'][acc['id']]
@@ -155,9 +155,13 @@ def submit_original(data):
 
         # update timer
         game["phase"] = "copying"
-        game["copy_state"] = "memorizing"
-        game["duration"] = 10
-        game["start_time"] = time.time()
+        # game["copy_state"] = "memorizing"
+        # game["duration"] = 10
+        # game["start_time"] = time.time()
+        progress = game["copy_progress"][acc['id']]
+        progress['state'] = "memorizing"
+        progress['duration'] = 10
+        progress['start_time'] = time.time()
 
         for player in shuffled_players:
             targets = assignemnts[player]       # contains randomized 2 player id's drawings to copy
