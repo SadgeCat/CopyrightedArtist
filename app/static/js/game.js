@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
         switchPhase(data.phase);
         if(data.phase === "copying"){
             to_copy = data.to_copy;
+            copy_index = data.copy_index
             if(data.copy_state === "memorizing"){
                 memorizingPhase(data.time_left);
             } else if(data.copy_state === "drawing"){
