@@ -121,6 +121,7 @@ def sync_game(data):
             })
         response['to_copy'] = to_copy
     
+    print(acc['id'], progress['copy_index'], progress['state'], progress['duration'], progress['start_time'], time.time())
     emit("restore_game", response)
 
 @socketio.on('submit_original')
@@ -161,11 +162,11 @@ def submit_original(data):
         # game["start_time"] = time.time()
 
         for player in shuffled_players:
-            progress = game["copy_progress"][acc['id']]
+            progress = game["copy_progress"][player]
             progress['state'] = "memorizing"
             progress['duration'] = 10
             progress['start_time'] = time.time()
-            
+
             targets = assignemnts[player]       # contains randomized 2 player id's drawings to copy
             to_copy = []
             for target in targets:
