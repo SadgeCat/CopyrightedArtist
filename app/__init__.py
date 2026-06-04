@@ -96,9 +96,7 @@ def sync_game(data):
     acc = get_user(session["username"])
     if not acc:
         return
-    
-    progress = game['copy_progress'][acc['id']]
-    time_left = int(progress['duration'] - (time.time() - progress['start_time']))
+    time_left = int(game['duration'] - (time.time() - game['start_time']))
     phase = game['phase']
 
     response = {
@@ -107,6 +105,8 @@ def sync_game(data):
     }
 
     if phase == "copying":
+        progress = game['copy_progress'][acc['id']]
+        time_left = int(progress['duration'] - (time.time() - progress['start_time']))
         response['copy_state'] = progress['state']
         response['copy_index'] = progress['copy_index']
         assigments = game['copy_assignments'][acc['id']]
