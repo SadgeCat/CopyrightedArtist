@@ -105,7 +105,9 @@ def sync_game(data):
     }
 
     if phase == "copying":
-        response['copy_state'] = game['copy_state']
+        progress = game['copy_progress'][acc['id']]
+        response['copy_state'] = progress['state']
+        response['copy_index'] = progress['copy_index']
         assigments = game['copy_assignments'][acc['id']]
         to_copy = []
         for target in assigments:
@@ -167,7 +169,7 @@ def submit_original(data):
                     "image": submission['original']
                 })
 
-            emit('start_copying', {'to_copy': to_copy}, to=str(player))
+            socketio.emit('start_copying', {'to_copy': to_copy}, to=str(player))
         
             socketio.start_background_task(start_copying_phase, game_id, player)
 
@@ -180,6 +182,9 @@ def start_copying_phase(game_id, player_id):
     # game["start_time"] = time.time()
 
     progress = game['copy_progress'][player_id]
+    if progress['state'] != "memorizing":
+        return
+
     progress['state'] = "drawing"
     progress['start_time'] = time.time()
     progress['duration'] = 60
@@ -200,6 +205,22 @@ def submit_copy(data):
     
     progress = game['copy_progress'][acc['id']]
     progress['copy_index'] += 1
+    if progress['copy_index'] < 2:
+        progress['state'] = "memorizing"
+        progress['start_time'] = time.time()
+        progress['duration'] = 10
+        to_copy = []
+        for target in game['copy_assignments'][acc['id']]:
+            submission = game['submissions'][target]
+            to_copy.append({
+                "target": target,
+                "prompt": submission['prompt'],
+                "image": submission['original']
+            })
+        socketio.emit('start_copying', {'to_copy': to_copy}, to=str(acc['id']))
+        socketio.start_background_task(start_copying_phase, game_id, acc['id'])
+    else:
+        progress['state'] = "finished"
 
     players = game['players']
     player_cnt = len(players)
