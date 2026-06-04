@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+    document.body.style.visibility = "hidden";
     const drawingPhase = document.getElementById('drawing-phase');
     const votingPhase = document.getElementById('voting-phase');
     const socket = io();
@@ -24,10 +25,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 memorizingPhase(data.time_left);
             } else if(data.copy_state === "drawing"){
                 copyingPhase(data.time_left);
+            } else if(data.copy_state == "finished"){
+                submitCopyBtn.disabled = true;
+                submitCopyBtn.textContent = "waiting for other players...";
             }
         } else{
             startTimer(data.time_left, data.phase, true);
         }
+        document.body.style.visibility = "visible";
     })
 
     function switchPhase(newPhase) {
