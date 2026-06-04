@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    document.body.style.visibility = "hidden";
     const drawingPhase = document.getElementById('drawing-phase');
     const votingPhase = document.getElementById('voting-phase');
     const socket = io();
@@ -32,7 +31,6 @@ document.addEventListener('DOMContentLoaded', () => {
         } else{
             startTimer(data.time_left, data.phase, true);
         }
-        document.body.style.visibility = "visible";
     })
 
     function switchPhase(newPhase) {
@@ -156,7 +154,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }, 1000);
     }
-    startTimer(timer, curPhase, true);
+    // startTimer(timer, curPhase, true);
 
     clearDrawingBtn.addEventListener('click', () => {
             const canvas = drawingCanvas.canvas;
