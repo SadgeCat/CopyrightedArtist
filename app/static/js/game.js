@@ -226,12 +226,12 @@ document.addEventListener('DOMContentLoaded', () => {
         canvas.style.pointerEvents = "none";
         startTimer(timeLeft, "copying", false);
         
-        if(copy_index > 0){
-            setTimeout(() => {
-                console.log("memorizing 2nd image done");
-                copyingPhase(60);
-            }, 10000)
-        }
+        // if(copy_index > 0){
+        //     setTimeout(() => {
+        //         console.log("memorizing 2nd image done");
+        //         copyingPhase(60);
+        //     }, 10000)
+        // }
     }
 
     function copyingPhase(timeLeft){
