@@ -282,3 +282,7 @@ owenZ -- 2026-06-03 00:02
 
 zixiQ -- 2026-06-03 00:49
 - finished ending game when less than 3 players
+
+yuhangP -- 2026-06-04 20:26
+- fix refreshing on memorizing and drawings for copy phase
+- restore game data for voting rounds
