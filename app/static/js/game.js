@@ -31,6 +31,8 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if(data.phase === "voting"){
             round_idx = data.round_idx;
             voting_set = data.voting_set;
+            showVotingSet();
+            startTimer(data.time_left, "voting", true);
         } else{
             startTimer(data.time_left, data.phase, true);
         }
