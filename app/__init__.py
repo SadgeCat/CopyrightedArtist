@@ -127,7 +127,7 @@ def sync_game(data):
         response['round_idx'] = round_idx
         response['voting_set'] = voting_set
         return
-    
+
     print(acc['id'], progress['copy_index'], progress['state'], progress['duration'], progress['start_time'], time.time())
     emit("restore_game", response)
 
@@ -185,7 +185,7 @@ def submit_original(data):
                 })
 
             socketio.emit('start_copying', {'to_copy': to_copy}, to=str(player))
-        
+
             socketio.start_background_task(start_copying_phase, game_id, player)
 
 def start_copying_phase(game_id, player_id):
@@ -217,7 +217,7 @@ def submit_copy(data):
 
     game = game_lobbies.get_games()[game_id]
     game['submissions'][task['target']]["copies"][acc['id']] = image
-    
+
     progress = game['copy_progress'][acc['id']]
     progress['copy_index'] += 1
     if progress['copy_index'] < 2:
@@ -273,7 +273,7 @@ def submit_copy(data):
             cant_vote = set()
             for i, drawing in enumerate(drawings):
                 if drawing['type'] == "original": original_idx = i
-                cant_vote.add(drawing['user'])           
+                cant_vote.add(drawing['user'])
 
             # drawingsList = []
             # for drawing in drawings:
@@ -342,7 +342,7 @@ def submit_vote(data):
     # # check if all eligible voters have voted
     # cant_vote = set(voting_set['cant_vote'])
     # eligible = [p for p in game['players'] if p not in cant_vote]
-    
+
     # if all(p in game['votes'][voting_idx] for p in eligible):
     #     correct = voting_set['original_idx']
     #     results = {}
@@ -382,11 +382,11 @@ def submit_vote(data):
             if chosen_drawing['type'] == "copy":
                 game['scores'][chosen_drawing['user']] += 500
 
-        socketio.emit('show_vote_results', 
-                        {'vote_cnt': vote_cnt, 
-                        'original_idx': original_idx}, 
+        socketio.emit('show_vote_results',
+                        {'vote_cnt': vote_cnt,
+                        'original_idx': original_idx},
                         to=game_id)
-    
+
         socketio.sleep(6)
         game['current_vote_round'] += 1
         next_round = game['current_vote_round']
@@ -535,7 +535,7 @@ def login():
 @app.route("/home", methods=['GET', 'POST'])
 def home():
     if not "username" in session:
-        return redirect(url_for("/login"))
+        return redirect(url_for("login"))
     lobbies = game_lobbies.get_lobbies()
     return render_template('home.html',
                            username = session["username"],
@@ -544,7 +544,7 @@ def home():
 @app.route("/create_lobby", methods=['GET', 'POST'])
 def create_lobby():
     if not "username" in session:
-        return redirect(url_for("/login"))
+        return redirect(url_for("login"))
     username = session["username"]
     # print(f"Session username: {username}")
     acc = get_user(username)
@@ -556,7 +556,7 @@ def create_lobby():
 @app.route("/lobby/<lobby_id>", methods=['GET', 'POST'])
 def lobby_route(lobby_id):
     if not "username" in session:
-        return redirect(url_for("/login"))
+        return redirect(url_for("login"))
     lobbies = game_lobbies.get_lobbies()
     if lobby_id not in lobbies:
         return redirect(url_for("home") + "?error=invalid_code")
@@ -584,11 +584,11 @@ def game(game_id):
     # if not "timer" in session:
     #     session['timer'] = {}
     #     session["timer"][game_id]=60
-        
+
     # timer = session['timer'][game_id]
-    
+
     if not "username" in session:
-        return redirect(url_for("/login"))
+        return redirect(url_for("login"))
     username = session['username']
     acc = get_user(username)
     user_id = acc['id']
@@ -596,7 +596,7 @@ def game(game_id):
     game = game_lobbies.get_games().get(game_id)
     if not game:
         return redirect(url_for("home"))
-        
+
     time_left = int(game['duration'] - (time.time() - game['start_time']))
     phase = game['phase']
     return render_template('game.html',
