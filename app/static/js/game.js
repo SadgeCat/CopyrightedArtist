@@ -6,7 +6,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const phases = {
         drawing: document.getElementById("drawing-phase"),
         copying: document.getElementById("copying-phase"),
-        voting: document.getElementById("voting-phase")
+        voting: document.getElementById("voting-phase"),
+        gameover: document.getElementById("gameover-phase")
     };
 
     socket.emit("join_game", {
@@ -180,7 +181,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // drawingPhase.classList.remove('active-phase');
         // votingPhase.classList.add('active-phase');
-        
+
         socket.emit("submit_original", {
             "game_id": GAME_ID,
             "username": USERNAME,
@@ -190,7 +191,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         submitDrawingBtn.disabled = true;
         submitDrawingBtn.textContent = "waiting for other players...";
-        
+
         // const refImg = document.getElementById("reference-image");
         // refImg.src = dataUrl;
         // socket.emit("image", {'game_id': GAME_ID, 'prompt': PROMPT, 'username': USERNAME , 'image': dataUrl})
@@ -203,11 +204,11 @@ document.addEventListener('DOMContentLoaded', () => {
        //  switchPhase("copying");
 
     });
-    
+
     let to_copy = [];
     let copied_images = {};
     let copy_index = 0;
-    
+
     socket.on("start_copying", (data) => {
         console.log("received start_copying");
         to_copy = data.to_copy;
@@ -233,7 +234,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // 10 sec timer for memorizing then copying
         canvas.style.pointerEvents = "none";
         startTimer(timeLeft, "copying", false);
-        
+
         // if(copy_index > 0){
         //     setTimeout(() => {
         //         console.log("memorizing 2nd image done");
@@ -265,7 +266,7 @@ document.addEventListener('DOMContentLoaded', () => {
         //     img2.src = copyUrl;
         //     img2.style.backgroundColor = '#ffffff';
         // }
-        
+
         socket.emit("submit_copy", {
             "game_id": GAME_ID,
             "username": USERNAME,
@@ -385,7 +386,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.reportCopyTask = function() {
         if (!to_copy || copy_index >= to_copy.length) return;
         const task = to_copy[copy_index];
-        
+
         const btn = document.getElementById('report-copy-btn');
         if (btn) { btn.disabled = true; btn.textContent = '⚑ Reported'; }
 
@@ -466,6 +467,21 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }, 1000);
     })
+
+    socket.on("game_over"), (data) => {
+      switchPhase("game_over");
+      ele = document.getElementById("resultsresults");
+      for(pair : data.leaderboard){
+        const newDiv = document.createElement('div');
+            newDiv.innerHTML =
+            `
+                <h3>
+                    ${pair.name} : ${pair.score}
+                  </h3>
+            `;
+            ele.appendChild(newDiv);
+      }
+    }
 
     // socket.on("vote_results", (data) => {
     //     const correctIdx = data.correct_idx;
