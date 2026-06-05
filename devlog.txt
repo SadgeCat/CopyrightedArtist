@@ -108,7 +108,7 @@ yuhangP -- 2026-05-13 11:45
 - Working on path to fetch lobbies and display in home
 
 owenZ -- 2026-05-13 21:10
-- add html templates and fixed python code 
+- add html templates and fixed python code
 
 owenZ -- 2026-05-14 1:30
 - add js for game to work i think
@@ -260,7 +260,7 @@ QOL features (implement when fix all the bugs and finish the game ig)
 - Easier access to color selection
 - More visible brush size controls
 
-Conclusion: we're happy that reviewers consistently like the core concept and found the game fun. 
+Conclusion: we're happy that reviewers consistently like the core concept and found the game fun.
 Our biggest priority is patching all the known issues so far.
 
 yuhangP -- 2026-06-01 21:35
@@ -286,3 +286,6 @@ zixiQ -- 2026-06-03 00:49
 yuhangP -- 2026-06-04 20:26
 - fix refreshing on memorizing and drawings for copy phase
 - restore game data for voting rounds
+
+yuhangP -- 2026-06-05 11:46
+- working on game results page
