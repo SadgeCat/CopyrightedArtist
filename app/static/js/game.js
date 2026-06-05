@@ -28,6 +28,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 submitCopyBtn.disabled = true;
                 submitCopyBtn.textContent = "waiting for other players...";
             }
+        } else if(data.phase === "voting"){
+            round_idx = data.round_idx;
+            voting_set = data.voting_set;
         } else{
             startTimer(data.time_left, data.phase, true);
         }

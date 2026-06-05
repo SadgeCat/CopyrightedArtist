@@ -120,6 +120,13 @@ def sync_game(data):
                 "image": submission['original']
             })
         response['to_copy'] = to_copy
+
+    elif phase == "voting":
+        round_idx = game['current_vote_round']
+        voting_set = game['voting_sets'][round_idx]
+        response['round_idx'] = round_idx
+        response['voting_set'] = voting_set
+        return
     
     print(acc['id'], progress['copy_index'], progress['state'], progress['duration'], progress['start_time'], time.time())
     emit("restore_game", response)
