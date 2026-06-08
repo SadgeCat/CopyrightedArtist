@@ -289,3 +289,6 @@ yuhangP -- 2026-06-04 20:26
 
 yuhangP -- 2026-06-05 11:46
 - working on game results page
+
+yuhangP -- 2026-06-05 22:46
+- gameover phase is triggered once voting phase is over and correctly displays the calculated score and leaderboard
