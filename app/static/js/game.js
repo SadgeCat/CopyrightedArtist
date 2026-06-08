@@ -468,20 +468,34 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 1000);
     })
 
-    socket.on("game_over"), (data) => {
-      switchPhase("game_over");
-      ele = document.getElementById("resultsresults");
-      for(pair : data.leaderboard){
-        const newDiv = document.createElement('div');
+    socket.on(("game_over"), (data) => {
+        switchPhase("gameover");
+        const leaderboardContainer = document.getElementById("leaderboard-container");
+        leaderboardContainer.innerHTML = "";
+        data.leaderboard.forEach((player, idx) => {
+            const newDiv = document.createElement('div');
+            newDiv.style.display = "flex";
+            newDiv.style.justifyContent = "space-between";
+            newDiv.style.alignItems = "center";
+            newDiv.style.padding = "18px 24px";
+            newDiv.style.borderRadius = "16px";
+            newDiv.style.background = "rgba(26, 22, 40, 0.8)";
+            newDiv.style.border = "1px solid rgba(255,255,255,0.08)";
+            newDiv.style.boxShadow = "0 8px 24px rgba(0,0,0,0.3)";
+            let placement = `#${idx + 1}`;
+            if(idx === 0) placement = "🥇";
+            else if(idx === 1) placement = "🥈";
+            else if(idx === 2) placement = "🥉";
+
             newDiv.innerHTML =
             `
                 <h3>
-                    ${pair.name} : ${pair.score}
-                  </h3>
+                    ${placement} || ${player.name} : ${player.score}
+                </h3>
             `;
-            ele.appendChild(newDiv);
-      }
-    }
+            leaderboardContainer.appendChild(newDiv);
+        })
+    })
 
     // socket.on("vote_results", (data) => {
     //     const correctIdx = data.correct_idx;

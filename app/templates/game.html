@@ -149,6 +149,14 @@
         cursor: not-allowed;
         transform: none;
     }
+
+    #leaderboard-container {
+        max-width: 700px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
 </style>
 {% endblock %}
 
@@ -234,12 +242,16 @@
 
 
 <div id="gameover-phase" class="game-phase">
-    <h2>Game Results</h2>
-    <h3>Prompt: <span id="vote-prompt" style="color: #007bff;">{{ prompt | default('A Majestic Cat') }}</span></h3>
-    <h3>Time left: <span id="voting-timer">60</span>s</h3>
+    <h1>Game Over!!!</h1>
+    <h2>Final Leaderboard</h2>
 
-    <div class="game-results" id-"resultsresults">
+    <div id="leaderboard-container">
+    </div>
 
+    <div style="margin-top: 40px;">
+        <a href="/home" class="btn">
+            Return Home
+        </a>
     </div>
 </div>
 {% endblock %}
