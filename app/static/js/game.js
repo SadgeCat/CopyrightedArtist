@@ -191,6 +191,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         submitDrawingBtn.disabled = true;
         submitDrawingBtn.textContent = "waiting for other players...";
+        drawingCanvas.canvas.style.pointerEvents = "none";
 
         // const refImg = document.getElementById("reference-image");
         // refImg.src = dataUrl;
@@ -280,6 +281,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else{
             submitCopyBtn.disabled = true;
             submitCopyBtn.textContent = "waiting for other players...";
+            copyCanvas.canvas.style.pointerEvents = "none";
         }
 
         // switchPhase("voting");
