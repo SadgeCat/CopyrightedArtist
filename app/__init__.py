@@ -31,7 +31,8 @@ def on_join(data):
 @socketio.on('start')
 def on_start(data):
     lobby_id = data['lobby_id']
-    if len(game_lobbies.get_lobbies()[lobby_id]['players']) < 3:
+    print("players at start:", game_lobbies.get_lobbies()[lobby_id]['players'])
+    if len(game_lobbies.get_lobbies()[lobby_id]['players']) < 4:
         return
     join_room(lobby_id)
     game_lobbies.start_lobby(lobby_id)
@@ -60,13 +61,15 @@ def on_disconnect():
                 lobby_data['host'] = lobby_data['players'][0]
                 emit('new_host', {'host_id': lobby_data['host']}, to=lobby_id)
             break
-#     for game_id, game_data in list(game_lobbies.get_games().items()):
-#         if acc["id"] in game_data['players']:
-#             game_data['players'].remove(acc["id"])
-#             if len(game_data['players']) < 3:
-#                 socketio.emit('game_ended', {'reason': 'A player disconnected'}, to=game_id)
-#                 game_lobbies.end_game(game_id)
-#             break
+    for game_id, game_data in list(game_lobbies.get_games().items()):
+        if acc["id"] in game_data['players']:
+            game_data['players'].remove(acc["id"])
+            game_data['scores'].pop(acc["id"], None)
+            # only end game if it's been running for more than 10 seconds
+            if len(game_data['players']) < 4 and (time.time() - game_data['start_time']) > 10:
+                socketio.emit('game_ended', {'reason': 'A player disconnected'}, to=game_id)
+                game_lobbies.end_game(game_id)
+            break
 
 # @socketio.on('join_game')
 # def on_join_game(data):
@@ -443,7 +446,8 @@ def report_drawing(data):
 
     socketio.emit('player_removed', {'username': reported_name}, to=game_id)
 
-    if len(game['players']) < 3:
+    if len(game['players']) < 4:
+        socketio.emit('game_ended', {'reason': 'Too few players remain'}, to=game_id)
         game_lobbies.end_game(game_id)
 
 
@@ -467,7 +471,8 @@ def report_drawing_copy_phase(data):
 
     socketio.emit('player_removed', {'username': reported_name}, to=game_id)
 
-    if len(game['players']) < 3:
+    if len(game['players']) < 4:
+        socketio.emit('game_ended', {'reason': 'Too few players remain'}, to=game_id)
         game_lobbies.end_game(game_id)
 
 
