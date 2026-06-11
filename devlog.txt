@@ -290,8 +290,11 @@ yuhangP -- 2026-06-04 20:26
 yuhangP -- 2026-06-05 11:46
 - working on game results page
 
-yuhangP -- 2026-06-05 22:46
+yuhangP -- 2026-06-10 22:46
 - gameover phase is triggered once voting phase is over and correctly displays the calculated score and leaderboard
 
-yuhangP -- 2026-06-05 21:36
+yuhangP -- 2026-06-10 21:36
 - disable drawing and copying canvas after player clicks submit
+
+zixiQ -- 2026-06-10 22:30
+- updated min players to 4, fixing end game when fewer than 4 players left
