@@ -61,15 +61,15 @@ def on_disconnect():
                 lobby_data['host'] = lobby_data['players'][0]
                 emit('new_host', {'host_id': lobby_data['host']}, to=lobby_id)
             break
-    for game_id, game_data in list(game_lobbies.get_games().items()):
-        if acc["id"] in game_data['players']:
-            game_data['players'].remove(acc["id"])
-            game_data['scores'].pop(acc["id"], None)
-            # only end game if it's been running for more than 10 seconds
-            if len(game_data['players']) < 4 and (time.time() - game_data['start_time']) > 10:
-                socketio.emit('game_ended', {'reason': 'A player disconnected'}, to=game_id)
-                game_lobbies.end_game(game_id)
-            break
+    # for game_id, game_data in list(game_lobbies.get_games().items()):
+    #     if acc["id"] in game_data['players']:
+    #         game_data['players'].remove(acc["id"])
+    #         game_data['scores'].pop(acc["id"], None)
+    #         # only end game if it's been running for more than 10 seconds
+    #         if len(game_data['players']) < 4 and (time.time() - game_data['start_time']) > 10:
+    #             socketio.emit('game_ended', {'reason': 'A player disconnected'}, to=game_id)
+    #             game_lobbies.end_game(game_id)
+    #         break
 
 # @socketio.on('join_game')
 # def on_join_game(data):
