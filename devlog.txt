@@ -298,3 +298,7 @@ yuhangP -- 2026-06-10 21:36
 
 zixiQ -- 2026-06-10 22:30
 - updated min players to 4, fixing end game when fewer than 4 players left
+
+yuhangP -- 2026-06-11 23:15
+- adjust navbar css in base to add more spacing between navlinks
+- comment out broken code for now
