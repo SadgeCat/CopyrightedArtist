@@ -60,10 +60,10 @@ def get_user_by_id(id):
 def get_elo(id):
     return get_user_by_id(id)['elo']
 
-def update_elo(id, value):
+def update_elo(id, value, win):
     conn = get_db_connection()
     c = conn.cursor()
-    user = c.execute("UPDATE users SET elo = ? WHERE id = ?", (value,id,))
+    user = c.execute("UPDATE users SET elo = elo + ?, games_played = games_played + 1, games_won = games_won + ?, WHERE id = ?", (value,win,id))
     conn.close()
 
 

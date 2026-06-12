@@ -91,9 +91,11 @@ class lobby:
             total_elo+=get_elo(i)
         avg_elo = total_elo / len(self.games[game_id]['players'])
         total_score = 0
+        max_score = 0
         for i, j in self.games[game_id]['scores']:
             total_score+=j
+            max_score = max(max_score, j)
         avg_score = total_score / len(self.games[game_id]['scores'].keys())
         for i, j in self.games[game_id]['scores']:
             elo_change = 1.01 ** -(get_elo(i) - avg_elo) * (j - avg_score) / avg_score
-            update_elo(i, elo_change)
+            update_elo(i, elo_change, max_score == j)
