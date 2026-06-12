@@ -57,6 +57,16 @@ def get_user_by_id(id):
     conn.close()
     return user
 
+def get_elo(id):
+    return get_user_by_id(id)['elo']
+
+def update_elo(id, value):
+    conn = get_db_connection()
+    c = conn.cursor()
+    user = c.execute("UPDATE users SET elo = ? WHERE id = ?", (value,id,))
+    conn.close()
+
+
 def get_all_user(ids):
     if not ids:
         return []

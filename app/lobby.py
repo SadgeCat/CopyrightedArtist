@@ -1,5 +1,6 @@
 from flask_socketio import SocketIO, join_room, emit
 from .game_logic import *
+from .build_db import *
 import time
 socketio = SocketIO(async_mode='gevent')
 
@@ -24,11 +25,11 @@ class lobby:
             'host_name': host_name,
             'max_players': 10
         }
-    
+
     def delete_lobby(self, lobby_id):
         if lobby_id in self.lobbies:
             del self.lobbies[lobby_id]
-            
+
     def end_game(self, game_id):
         if game_id in self.games:
             del self.games[game_id]
@@ -50,7 +51,8 @@ class lobby:
             'copy_progress': {},
             'voting_sets': [],
             'current_vote_round': 0,
-            'scores': {}
+            'scores': {},
+            'elo_updated': False
         }
         for i in self.games[game_id]['players']:
             self.games[game_id]['prompts'][i] = random_prompt()
@@ -67,7 +69,7 @@ class lobby:
 
     # def get_url(self, game_id, user_id):
     #     return(self.games[game_id]["images"][2:3])
-    
+
     def join_lobby(self, user_id, lobby_id):
         if lobby_id in self.lobbies:
             if user_id not in self.lobbies[lobby_id]['players']:
@@ -79,3 +81,19 @@ class lobby:
 
     def get_prompt(self, game_id, user_id):
         return self.games[game_id]['prompts'][user_id]
+
+    def apply_elo(self, game_id):
+        if self.games[game_id]['elo_updated']:
+            return
+        self.games[game_id]['elo_updated'] = True
+        total_elo = 0
+        for i in self.games[game_id]['players']:
+            total_elo+=get_elo(i)
+        avg_elo = total_elo / len(self.games[game_id]['players'])
+        total_score = 0
+        for i, j in self.games[game_id]['scores']:
+            total_score+=j
+        avg_score = total_score / len(self.games[game_id]['scores'].keys())
+        for i, j in self.games[game_id]['scores']:
+            elo_change = 1.01 ** -(get_elo(i) - avg_elo) * (j - avg_score) / avg_score
+            update_elo(i, elo_change)

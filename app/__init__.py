@@ -410,6 +410,7 @@ def submit_vote(data):
                 })
                 leaderboard.sort(key=lambda x: x['score'], reverse=True)
             socketio.emit('game_over', {'leaderboard': leaderboard}, to=game_id)
+            game_lobbies.apply_elo(game_id)
 
 
 @socketio.on('report_drawing')
