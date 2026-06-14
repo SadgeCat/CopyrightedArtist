@@ -85,7 +85,7 @@ def insert_acc(username, password):
     conn.execute("""INSERT INTO users
         (name, password, created_at, elo, games_won, games_played, total_placement)
         VALUES
-        (?, ?, CURRENT_TIMESTAMP, 0, 0, 0, 0)""",
+        (?, ?, CURRENT_TIMESTAMP, 500, 0, 0, 0)""",
         (username, password))
     conn.commit()
     conn.close()

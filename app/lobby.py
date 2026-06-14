@@ -97,5 +97,6 @@ class lobby:
             max_score = max(max_score, j)
         avg_score = total_score / len(self.games[game_id]['scores'].keys())
         for i, j in self.games[game_id]['scores'].items():
-            elo_change = 1.01 ** -(get_elo(i) - avg_elo) * (j - avg_score) / avg_score
+            # elo_change = 1.01 ** -(get_elo(i) - avg_elo) * (j - avg_score) / avg_score      # gng i dont tis is good
+            elo_change = 20 * (avg_elo/get_elo(i)) * ((j - avg_score)/avg_score)
             update_elo(i, elo_change, max_score == j)

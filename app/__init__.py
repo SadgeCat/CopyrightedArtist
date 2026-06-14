@@ -383,6 +383,8 @@ def submit_vote(data):
             chosen_drawing = drawings[vote-1]
             if chosen_drawing['type'] == "copy":
                 game['scores'][chosen_drawing['user']] += 500
+            elif chosen_drawing['type'] == "original":
+                game['scores'][chosen_drawing['user']] += 1000
 
         socketio.emit('show_vote_results',
                         {'vote_cnt': vote_cnt,
