@@ -302,3 +302,6 @@ zixiQ -- 2026-06-10 22:30
 yuhangP -- 2026-06-11 23:15
 - adjust navbar css in base to add more spacing between navlinks
 - comment out broken code for now
+
+yuhangP -- 2026-06-13 22:39
+- fixed elo updating, rounded elo to integers and set starting elo to 500
