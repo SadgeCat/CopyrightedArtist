@@ -586,6 +586,7 @@ def profile():
     games_won = user['games_won']
     games_played = user['games_played']
     return render_template('profile.html',
+                           user = user,
                            elo = elo,
                            games_won = games_won,
                            games_played = games_played)
