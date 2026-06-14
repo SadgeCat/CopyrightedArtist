@@ -129,9 +129,8 @@ def sync_game(data):
         voting_set = game['voting_sets'][round_idx]
         response['round_idx'] = round_idx
         response['voting_set'] = voting_set
-        return
 
-    print(acc['id'], progress['copy_index'], progress['state'], progress['duration'], progress['start_time'], time.time())
+    # print(acc['id'], progress['copy_index'], progress['state'], progress['duration'], progress['start_time'], time.time())
     emit("restore_game", response)
 
 @socketio.on('submit_original')
