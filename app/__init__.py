@@ -582,8 +582,13 @@ def lobby_route(lobby_id):
 @app.route("/profile", methods=['GET', 'POST'])
 def profile():
     user = get_user(session["username"])
+    elo = round(user['elo'])
+    games_won = user['games_won']
+    games_played = user['games_played']
     return render_template('profile.html',
-                           user = user)
+                           elo = elo,
+                           games_won = games_won,
+                           games_played = games_played)
 
 @app.route("/game/<game_id>", methods=['GET', 'POST'])
 def game(game_id):
